@@ -1,0 +1,10 @@
+# /etc/default/storageos
+
+
+# Advertise ip is the ip of the machin itself, where the service is being started
+ADVERTISE_IP="10.0.1.226"
+
+# Join variable set to all addresses of the cluster or a join token created from: storageos cluster create
+JOIN="10.0.1.14:5705,10.0.1.176:5705,10.0.1.226:5705"
+
+LOG_LEVEL=info
