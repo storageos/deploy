@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgress
+spec:
+  securityContext:
+    fsGroup: 26
+  containers:
+    - name: pg
+      image: crunchydata/crunchy-postgres:centos7-10.4-1.8.3
+      volumeMounts:
+        - mountPath: /pgdata
+          name: data
+      env: 
+        - name: PGHOST
+          value: /tmp
+        - name: PG_PRIMARY_USER
+          value: primaryuser
+        - name: PG_PRIMARY_PORT
+          value: "5432"
+        - name: PG_MODE
+          value: primary
+        - name: PG_PRIMARY_PASSWORD
+          value: password
+        - name: PG_USER
+          value: testuser
+        - name: PG_PASSWORD
+          value: password
+        - name: PG_DATABASE
+          value: userdb
+        - name: PG_ROOT_PASSWORD
+          value: password
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: pg-data
