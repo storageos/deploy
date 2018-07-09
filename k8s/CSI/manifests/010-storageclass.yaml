@@ -1,0 +1,14 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+  labels:
+    app: storageos
+provisioner: storageos
+parameters:
+  pool: default
+  # Value with space is an invalid label in CSI volumes.
+  # description: Kubernetes volume
+  fsType: ext4
+
+  # CSI credentials config.

@@ -1,0 +1,146 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: v1-storageos-daemon
+  namespace: storageos
+  labels:
+    app: storageos
+spec:
+  selector:
+    matchLabels:
+      app: storageos
+  template:
+    metadata:
+      labels:
+        app: storageos
+    spec:
+      serviceAccount: v1-storageos-daemonset-sa
+      hostPID: true
+      hostNetwork: true
+      initContainers:
+      - name: enable-lio
+        image: "storageos/init:0.1"
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: kernel-modules
+            mountPath: /lib/modules
+            readOnly: true
+          - name: sys
+            mountPath: /sys
+            mountPropagation: Bidirectional
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+      containers:
+      - name: csi-driver-registrar
+        image: "quay.io/k8scsi/driver-registrar:v0.2.0"
+        imagePullPolicy: IfNotPresent
+        args:
+          - "--v=5"
+          - "--csi-address=$(ADDRESS)"
+        env:
+          - name: ADDRESS
+            value: /csi/csi.sock # plugin-dir is mounted at /csi
+            # value: unix://var/lib/kubelet/plugins/storageos/csi.sock
+          - name: KUBE_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+        volumeMounts:
+          - name: plugin-dir
+            mountPath: /csi
+            # This is where kubelet.sock exists.
+          - name: registrar-socket-dir
+            mountPath: /var/lib/csi/sockets/
+      - name: storageos
+        image: "storageos/node:1.0.0-rc3"
+        imagePullPolicy: IfNotPresent
+        args:
+        - server
+        ports:
+        - containerPort: 5705
+          name: api
+        livenessProbe:
+          initialDelaySeconds: 65
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            path: /v1/health
+            port: api
+        readinessProbe:
+          initialDelaySeconds: 65
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            path: /v1/health
+            port: api
+        resources:
+            {}
+        env:
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: JOIN
+          value: "<JOIN>"
+        - name: ADVERTISE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: NAMESPACE
+          value: storageos
+        - name: CSI_ENDPOINT
+          value: unix://var/lib/kubelet/plugins/storageos/csi.sock
+        # CSI credentials config.
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          allowPrivilegeEscalation: true
+        volumeMounts:
+          - name: kubelet-dir
+            mountPath: /var/lib/kubelet
+            mountPropagation: "Bidirectional"
+          - name: plugin-dir
+            mountPath: /var/lib/kubelet/plugins/storageos/
+          - name: device-dir
+            mountPath: /dev
+          - name: fuse
+            mountPath: /dev/fuse
+          - name: sys
+            mountPath: /sys
+          - name: state
+            mountPath: /var/lib/storageos
+            mountPropagation: "Bidirectional"
+      volumes:
+      - name: kernel-modules
+        hostPath:
+          path: /lib/modules
+      - name: registrar-socket-dir
+        hostPath:
+          path: /var/lib/kubelet/device-plugins/
+          type: DirectoryOrCreate
+      - name: kubelet-dir
+        hostPath:
+          path: /var/lib/kubelet
+          type: Directory
+      - name: plugin-dir
+        hostPath:
+          path: /var/lib/kubelet/plugins/storageos/
+          type: DirectoryOrCreate
+      - name: device-dir
+        hostPath:
+          path: /dev
+          type: Directory
+      - name: fuse
+        hostPath:
+          path: /dev/fuse
+      - name: sys
+        hostPath:
+          path: /sys
+      - name: state
+        hostPath:
+          path: /var/lib/storageos
