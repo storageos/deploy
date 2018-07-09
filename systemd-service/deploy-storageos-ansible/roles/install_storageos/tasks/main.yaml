@@ -1,0 +1,19 @@
+---
+- name: install systemd config 
+  template:
+    src: config-default
+    dest: /etc/default/storageos
+    owner: root
+
+- name: install systemd unit
+  template:
+    src: storageos.service
+    dest: /etc/systemd/system/
+    owner: root
+  notify: restart storageos
+
+- name: start service
+  systemd:
+    state: started
+    enabled: yes
+    name: storageos.service

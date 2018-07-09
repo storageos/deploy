@@ -1,0 +1,47 @@
+---
+- name: kernel module configfs
+  modprobe:
+    name: configfs
+    state: present
+
+- name: check ConfigFS
+  args:
+    executable: /bin/bash
+  shell: |
+    echo "Checking configfs"
+    if mount | grep -q "^configfs on /sys/kernel/config"; then
+        echo "configfs mounted on sys/kernel/config"
+    else
+        echo "configfs not mounted, checking if kmod is loaded"
+        state_file=/sys/module/configfs/initstate
+        if [ -f "$state_file" ] && grep -q live "$state_file"; then
+            echo "configfs mod is loaded"
+        else
+            echo "configfs not loaded, executing: modprobe -b configfs"
+            modprobe -b configfs
+        fi
+
+        if mount | grep -q configfs; then
+            echo "configfs mounted"
+        else
+            echo "mounting configfs /sys/kernel/config"
+            mount -t configfs configfs /sys/kernel/config
+        fi
+    fi
+
+- name: kernel module tcm_loop
+  modprobe:
+    name: tcm_loop
+    state: present
+
+- name: kernel module target_core_file
+  modprobe:
+    name: target_core_file
+    state: present
+
+- name: Check LIO
+  copy:
+    src: enable-lio.sh
+    dest: /tmp/enable-lio.sh
+    mode: 775
+  notify: enable lio

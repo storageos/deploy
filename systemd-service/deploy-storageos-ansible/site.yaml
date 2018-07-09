@@ -1,0 +1,9 @@
+---
+- name: Prepare and install StorageOS
+  hosts: storageos
+  remote_user: root
+  become: yes
+  roles:
+    - prerequisites_storageos
+    - install_storageos
+

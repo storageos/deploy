@@ -1,0 +1,5 @@
+[storageos]
+centos-1 ansible_host=172.28.128.17
+centos-2 ansible_host=172.28.128.18
+centos-3 ansible_host=172.28.128.19
+

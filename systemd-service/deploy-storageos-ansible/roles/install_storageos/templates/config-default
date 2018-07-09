@@ -1,0 +1,11 @@
+# /etc/default/storageos
+
+
+# Advertise ip is the ip of the machin itself, where the service is being started
+ADVERTISE_IP="{{ hostvars[inventory_hostname].ansible_host }}"
+
+# Join variable set to all addresses of the cluster or a join token created from: storageos cluster create
+JOIN="{{ hostvars.values()|map(attribute='ansible_host')|join(':5705,')  }}:5705"
+
+
+LOG_LEVEL=info

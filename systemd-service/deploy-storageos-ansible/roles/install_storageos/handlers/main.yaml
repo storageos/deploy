@@ -1,0 +1,13 @@
+---
+
+- name: restart storageos
+  systemd:
+    daemon_reload: yes
+  notify: restart storageos service
+
+- name: restart storageos service
+  systemd:
+    state: restarted
+    name: storageos.service
+    enabled: yes
+

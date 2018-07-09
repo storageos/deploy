@@ -1,0 +1,6 @@
+---
+# StorageOS docker image 
+
+repo: storageos/node
+version: 1.0.0-rc3
+
