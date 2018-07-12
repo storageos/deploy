@@ -1,6 +1,6 @@
 # Deploy StorageOS for OpenShift 3.7
 
-Deploy an StorageOS container on all your cluster nodes and connects OpenShift to them.
+Deploy a StorageOS container on all your cluster nodes and connects OpenShift to them.
 
 OpenShift 3.9 and forward enable the MountPropagation feature gate. Because of that, this installation can't use DaemonSets to run StorageOS
 
