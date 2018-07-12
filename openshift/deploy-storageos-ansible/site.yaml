@@ -1,0 +1,15 @@
+---
+- name: Prepare and install StorageOS
+  hosts: storageos
+  remote_user: root
+  become: yes
+  roles:
+    - prerequisites_storageos
+    - install_storageos
+
+- name: Connect OpenShift with StorageOS
+  hosts: masters
+  remote_user: root
+  roles:
+    - openshift_interface
+

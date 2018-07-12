@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ storageclass_name }}
+  labels:
+    app: storageos
+provisioner: kubernetes.io/storageos
+parameters:
+  fsType: ext4
+  pool: default
+  adminSecretNamespace: {{ secret_namespace }}
+  adminSecretName: {{ secret_name }}

@@ -1,0 +1,9 @@
+---
+# StorageOS docker image 
+
+repo: storageos/node
+version: 1.0.0-rc3
+secret_name: storageos-api
+storageclass_name: fast
+secret_namespace: default
+api_address: address

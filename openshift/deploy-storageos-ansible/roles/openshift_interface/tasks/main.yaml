@@ -1,0 +1,18 @@
+---
+
+- name: storageos secret
+  template:
+    src: secret.yaml
+    dest: /tmp/secret.yaml
+
+- name: storageclass definition
+  template:
+    src: storageclass.yaml
+    dest: /tmp/sc.yaml
+   
+- name: create oc resources
+  args:
+    executable: /bin/bash
+  shell: |
+    oc create -f /tmp/sc.yaml 
+    oc create -f /tmp/secret.yaml
