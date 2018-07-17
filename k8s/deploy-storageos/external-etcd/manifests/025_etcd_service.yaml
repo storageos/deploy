@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: etcd-storageos
+  namespace: storageos
+spec:
+  ports:
+  - protocol: TCP
+    port: 2379
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+    name: etcd-storageos
+    namespace: storageos
+subsets:
+    - addresses:
+        - ip: 172.28.128.201
+        - ip: 172.28.128.202
+        - ip: 172.28.128.203
+      ports:
+        - port: 2379
+
