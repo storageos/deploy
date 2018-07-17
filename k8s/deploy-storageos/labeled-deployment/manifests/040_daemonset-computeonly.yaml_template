@@ -6,12 +6,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: storageos-computeonly
+      app: storageos
+      role: storageos-computeonly
   template:
     metadata:
       name: storageos-computeonly
       labels:
-        app: storageos-computeonly
+        app: storageos
+        role: storageos-computeonly
     spec:
       hostPID: true
       hostNetwork: true

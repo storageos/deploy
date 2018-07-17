@@ -1,17 +1,19 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: storageos-data
+  name: storageos-storage
   namespace: storageos
 spec:
   selector:
     matchLabels:
-      app: storageos-data
+      app: storageos
+      role: storageos-storage
   template:
     metadata:
-      name: storageos-data
+      name: storageos-storage
       labels:
-        app: storageos-data
+        app: storageos
+        role: storageos-storage
     spec:
       hostPID: true
       hostNetwork: true
@@ -91,7 +93,7 @@ spec:
                - key: storageos
                  operator: In
                  values:
-                 - data
+                 - storage
       volumes:
       - name: kernel-modules
         hostPath:
