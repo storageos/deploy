@@ -6,9 +6,11 @@ metadata:
   labels:
     app: nfs
 spec:
+  type: NodePort
   ports:
     - name: nfs
       port: 2049
+      nodePort: 32049
     - name: mountd
       port: 20048
     - name: rpcbind

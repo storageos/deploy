@@ -3,3 +3,5 @@ kind: StorageClass
 metadata:
   name: storageos-nfs
 provisioner: storageos/nfs
+parameters:
+  mountOptions: "vers=4.1"

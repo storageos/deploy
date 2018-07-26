@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: nfs-provisioner
-          image: quay.io/kubernetes_incubator/nfs-provisioner:v1.0.9
+          image: arau/nfs:v2
           ports:
             - name: nfs
               containerPort: 2049
@@ -46,18 +46,47 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
-            - name: persistent-volume
-              mountPath: /export
-      #volumes:
-        #- name: export-volume
-          #persistentVolumeClaim:
-            #claimName: fast-pvc1
+            - name: "partition1"
+              mountPath: /export/partition1
+            - name: "partition2"
+              mountPath: /export/partition2
+            - name: "partition3"
+              mountPath: /export/partition3
+            - name: "partition4"
+              mountPath: /export/partition4
   volumeClaimTemplates:
     -
       metadata:
-        name: "persistent-volume"
+        name: "partition1"
+      spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "fast"
+          resources:
+              requests:
+                  storage: 10Gi
+    -
+      metadata:
+        name: "partition2"
+      spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "fast"
+          resources:
+              requests:
+                  storage: 10Gi
+    -
+      metadata:
+        name: "partition3"
+      spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "fast"
+          resources:
+              requests:
+                  storage: 50Gi
+    -
+      metadata:
+        name: "partition4"
       spec:
           accessModes: [ "ReadWriteOnce" ]
           storageClassName: "fast"
