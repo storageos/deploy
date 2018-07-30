@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nfs-vol-yy
+  labels:
+    partition: partition3
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "storageos-nfs"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

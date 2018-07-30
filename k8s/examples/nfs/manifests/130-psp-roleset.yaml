@@ -1,0 +1,29 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: storageos-psp-user
+  namespace: storageos
+rules:
+- apiGroups:
+  - policy
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - storageos-psp
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+    name: storageos-psp-user
+    namespace: storageos
+roleRef:
+   apiGroup: rbac.authorization.k8s.io
+   kind: Role
+   name: storageos-psp-user
+subjects:
+- kind: ServiceAccount
+  name: nfs-provisioner
+  namespace: storageos
+---
