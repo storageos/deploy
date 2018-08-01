@@ -1,23 +1,24 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  labels:
-    app: nfs-app
-  name: read
+  name: demo
+#  namespace: default
 spec:
+  nodeSelector:
+    kubernetes.io/hostname: storageos-2-ferran
   containers:
-  - name: rrite-pod
+  - name: pod
     image: gcr.io/google_containers/busybox:1.24
     command:
       - "/bin/sh"
     args:
       - "-c"
-      - "ls /mnt/ && exit 0 || exit 1"
+      - "sleep 3600"
     volumeMounts:
-      - name: nfs-pvc
+      - name: storageos-vol
         mountPath: "/mnt"
   restartPolicy: "Never"
   volumes:
-    - name: nfs-pvc
+    - name: storageos-vol
       persistentVolumeClaim:
-        claimName: nfs-vol-3a
+        claimName: pvc-1

@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: nfs-vol-aa
+  name: nfs-vol-1a
   label:
     partition: partition1
   annotations:

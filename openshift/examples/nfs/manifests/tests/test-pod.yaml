@@ -1,0 +1,47 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  labels:
+    app: nfs-app
+  name: test1
+spec:
+  containers:
+  - name: pod
+    image: gcr.io/google_containers/busybox:1.24
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "sleep 3600"
+    volumeMounts:
+      - name: nfs-pvc
+        mountPath: "/mnt"
+  restartPolicy: "Never"
+  volumes:
+    - name: nfs-pvc
+      persistentVolumeClaim:
+        claimName: nfs-test-vol # Same PVC as test2 --> Shared
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  labels:
+    app: nfs-app
+  name: test2
+spec:
+  containers:
+  - name: pod
+    image: gcr.io/google_containers/busybox:1.24
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "sleep 3600"
+    volumeMounts:
+      - name: nfs-pvc
+        mountPath: "/mnt"
+  restartPolicy: "Never"
+  volumes:
+    - name: nfs-pvc
+      persistentVolumeClaim:
+        claimName: nfs-test-vol # Same PVC as test1 --> Shared

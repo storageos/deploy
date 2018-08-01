@@ -65,7 +65,7 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 10Gi
+                  storage: 30gGi
     -
       metadata:
         name: "partition2"
@@ -74,7 +74,7 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 10Gi
+                  storage: 30gGi
     -
       metadata:
         name: "partition3"
@@ -83,7 +83,7 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 50Gi
+                  storage: 30Gi
     -
       metadata:
         name: "partition4"
@@ -92,4 +92,4 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 10Gi
+                  storage: 30gGi
