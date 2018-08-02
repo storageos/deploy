@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: nfs-provisioner
-          image: arau/nfs:v2
+          image: arau/nfs:v3
           ports:
             - name: nfs
               containerPort: 2049
@@ -51,6 +51,8 @@ spec:
                   fieldPath: metadata.namespace
           imagePullPolicy: "Always"
           volumeMounts:
+            - name: "config"
+              mountPath: /export/ganesha
             - name: "partition1"
               mountPath: /export/partition1
             - name: "partition2"
@@ -60,6 +62,15 @@ spec:
             - name: "partition4"
               mountPath: /export/partition4
   volumeClaimTemplates:
+    -
+      metadata:
+        name: "config"
+      spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "fast"
+          resources:
+              requests:
+                  storage: 1Gi
     -
       metadata:
         name: "partition1"

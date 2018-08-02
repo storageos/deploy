@@ -12,7 +12,7 @@ The NFS StateFulSet runs as a Kubernetes storage provisoner, hence volumes creat
 
 ## Deploy
 
-Define how many StorageOS volumes will persist your NFS volumes by editing `manifests/220-statefulet.yaml` claims and where to mount them (.spec.template.spec.containers[0].volumeMounts and .spec.volumeClaimTemplates). By default, 4 StorageOS volumes will be created with 30Gi each and mounted in the container `/export/partitionX`. The storage provisioner will allocate the data of your NFS volumes under /export/partitionX/pvc-id-of-the-vol-in-k8s. Where the partition is defined when you crete the PVC by setting a label (see example below).
+Define how many StorageOS volumes will persist your NFS volumes by editing `manifests/220-statefulet.yaml` claims and where to mount them (.spec.template.spec.containers[0].volumeMounts and .spec.volumeClaimTemplates). By default, 5 StorageOS volumes will be created, 4 with 30Gi each and mounted in the container `/export/partitionX`. The storage provisioner will allocate the data of your NFS volumes under /export/partitionX/pvc-id-of-the-vol-in-k8s. Where the partition is defined when you crete the PVC by setting a label (see example below). 1 StorageOS volume is allocated with 1Gi to persist the dynamic ganesha settings, stored in /export/ganesha.
 
 ```
 ./deploy-nfs-provisioner.sh
