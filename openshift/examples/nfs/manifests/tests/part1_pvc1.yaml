@@ -2,7 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: nfs-vol-1a
-  label:
+  labels:
     partition: partition1
   annotations:
     volume.beta.kubernetes.io/storage-class: "storageos-nfs"
