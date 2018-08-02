@@ -1,11 +1,14 @@
 kind: StatefulSet
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: nfs
   namespace: storageos
 spec:
   serviceName: "nfs"
   replicas: 1 # Only one is permitted to register as a provisioner
+  selector:
+    matchLabels:
+      app: nfs
   template:
     metadata:
       labels:
@@ -65,7 +68,7 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 30gGi
+                  storage: 30Gi
     -
       metadata:
         name: "partition2"
@@ -74,7 +77,7 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 30gGi
+                  storage: 30Gi
     -
       metadata:
         name: "partition3"
@@ -92,4 +95,4 @@ spec:
           storageClassName: "fast"
           resources:
               requests:
-                  storage: 30gGi
+                  storage: 30Gi
