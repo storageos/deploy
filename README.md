@@ -1,3 +1,3 @@
-# Demos
+# Deploy
 
-Repository created to host examples of StorageOS usage and setup. 
+Repository created to host StorageOS installation precedures and examples of usage and setup.
