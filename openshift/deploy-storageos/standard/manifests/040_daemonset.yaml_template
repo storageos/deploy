@@ -13,6 +13,8 @@ spec:
       labels:
         app: storageos
     spec:
+      nodeSelector:
+        "node-role.kubernetes.io/compute": "true"
       hostPID: true
       hostNetwork: true
       serviceAccountName: storageos
