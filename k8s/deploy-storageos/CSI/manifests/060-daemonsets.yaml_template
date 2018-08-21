@@ -1,7 +1,7 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: v1-storageos-daemon
+  name: storageos-daemon
   namespace: storageos
   labels:
     app: storageos
@@ -14,7 +14,7 @@ spec:
       labels:
         app: storageos
     spec:
-      serviceAccount: v1-storageos-daemonset-sa
+      serviceAccount: storageos-daemonset-sa
       hostPID: true
       hostNetwork: true
       initContainers:
@@ -83,6 +83,16 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: init-secret
+              key: username
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: init-secret
+              key: password
         - name: JOIN
           value: "<JOIN>"
         - name: ADVERTISE_IP

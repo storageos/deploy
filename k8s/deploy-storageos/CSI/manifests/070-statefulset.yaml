@@ -1,7 +1,7 @@
 kind: StatefulSet
 apiVersion: apps/v1beta1
 metadata:
-  name: v1-storageos-statefulset
+  name: storageos-statefulset
   namespace: storageos
   labels:
     app: storageos
@@ -16,7 +16,7 @@ spec:
       labels:
         app: storageos
     spec:
-      serviceAccount: v1-storageos-statefulset-sa
+      serviceAccount: storageos-statefulset-sa
       containers:
       - name: csi-external-provisioner
         image: "quay.io/k8scsi/csi-provisioner:canary"
