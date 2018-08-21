@@ -7,7 +7,7 @@ metadata:
     app: storageos
 subjects:
   - kind: ServiceAccount
-    name: v1-storageos-daemonset-sa
+    name: storageos-daemonset-sa
     namespace: storageos
 roleRef:
   kind: ClusterRole
@@ -23,7 +23,7 @@ metadata:
     app: storageos
 subjects:
   - kind: ServiceAccount
-    name: v1-storageos-daemonset-sa
+    name: storageos-daemonset-sa
     namespace: storageos
 roleRef:
   kind: ClusterRole
@@ -39,7 +39,7 @@ metadata:
     app: storageos
 subjects:
   - kind: ServiceAccount
-    name: v1-storageos-statefulset-sa
+    name: storageos-statefulset-sa
     namespace: storageos
 roleRef:
   kind: ClusterRole
@@ -55,7 +55,7 @@ metadata:
     app: storageos
 subjects:
   - kind: ServiceAccount
-    name: v1-storageos-statefulset-sa
+    name: storageos-statefulset-sa
     namespace: storageos
 roleRef:
   kind: ClusterRole
@@ -71,7 +71,7 @@ metadata:
     app: storageos
 subjects:
   - kind: ServiceAccount
-    name: v1-storageos-statefulset-sa
+    name: storageos-statefulset-sa
     namespace: storageos
 roleRef:
   kind: ClusterRole
