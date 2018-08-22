@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: storageos
+      kind: daemonset
   template:
     metadata:
       labels:
         app: storageos
+        kind: daemonset
     spec:
       serviceAccount: storageos-daemonset-sa
       hostPID: true

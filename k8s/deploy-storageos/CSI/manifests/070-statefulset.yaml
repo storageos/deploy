@@ -11,10 +11,12 @@ spec:
   selector:
     matchLabels:
       app: storageos
+      kind: statefulset
   template:
     metadata:
       labels:
         app: storageos
+        kind: statefulset
     spec:
       serviceAccount: storageos-statefulset-sa
       containers:
