@@ -32,10 +32,16 @@ spec:
         - name: data
           mountPath: /var/lib/mysql
           subPath: mysql
+        - name: conf
+          mountPath: /etc/mysql/mysql.conf.d
         resources:
           requests:
             cpu: 500m
             memory: 1Gi
+      volumes:
+      - name: conf
+        configMap:
+          name: mysql
   volumeClaimTemplates:
   - metadata:
       name: data
