@@ -1,0 +1,23 @@
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: mysql
+allowHostDirVolumePlugin: true
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegedContainer: false
+fsGroup:
+  type: RunAsAny
+runAsUser:
+  type: RunAsAny
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups:
+  type: RunAsAny
+volumes:
+- '*'
