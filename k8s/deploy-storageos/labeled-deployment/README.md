@@ -22,7 +22,7 @@ Label each node that must run StorageOS in storage mode with the tag storageos=s
 kubectl label node storageos=storage
 ```
 
-> Nodes not labeled doesn't run StorageOS in this installation procedure. Pods running in nodes where StorageOS is not present cannot mount volumes managed by StorageOS. 
+> Nodes not labeled don't run StorageOS in this installation procedure. Pods running in nodes where StorageOS is not present cannot mount volumes managed by StorageOS. The labels are mutual exclusive, so a node can only be in compute-only or in storage mode.
 
 ## Deploy StorageOS
 
