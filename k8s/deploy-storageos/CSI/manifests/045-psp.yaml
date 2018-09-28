@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: storageos-psp
+  namespace: storageos
+spec:
+  privileged: true
+  allowPrivilegeEscalation: true
+  allowedCapabilities:
+  - 'SYS_ADMIN'
+  volumes:
+  - '*'
+  hostNetwork: true
+  hostPorts:
+  - min: 5700
+    max: 5800
+  hostIPC: true
+  hostPID: true
+  runAsUser:
+    rule: 'RunAsAny'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: storageos-psp-user
+  namespace: storageos
+rules:
+- apiGroups:
+  - policy
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - storageos-psp
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+    name: storageos-psp-user
+    namespace: storageos
+roleRef:
+   apiGroup: rbac.authorization.k8s.io
+   kind: Role
+   name: storageos-psp-user
+subjects:
+- kind: ServiceAccount
+  name: storageos-daemonset-sa
+  namespace: storageos
+- kind: ServiceAccount
+  name: storageos-statefulset-sa
+  namespace: storageos
