@@ -21,7 +21,7 @@ spec:
       serviceAccount: storageos-statefulset-sa
       containers:
       - name: csi-external-provisioner
-        image: "quay.io/k8scsi/csi-provisioner:canary"
+        image: "quay.io/k8scsi/csi-provisioner:v0.3.0"
         imagePullPolicy: Always
         args:
           - "--v=5"
@@ -34,7 +34,7 @@ spec:
           - name: plugin-dir
             mountPath: /csi
       - name: csi-external-attacher
-        image: "quay.io/k8scsi/csi-attacher:canary"
+        image: "quay.io/k8scsi/csi-attacher:v0.3.0"
         imagePullPolicy: Always
         args:
           - "--v=5"
