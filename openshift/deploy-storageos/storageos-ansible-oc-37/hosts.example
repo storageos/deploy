@@ -19,7 +19,7 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_set_node_ip=True
 
 [masters]
-storageos-1  ansible_connection=local openshift_ip=172.28.128.3 openshift_hostname=storageos-3
+storageos-1  ansible_connection=local openshift_ip=172.28.128.3 openshift_hostname=storageos-1
 
 [etcd]
 storageos-1  ansible_connection=local openshift_ip=172.28.128.3
