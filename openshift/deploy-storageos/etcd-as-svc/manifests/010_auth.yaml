@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: storageos
+  namespace: storageos
+  labels:
+    app: storageos
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: storageos
+  namespace: storageos
+  labels:
+    app: storageos
+rules:
+  - apiGroups:
+    - ""
+    resources:
+    - secrets
+    verbs:
+    - create
+    - get
+    - list
+    - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: storageos
+  namespace: storageos
+  labels:
+    app: storageos
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: storageos
+subjects:
+  - kind: ServiceAccount
+    name: storageos
