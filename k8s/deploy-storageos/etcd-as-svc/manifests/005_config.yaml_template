@@ -5,5 +5,5 @@ metadata:
   namespace: storageos
 data:
   KV_BACKEND: 'etcd'
-  KV_ADDR: 'http://etcd-storageos:2379'
-  LOG_LEVEL: 'xdebug'
+  KV_ADDR: 'http://<ETCD_ADDR>:2379'
+  LOG_LEVEL: 'info'
