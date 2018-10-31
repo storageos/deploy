@@ -1,0 +1,32 @@
+apiVersion: "etcd.database.coreos.com/v1beta2"
+kind: "EtcdCluster"
+metadata:
+  name: "storageos-etcd"
+spec:
+  size: 3
+  version: "3.2.13"
+  pod:
+    resources:
+      limits:
+        cpu: 300m
+        memory: 200Mi
+      requests:
+        cpu: 200m
+        memory: 100Mi
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 9000
+      fsGroup: 9000
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: etd_cluster
+                operator: In
+                values:
+                - storageos-etcd
+            topologyKey: kubernetes.io/hostname
+
