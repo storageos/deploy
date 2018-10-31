@@ -1,6 +1,19 @@
+## ETCD
+StorageOS uses etcd to keep cluster consistency. By default StorageOS uses an
+embedded installation of etcd. However, this installation permits you
+to use services in Kubernetes to reference a non embedded etcd cluster. You can define the
+Namespace and Service name in deploy-storageos.sh.
+
+In the directory `etcd-deployment`, there is an example of a 3 node etcd cluster
+bootstrap using the etcd Kubernetes operator from https://github.com/coreos/etcd-operator. Follow the instructions in the `etcd-deployment` directory.
+
+> The maintenance of the etcd cluster is out of the scope of StorageOS. It is
+> mandatory that the user handle backups, and ensure high availability. The
+> deployment of the etcd cluster aims to be an example.
+
 # Deploy StorageOS
 
-Run the script `deploy-storageos.sh` to run a StorageOS cluster deployed in its own namespace with a DaemonSet and RBAC support.
+Once you have deployed the etcd cluster, run the script `deploy-storageos.sh` to run a StorageOS cluster deployed in its own namespace with a DaemonSet and RBAC support.
 
 > By running the `cleanup.sh` the StorageOS cluster will be removed. The data will remain present if you run the deployment script again. Stopping or loosing any node
 while StorageOS is not running can corrupt the state of cluster and loose data. 
@@ -8,15 +21,6 @@ while StorageOS is not running can corrupt the state of cluster and loose data.
 The manifest yaml files can be found in the manifests dir. There are two kind of files, .yaml and .yaml_template. The templates are used as base to set the API address 
 so the StorageClass can connect to the StorageOS cluster, and the JOIN variable to discover cluster nodes that is set to all internal IPs of your Kubernetes cluster. Currently the `deploy-storageos.sh` queries all the nodes' internal IPs of your Kubernetes cluster. If you don't run workloads and StorageOS on the Kubernetes masters add the according label to the query so the JOIN variable doesn't match your master nodes.
 
-
-## ETCD
-StorageOS uses etcd to keep cluster consistency. By default StorageOS uses an
-embedded installation of etcd. However, this installation permits you
-to use services in Kubernetes to reference a non embedded etcd cluster. You can define the
-Namespace and Service name in deploy-storageos.sh.
-
-In the directory etcd-deployment, there is an example of a 3 node etcd cluster
-bootstrap using the etcd Kubernetes operator from https://github.com/coreos/etcd-operator.
 
 ## Set the JOIN variable manually
 
