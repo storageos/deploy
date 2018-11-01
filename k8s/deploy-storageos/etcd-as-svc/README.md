@@ -15,6 +15,9 @@ bootstrap using the etcd Kubernetes operator from https://github.com/coreos/etcd
 
 Once you have deployed the etcd cluster, run the script `deploy-storageos.sh` to run a StorageOS cluster deployed in its own namespace with a DaemonSet and RBAC support.
 
+The etcd SVC cluster IP is discovered when running the `deploy-storageos.sh` and
+populates the ConfigMap `manifests/005_config.yaml_template`.
+
 > By running the `cleanup.sh` the StorageOS cluster will be removed. The data will remain present if you run the deployment script again. Stopping or loosing any node
 while StorageOS is not running can corrupt the state of cluster and loose data. 
 
