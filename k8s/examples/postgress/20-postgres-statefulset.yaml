@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+      env: prod
+  serviceName: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+        env: prod
+    spec:
+      serviceAccountName: postgres
+      securityContext:
+        runAsUser: 26
+        fsGroup: 26
+      containers:
+      - name: pg
+        image: crunchydata/crunchy-postgres:centos7-10.4-1.8.3
+        volumeMounts:
+          - name: pg-data
+            mountPath: /pgdata
+        envFrom:
+        - configMapRef:
+            name: postgres
+  volumeClaimTemplates:
+  - metadata:
+      name: pg-data
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi
