@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      env: prod
+  serviceName: redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+        env: prod
+    spec:
+      serviceAccountName: redis
+      securityContext:
+          runAsUser: 1001
+          fsGroup: 1001
+      containers:
+      - name: redis
+        image: bitnami/redis
+        volumeMounts:
+          - name: redis-data
+            mountPath: /bitnami/redis/data
+        envFrom:
+        - configMapRef:
+            name: redis
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi

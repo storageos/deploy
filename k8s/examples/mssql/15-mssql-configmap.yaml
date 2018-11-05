@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mssql
+  labels:
+    app: mssql
+    env: prod
+data:
+   ACCEPT_EULA: "Y"
+   SA_PASSWORD: "Password15"
