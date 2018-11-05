@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis
+  labels:
+    app: redis
+    env: prod
+data:
+    appendonly: "yes"
+    REDIS_PASSWORD: "password"

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mssql
+spec:
+  selector:
+    matchLabels:
+      app: mssql
+      env: prod
+  serviceName: mssql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mssql
+        env: prod
+    spec:
+      serviceAccountName: mssql
+      containers:
+      - name: mssql
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        volumeMounts:
+          - name: mssql-data
+            mountPath: /var/opt/mssql
+        envFrom:
+        - configMapRef:
+            name: mssql
+  volumeClaimTemplates:
+  - metadata:
+      name: mssql-data
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi
