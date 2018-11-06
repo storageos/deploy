@@ -1,4 +1,4 @@
-# Nginx Server on Kubernetes with StorageOS persistent Storage
+# Nginx on Kubernetes with StorageOS persistent Storage
 
 This example shows an example of how to deploy Nginx on Kubernetes, in order to
 exfiltrate files that have been written to a StorageOS persistent volume. The
