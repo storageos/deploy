@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+      env: prod
+  serviceName: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: prod
+    spec:
+      serviceAccountName: nginx
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-data
+          mountPath: /usr/share/nginx
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: nginx-config
+        configMap:
+            name: nginx
+  volumeClaimTemplates:
+  - metadata:
+      name: nginx-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi
