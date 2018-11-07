@@ -3,9 +3,21 @@
 manifests=./manifests
 tmp_file=/tmp/manifest-$RANDOM.yaml
 
+etcd_ns=etcd
+etcd_svc=etcd-storageos
+ETCD_ADDRESS=$(kubectl -n $etcd_ns get svc $etcd_svc -o custom-columns=IP:spec.clusterIP --no-headers=true)
+
+if [ "$?" -gt 0 ]; then
+    echo "ETCD_ADDRESS not found: Looking for $etcd_svc svc in $etcd_ns namespace"
+    exit 1
+fi
+
 [ -d "$manifests" ] || (echo "manifests dir not found" && exit 1)
 
-JOIN=$(kubectl get nodes -o  jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address  }' |tr ' ' ',';echo)
+sed -e "s/<ETCD_ADDR>/$ETCD_ADDRESS/" "$manifests/005_config.yaml_template" >> "$tmp_file"
+echo "---" >> "$tmp_file"
+
+JOIN=$(kubectl get nodes -l "node-role.kubernetes.io/worker=true" -o  jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address  }' |tr ' ' ',';echo)
 sed -e "s/<JOIN>/$JOIN/" "$manifests/060-daemonsets.yaml_template" >> "$tmp_file"
 
 kubectl create -f $manifests/ -f $tmp_file

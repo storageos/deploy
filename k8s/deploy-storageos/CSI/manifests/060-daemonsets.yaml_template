@@ -106,6 +106,22 @@ spec:
         - name: CSI_ENDPOINT
           value: unix://var/lib/kubelet/plugins/storageos/csi.sock
         # CSI credentials config.
+        envFrom:
+        - configMapRef:
+            name: storageos-config
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+        volumeMounts:
+          - name: fuse
+            mountPath: /dev/fuse
+          - name: state
+            mountPath: /var/lib/storageos
+            mountPropagation: Bidirectional
+          - name: sys
+            mountPath: /sys
         securityContext:
           privileged: true
           capabilities:
