@@ -1,3 +1,14 @@
+# Kubernetes Requirements
+
+This installation method should only be used for Kubernetes versions < 1.12.
+If you are using Kuberenetes 1.12+ then please perform a helm
+installaltion instead. Please see our documentation [here]
+(https://docs.storageos.com/docs/platforms/kubernetes/install/1.12) for more
+information.
+
+> If you do perform an installation with this example on 1.12 Kubernetes will be
+> unable to mount StorageOS volumes into containers. 
+
 # CSI example
 
 Follow this example to install StorageOS as a DaemonSet with CSI integration. 
