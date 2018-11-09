@@ -4,8 +4,8 @@ This example shows an example of how to deploy Nginx on Kubernetes, in order to
 exfiltrate files that have been written to a StorageOS persistent volume. The
 files create a stateful set that can be used *AFTER* a StorageOS cluster has
 been created. For more information on how to install a StorageOS cluster please see
-[the StorageOS documentation](https://docs.storageos.com/docs/introduction/quickstart)
-for more information.
+[the StorageOS documentation]
+(https://docs.storageos.com/docs/introduction/quickstart).
 
 ## Deploy
 
