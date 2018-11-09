@@ -46,7 +46,7 @@ rules:
     resources: ["persistentvolumes"]
     verbs: ["list", "watch", "create", "delete"]
   - apiGroups: [""]
-    resources: ["persistentvolumeclaims"]
+    resources: ["persistentvolumeclaims", "endpoints"]
     verbs: ["get", "list", "watch", "update"]
   - apiGroups: ["storage.k8s.io"]
     resources: ["storageclasses"]
