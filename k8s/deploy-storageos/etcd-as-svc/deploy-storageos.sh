@@ -5,7 +5,7 @@ tmp_file=/tmp/manifest-$RANDOM.yaml
 
 etcd_ns=etcd
 etcd_svc=etcd-storageos
-ETCD_ADDRESS=$(kubectl -n $etcd_ns get svc $etcd_svc -o custom-columns=IP:spec.clusterIP --no-headers=true)
+ETCD_ADDRESS="$etcd_svc.$etcd_ns"
 
 if [ "$?" -gt 0 ]; then
     echo "ETCD_ADDRESS not found: Looking for $etcd_svc svc in $etcd_ns namespace"
