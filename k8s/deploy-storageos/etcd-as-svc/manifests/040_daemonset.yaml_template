@@ -71,6 +71,16 @@ spec:
               fieldPath: status.podIP
         - name: NAMESPACE
           value: storageos
+        - name: ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: storageos-api
+              key: apiUsername
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: storageos-api
+              key: apiPassword
         envFrom:
         - configMapRef:
             name: storageos-config
