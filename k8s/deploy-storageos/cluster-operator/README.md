@@ -79,7 +79,7 @@ spec:
 ```bash
 spec:
   kvBackend:
-    address: '10.43.93.95:2379' # IP of the SVC that exposes ETCD
+    address: 'storageos-etcd-client.etcd:2379' # SVC that exposes ETCD
   # address: '10.42.15.23:2379,10.42.12.22:2379,10.42.13.16:2379' # You can specify individual IPs of the etcd servers
     backend: 'etcd'
 ```
