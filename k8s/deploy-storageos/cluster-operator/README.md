@@ -25,9 +25,9 @@ cluster based on the specification of this CRD (Cluster Resource Definition).
 
 ## 1. Install
 
-To install the operator follow the official
+You can install the operator by executing `deploy-operator.sh` and the operator
+will be deployed based on the manifests dir, or follow the official
 [docs](https://docs.storageos.com/docs/platforms/kubernetes/install/) page.
-The StorageOS operator can currently only be installed with Helm. A non Helm installation will be released shortly.
 
 ## 2. Create Secret
 Before deploying a StorageOS cluster, create a Secret to define the StorageOS
@@ -167,3 +167,9 @@ spec:
 
 Limiting StorageOS can cause malfunction for Read/Write to StorageOS volumes,
 hence it is recommended to not restrict tightly the Pod resources.
+
+## Clean up
+
+The `cleanup.sh` will delete the operator deployment and all its CRDs. When
+that happens the StorageOS daemonset managed by the operator will be removed
+too.
