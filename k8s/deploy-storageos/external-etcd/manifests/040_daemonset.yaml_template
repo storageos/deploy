@@ -69,10 +69,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        - name: KV_BACKEND
-          value: 'etcd'
-        - name: KV_ADDR
-          value: '<ETCD_ADDRESS>:2379'
         - name: NAMESPACE
           value: storageos
         securityContext:

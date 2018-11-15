@@ -24,3 +24,25 @@ Choose one of the methods, for instance, setting the ip of all your nodes that w
 sed -i "s:<JOIN>:my_ip1,my_ip2,my_ip3,my_ip4:" manifests/040_daemonsets.yaml_template
 ./deploy-storageos.sh
 ```
+
+## Set ETCD endpoint
+
+StorageOS recommends using external etcd for large clusters and for those that change its topology
+frequently, such as cloud installations with frequent scale out and scale down of the nodes.
+
+By default StorageOS starts with an embedded managed etcd.
+
+To deploy StorageOS using an external etcd, edit the file `manifests/005_config.yaml` removing the
+comments of the following lines and changing `<ETCD_ADDR>` for your etcd svc endpoint. For instance,
+if you are  running etcd as pods from the
+[etcd-as-svc](https://github.com/storageos/deploy/tree/master/k8s/deploy-storageos/etcd-as-svc)
+example, you can set `KV_ADDR: 'http://storageos-etcd-client.etcd'` where the address is set to
+`SVC.NAMESPACE`.
+
+```bash
+data:
+  KV_BACKEND: 'etcd'
+  KV_ADDR: 'http://<ETCD_ADDR>:2379' # Set your etcd endpoint
+```
+
+After that, you can proceed to execute the script `deploy-storageos.sh` as usual.

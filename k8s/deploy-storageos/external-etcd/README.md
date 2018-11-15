@@ -10,7 +10,17 @@ so the StorageClass can connect to the StorageOS cluster, and the JOIN variable 
 
 ## External ETCD cluster
 
-Set the addresses of your etcd nodes at `manifests/025_etcd_service.yaml`. That k8s service decouples the application from the external services. However, you can define the etcd 
-cluster ip coupling the installation by editing the enviromental variables of the StorageOS container at `manifests/040_daemonset.yaml_template`.
+StorageOS recommends using external etcd for large clusters and for those that
+change its topology frequently, such as cloud installations with frequent scale
+out and scale down of the nodes.
+
+If you run an ETCD cluster out of the scope of Kubernetes, you can reference to
+it by setting the addresses of your etcd nodes at
+`manifests/025_etcd_service.yaml`. That k8s service decouples the application
+from the external services. However, if you prefer to set the ips without TCP
+balancing, you can change the SVC name in the file `manifests/005_config` for
+the ips in format 'ip1:port,ip2:port,'.
 
 > Only versions of etcd server 3.0 and above are supported.
+
+After that, you can proceed to execute the script `deploy-storageos.sh` as usual.

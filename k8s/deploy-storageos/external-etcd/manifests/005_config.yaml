@@ -4,6 +4,6 @@ metadata:
   name: storageos-config
   namespace: storageos
 data:
-#  KV_BACKEND: 'etcd'
-#  KV_ADDR: 'http://etcd-storageos.etcd:2379'
+  KV_BACKEND: 'etcd'
+  KV_ADDR: 'http://etcd-storageos:2379'
   LOG_LEVEL: 'info'
