@@ -111,40 +111,6 @@ spec:
 > variable is defined by the operator by selecting all the nodes that match the
 > `nodeSelectorTerms`.
 
-### Enabled CSI
-
-```bash
-spec:
-  csi:
-    enable: true
-  # enableProvisionCreds: false
-  # enableControllerPublishCreds: false
-  # enableNodePublishCreds: false
-```
-
-The Creds must be defined in the `storageos-api` Secret
-
-```bash
-apiVersion: v1
-kind: Secret
-metadata:
-  name: "storageos-api"
-  namespace: "default"
-  labels:
-    app: "storageos"
-type: "kubernetes.io/storageos"
-data:
-  # echo -n '<secret>' | base64
-  apiUsername: c3RvcmFnZW9z
-  apiPassword: c3RvcmFnZW9z
-  # Add base64 encoded creds below for CSI credentials.
-  # csiProvisionUsername:
-  # csiProvisionPassword:
-  # csiControllerPublishUsername:
-  # csiControllerPublishPassword:
-  # csiNodePublishUsername:
-  # csiNodePublishPassword:
-```
 
 ### Shared Dir for Kubelet as a container
 
