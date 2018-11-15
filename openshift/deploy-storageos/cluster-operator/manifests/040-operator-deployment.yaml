@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storageoscluster-operator
+  namespace: storageos-operator
+  labels:
+    app: storageoscluster-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storageoscluster-operator
+  template:
+    metadata:
+      labels:
+        app: storageoscluster-operator
+    spec:
+      serviceAccountName: storageoscluster-operator-sa
+      containers:
+        - name: storageoscluster-operator
+          image: "storageos/cluster-operator"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 60000
+            name: metrics
+          command:
+          - cluster-operator
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: OPERATOR_NAME
+              value: "cluster-operator"

@@ -1,0 +1,23 @@
+apiVersion: "storageos.com/v1alpha1"
+kind: "StorageOSCluster"
+metadata:
+  name: "storageos"
+spec:
+  secretRefName: "storageos-api" # Reference from the Secret created in the previous step
+  secretRefNamespace: "default"  # Namespace of the Secret
+  images:
+    nodeContainer: "storageos/node:1.0.0-rc5"
+  kvBackend:
+    address: 'storageos-etcd-client.etcd:2379' # Example address, change for your etcd endpoint
+   #address: '10.42.15.23:2379,10.42.12.22:2379,10.42.13.16:2379' # You can set ETCD server ips
+    backend: 'etcd'
+  resources:
+    requests:
+      memory: "512Mi"
+  nodeSelectorTerms:
+    - matchExpressions:
+      - key: "node-role.kubernetes.io/compute" 
+        operator: In
+        values:
+        - "true"
+

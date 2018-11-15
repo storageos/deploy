@@ -1,0 +1,13 @@
+apiVersion: "storageos.com/v1alpha1"
+kind: "StorageOSCluster"
+metadata:
+  name: "storageos"
+spec:
+  secretRefName: "storageos-api" # Reference from the Secret created in the previous step
+  secretRefNamespace: "default"  # Namespace of the Secret
+  nodeSelectorTerms:
+    - matchExpressions:
+      - key: "node-role.kubernetes.io/worker" # Select non master nodes
+        operator: In
+        values:
+        - "true"
