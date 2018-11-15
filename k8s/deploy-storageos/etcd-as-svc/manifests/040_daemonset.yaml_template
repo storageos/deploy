@@ -110,4 +110,5 @@ spec:
       - name: state
         hostPath:
           path: /var/lib/storageos
-
+  updateStrategy:
+    type: OnDelete

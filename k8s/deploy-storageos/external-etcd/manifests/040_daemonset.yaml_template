@@ -15,6 +15,7 @@ spec:
     spec:
       hostPID: true
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       serviceAccountName: storageos
       initContainers:
       - name: enable-lio
@@ -100,4 +101,5 @@ spec:
       - name: state
         hostPath:
           path: /var/lib/storageos
-
+  updateStrategy:
+    type: OnDelete

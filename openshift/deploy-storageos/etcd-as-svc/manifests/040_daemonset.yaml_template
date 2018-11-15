@@ -16,6 +16,7 @@ spec:
       nodeSelector:
         "node-role.kubernetes.io/compute": "true"
       hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
       serviceAccountName: storageos
       initContainers:
@@ -101,4 +102,5 @@ spec:
       - name: state
         hostPath:
           path: /var/lib/storageos
-
+  updateStrategy:
+    type: OnDelete

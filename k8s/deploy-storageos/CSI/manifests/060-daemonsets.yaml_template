@@ -19,6 +19,7 @@ spec:
       serviceAccount: storageos-daemonset-sa
       hostPID: true
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       initContainers:
       - name: enable-lio
         image: "storageos/init:0.1"
@@ -156,3 +157,5 @@ spec:
       - name: state
         hostPath:
           path: /var/lib/storageos
+  updateStrategy:
+    type: OnDelete
