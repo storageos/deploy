@@ -80,6 +80,9 @@ spec:
           capabilities:
             add:
             - SYS_ADMIN
+        envFrom:
+        - configMapRef:
+            name: storageos-config
         volumeMounts:
           - name: fuse
             mountPath: /dev/fuse

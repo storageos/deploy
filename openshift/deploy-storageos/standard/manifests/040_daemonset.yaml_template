@@ -73,6 +73,9 @@ spec:
               fieldPath: status.podIP
         - name: NAMESPACE
           value: storageos
+        envFrom:
+        - configMapRef:
+            name: storageos-config
         securityContext:
           privileged: true
           capabilities:

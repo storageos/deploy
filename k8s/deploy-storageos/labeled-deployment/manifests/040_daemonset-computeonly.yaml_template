@@ -75,6 +75,9 @@ spec:
           value: storageos
         - name: LABELS
           value: storageos.com/deployment=computeonly
+        envFrom:
+        - configMapRef:
+            name: storageos-config
         securityContext:
           privileged: true
           capabilities:

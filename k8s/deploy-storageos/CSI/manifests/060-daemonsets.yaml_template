@@ -107,6 +107,9 @@ spec:
         - name: CSI_ENDPOINT
           value: unix://var/lib/kubelet/plugins/storageos/csi.sock
         # CSI credentials config.
+        envFrom:
+        - configMapRef:
+            name: storageos-config
         securityContext:
           privileged: true
           capabilities:
