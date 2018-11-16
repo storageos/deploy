@@ -4,8 +4,8 @@ metadata:
   name: demo
 #  namespace: default
 spec:
-  nodeSelector:
-    kubernetes.io/hostname: storageos-2-ferran
+  #nodeSelector:
+    #kubernetes.io/hostname: storageos-2-ferran
   containers:
   - name: pod
     image: gcr.io/google_containers/busybox:1.24
