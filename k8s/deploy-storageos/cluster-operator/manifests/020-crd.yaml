@@ -39,6 +39,18 @@ spec:
               type: string
             namespace:
               type: string
+            images:
+              properties:
+                nodeContainer:
+                  type: string
+                initContainer:
+                  type: string
+                csiDriverRegistrarContainer:
+                  type: string
+                csiExternalProvisionerContainer:
+                  type: string
+                csiExternalAttacherContainer:
+                  type: string
             csi:
               properties:
                 enable:
@@ -76,8 +88,6 @@ spec:
                 tls:
                   type: boolean
                 annotations: {}
-            cleanupAtDelete:
-              type: boolean
             kvBackend:
               properties:
                 address:
@@ -116,5 +126,19 @@ spec:
     listKind: StorageOSUpgradeList
     plural: storageosupgrades
     singular: storageosupgrade
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: jobs.storageos.com
+spec:
+  group: storageos.com
+  names:
+    kind: Job
+    listKind: JobList
+    plural: jobs
+    singular: job
   scope: Namespaced
   version: v1alpha1
