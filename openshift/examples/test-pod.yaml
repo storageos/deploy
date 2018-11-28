@@ -2,10 +2,9 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: demo
-#  namespace: default
 spec:
-  #nodeSelector:
-    #kubernetes.io/hostname: storageos-2-ferran
+#  nodeSelector:
+#    kubernetes.io/hostname: node01
   containers:
   - name: pod
     image: gcr.io/google_containers/busybox:1.24
