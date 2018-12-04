@@ -2,10 +2,10 @@
 
 
 # Advertise ip is the ip of the machin itself, where the service is being started
-ADVERTISE_IP="{{ hostvars[inventory_hostname].ansible_host }}"
+ADVERTISE_IP="{{ hostvars[inventory_hostname].openshift_ip }}"
 
 # Join variable set to all addresses of the cluster or a join token created from: storageos cluster create
-JOIN="{{ hostvars.values()|map(attribute='ansible_host')|join(':5705,')  }}:5705"
+JOIN="{{ hostvars.values()|map(attribute='openshift_ip')|join(':5705,')  }}:5705"
 
 
 LOG_LEVEL=info
