@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-ui
+  labels:
+    app: jenkins
+    jenkins: master
+spec:
+  selector:
+    jenkins: master
+  ports:
+  - name: ui
+    port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-discovery
+  labels:
+    app: jenkins
+spec:
+  selector:
+    jenkins: master
+  ports:
+  - name: agents
+    port: 50000

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+      jenkins: master
+  serviceName: jenkins
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+        jenkins: master
+    spec:
+      serviceAccountName: jenkins
+      securityContext:
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+      - name: master
+        image: jenkins/jenkins:2.185
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+        env:
+        - name: JAVA_OPTS
+          value: '-Xmx1400m'
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1500Mi
+          requests:
+            cpu: 500m
+            memory: 1500Mi
+  volumeClaimTemplates:
+   - metadata:
+       name: jenkins-home
+       labels:
+         env: prod
+     spec:
+       accessModes: ["ReadWriteOnce"]
+       storageClassName: "fast" # StorageOS storageClass 
+       resources:
+         requests:
+           storage: 10Gi
