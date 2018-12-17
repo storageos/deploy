@@ -100,8 +100,6 @@ spec:
         - "true"
 
 # OpenShift uses "node-role.kubernetes.io/compute=true"
-# Rancher uses "node-role.kubernetes.io/worker="
-# Kops uses "node-role.kubernetes.io/node="
 ```
 
 > Different provisioners and Kubernetes distributions use node labels
