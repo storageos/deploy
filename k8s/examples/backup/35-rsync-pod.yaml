@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rsync
+spec:
+  containers:
+    - name: rsync
+      image: eeacms/rsync
+      command: ["/bin/sleep"]
+      args: [ "3600" ]
