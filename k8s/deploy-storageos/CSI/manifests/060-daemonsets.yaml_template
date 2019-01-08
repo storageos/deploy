@@ -58,7 +58,7 @@ spec:
           - name: registrar-socket-dir
             mountPath: /var/lib/csi/sockets/
       - name: storageos
-        image: "storageos/node:1.0.2"
+        image: "storageos/node:1.1.0"
         imagePullPolicy: IfNotPresent
         args:
         - server
