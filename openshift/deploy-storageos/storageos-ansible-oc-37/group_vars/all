@@ -7,3 +7,8 @@ secret_name: storageos-api
 storageclass_name: fast
 secret_namespace: default
 api_address: address
+
+etcd:
+    type: embedded # or etcd. If etcd, you need to define etcd.addresses as well.
+    #addresses: "http://ip1:2379,http://ip2:2379,http://ip3:2379"
+

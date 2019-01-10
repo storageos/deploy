@@ -7,5 +7,11 @@ ADVERTISE_IP="{{ hostvars[inventory_hostname].openshift_ip }}"
 # Join variable set to all addresses of the cluster or a join token created from: storageos cluster create
 JOIN="{{ hostvars.values()|map(attribute='openshift_ip')|join(':5705,')  }}:5705"
 
+{% if etcd.type != 'embedded' %}
+KV_BACKEND="etcd"
+KV_ADDR="{{ etcd.addresses  }}"
+{% else %}
+KV_BACKEND="embedded"
+{% endif %}
 
 LOG_LEVEL=info
