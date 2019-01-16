@@ -15,7 +15,6 @@ spec:
       labels:
         app: cassandra
     spec:
-      terminationGracePeriodSeconds: 1800
       containers:
       - name: cassandra
         image: cassandra:3.11
