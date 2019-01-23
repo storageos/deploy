@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storageos-config
+  namespace: storageos
+data:
+  KV_BACKEND: 'etcd'
+  KV_ADDR: 'http://storageos-etcd-client.etcd:2379'
+  LOG_LEVEL: 'debug'
+  #PROBE_INTERVAL_MS: '3000'
+  #PROBE_TIMEOUT_MS: '5000'
+  DEVICE_DIR: "/var/lib/kubelet/volumeplugins/kubernetes.io~storageos/devices"
