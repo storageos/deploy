@@ -4,12 +4,9 @@ metadata:
   name: "storageos-etcd"
 spec:
   size: 3
-  version: "3.2.13"
+  version: "3.3.11"
   pod:
     resources:
-      limits:
-        cpu: 300m
-        memory: 200Mi
       requests:
         cpu: 200m
         memory: 100Mi
@@ -24,7 +21,7 @@ spec:
           podAffinityTerm:
             labelSelector:
               matchExpressions:
-              - key: etd_cluster
+              - key: etcd_cluster
                 operator: In
                 values:
                 - storageos-etcd
