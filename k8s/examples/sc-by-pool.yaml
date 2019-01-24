@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: prod
+parameters:
+  adminSecretName: storageos-api
+  adminSecretNamespace: storageos
+  description: Kubernetes volume
+  fsType: ext4
+  pool: prod
+provisioner: kubernetes.io/storageos
