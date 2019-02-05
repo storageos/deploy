@@ -9,7 +9,7 @@ spec:
     resources:
       requests:
         cpu: 200m
-        memory: 100Mi
+        memory: 300Mi
     securityContext:
       runAsNonRoot: true
       runAsUser: 9000
