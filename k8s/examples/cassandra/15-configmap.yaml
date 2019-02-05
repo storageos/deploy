@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cassandra
+  labels:
+    app: cassandra
+data:
+  MAX_HEAP_SIZE: 512M
+  HEAP_NEWSIZE: 100M
+  CASSANDRA_SEEDS: "cassandra-0.cassandra.default.svc.cluster.local"
+  CASSANDRA_CLUSTER_NAME: "K8Demo"
+  CASSANDRA_DC: "DC1-K8Demo"
+  CASSANDRA_RACK: "Rack1-K8Demo"

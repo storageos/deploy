@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cassandra
+  labels:
+    app: cassandra
+spec:
+  serviceName: cassandra
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cassandra
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      containers:
+      - name: cassandra
+        image: cassandra:3.11
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7000
+          name: intra-node
+        - containerPort: 7001
+          name: tls-intra-node
+        - containerPort: 7199
+          name: jmx
+        - containerPort: 9042
+          name: cql
+        resources:
+          limits:
+            cpu: "500m"
+            memory: 1Gi
+          requests:
+            cpu: "500m"
+            memory: 1Gi
+        securityContext:
+          capabilities:
+            add:
+              - IPC_LOCK
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - nodetool drain
+        envFrom:
+        - configMapRef:
+            name: cassandra
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - if [[ $(nodetool status | grep $POD_IP) == *"UN"* ]]; then exit 0; else exit 1; fi
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        volumeMounts:
+        - name: cassandra-data
+          mountPath: /var/lib/cassandra
+  volumeClaimTemplates:
+  - metadata:
+      name: cassandra-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: fast
+      resources:
+        requests:
+          storage: 5G
