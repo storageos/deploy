@@ -2,7 +2,7 @@
 # StorageOS docker image 
 
 repo: storageos/node
-version: 1.1.1
+version: 1.1.2
 
 etcd:
     type: embedded # or etcd. If etcd, you need to define etcd.addresses as well.
