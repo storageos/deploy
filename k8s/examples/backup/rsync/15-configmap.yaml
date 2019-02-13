@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: rsync-config
+    labels:
+      app: backup-example
+data:
+    rsyncd.conf: |
+      [global]
+      charset = utf-8
+      max connections = 8
+      reverse lookup = no
+
+      [share]
+      path = /share
+      read only = yes
+      #hosts allow = 192.168.0.0/16
+      auth users = username
+      secrets file = /etc/rsyncd.secrets
+---

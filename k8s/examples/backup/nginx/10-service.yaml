@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backup-example-nginx
+  labels:
+    app: backup-example-nginx
+spec:
+   selector:
+    app: backup-example-nginx
+   ports:
+   -
+     name: nginx
+     port: 80

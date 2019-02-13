@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: backup-example-nginx
+spec:
+  selector:
+    matchLabels:
+      app: backup-example-nginx
+  serviceName: "backup-example-nginx"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backup-example-nginx
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: main
+        image: debian:9-slim
+        command: ["/bin/sleep"]
+        args: ["infinity"]
+        volumeMounts:
+        - name: data-nginx
+          mountPath: /data
+      - name: nginx
+        image: nginx
+        ports:
+        -  containerPort: 80
+        volumeMounts:
+        - name: data-nginx
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+  volumeClaimTemplates:
+  - metadata:
+      name: data-nginx
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast"
+      resources:
+        requests:
+          storage: 5Gi

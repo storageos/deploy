@@ -5,17 +5,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: backup-example
+  name: backup-example-sftp
 spec:
   selector:
     matchLabels:
-      app: backup-example
-  serviceName: "backup-example"
+      app: backup-example-sftp
+  serviceName: "backup-example-sftp"
   replicas: 1
   template:
     metadata:
       labels:
-        app: backup-example
+        app: backup-example-sftp
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -24,36 +24,14 @@ spec:
         command: ["/bin/sleep"]
         args: ["infinity"]
         volumeMounts:
-        - name: data
+        - name: data-sftp
           mountPath: /data
-      - name: rsyncd
-        image: vimagick/rsyncd
-        volumeMounts:
-        - name: data
-          mountPath: /share
-        - name: rsync-config
-          mountPath: /etc/rsyncd.conf
-          subPath: rsyncd.conf
-        - name: rsync-secrets
-          mountPath: /etc/rsyncd.secrets
-          subPath: rsyncd.secrets
-        ports:
-        -  containerPort: 873
-      - name: nginx
-        image: nginx
-        ports:
-        -  containerPort: 80
-        volumeMounts:
-        - name: data
-          mountPath: /usr/share/nginx/html
-        - name: nginx-config
-          mountPath: /etc/nginx/conf.d
       - name: sftp
         image: atmoz/sftp:latest
         ports:
         - containerPort: 22
         volumeMounts:
-        - name: data
+        - name: data-sftp
           mountPath: /home/alex
         - name: sftp-config
           mountPath: /etc/sftp/users.conf
@@ -62,19 +40,6 @@ spec:
           mountPath: /home/alex/.ssh/keys/id_rsa.pub
           subPath: id_rsa.pub
       volumes:
-      - name: nginx-config
-        configMap:
-          name: nginx-config
-      - name: rsync-config
-        configMap:
-          name: rsync-config
-      - name: rsync-secrets
-        secret:
-          secretName: rsync-credentials
-          defaultMode: 0600
-          items:
-          - key: credentials
-            path: rsyncd.secrets
       - name: sftp-config
         secret:
           secretName: sftp-config
@@ -86,7 +51,7 @@ spec:
           name: ssh-key-pub
   volumeClaimTemplates:
   - metadata:
-      name: data
+      name: data-sftp
       labels:
         env: prod
     spec:

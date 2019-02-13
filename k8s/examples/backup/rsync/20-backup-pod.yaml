@@ -1,0 +1,63 @@
+# Create a pod with three containers:
+# main -
+# rsyncd - listening on port 873
+# nginx - listening on port 80
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: backup-example-rsync
+spec:
+  selector:
+    matchLabels:
+      app: backup-example-rsync
+  serviceName: "backup-example-rsync"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backup-example-rsync
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: main
+        image: debian:9-slim
+        command: ["/bin/sleep"]
+        args: ["infinity"]
+        volumeMounts:
+        - name: data-rsync
+          mountPath: /data
+      - name: rsyncd
+        image: vimagick/rsyncd
+        volumeMounts:
+        - name: data-rsync
+          mountPath: /share
+        - name: rsync-config
+          mountPath: /etc/rsyncd.conf
+          subPath: rsyncd.conf
+        - name: rsync-secrets
+          mountPath: /etc/rsyncd.secrets
+          subPath: rsyncd.secrets
+        ports:
+        -  containerPort: 873
+      volumes:
+      - name: rsync-config
+        configMap:
+          name: rsync-config
+      - name: rsync-secrets
+        secret:
+          secretName: rsync-credentials
+          defaultMode: 0600
+          items:
+          - key: credentials
+            path: rsyncd.secrets
+  volumeClaimTemplates:
+  - metadata:
+      name: data-rsync
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast"
+      resources:
+        requests:
+          storage: 5Gi
