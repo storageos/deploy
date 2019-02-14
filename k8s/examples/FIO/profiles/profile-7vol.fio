@@ -1,0 +1,17 @@
+[global]
+size=1GB
+runtime=20
+time_based=1
+ioengine=libaio
+direct=1
+random_generator=tausworthe
+random_distribution=random
+rw=randrw
+rwmixread=60
+rwmixwrite=40
+percentage_random=85
+bs=4k
+iodepth=128
+
+[7vols]
+filename=/mnt/pvc0/fio.dat:/mnt/pvc1/fio.dat:/mnt/pvc2/fio.dat:/mnt/pvc3/fio.dat:/mnt/pvc4/fio.dat:/mnt/pvc5/fio.dat:/mnt/pvc6/fio.dat

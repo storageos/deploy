@@ -1,0 +1,328 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-0
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-1
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-2
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-3
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-4
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-5
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-6
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-7
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-8
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-9
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-10
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-11
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-12
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-13
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-14
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-11345-15
+  namespace: default
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fio-16vol-blocksize
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: fio
+        image: senax/docker-fio:latest
+        command:
+          - "fio"
+          - "/tmp/profile-16vol-blocksize.fio"
+        volumeMounts:
+          - name: fio-conf
+            mountPath: /tmp/
+          - name: vol0
+            mountPath: /mnt/pvc0
+          - name: vol1
+            mountPath: /mnt/pvc1
+          - name: vol2
+            mountPath: /mnt/pvc2
+          - name: vol3
+            mountPath: /mnt/pvc3
+          - name: vol4
+            mountPath: /mnt/pvc4
+          - name: vol5
+            mountPath: /mnt/pvc5
+          - name: vol6
+            mountPath: /mnt/pvc6
+          - name: vol7
+            mountPath: /mnt/pvc7
+          - name: vol8
+            mountPath: /mnt/pvc8
+          - name: vol9
+            mountPath: /mnt/pvc9
+          - name: vol10
+            mountPath: /mnt/pvc10
+          - name: vol11
+            mountPath: /mnt/pvc11
+          - name: vol12
+            mountPath: /mnt/pvc12
+          - name: vol13
+            mountPath: /mnt/pvc13
+          - name: vol14
+            mountPath: /mnt/pvc14
+          - name: vol15
+            mountPath: /mnt/pvc15
+        resources:
+          requests:
+            cpu: 500m
+      volumes:
+      - name: fio-conf
+        configMap:
+          name: fio-profiles
+      - name: vol0
+        persistentVolumeClaim:
+          claimName: pvc-11345-0
+      - name: vol1
+        persistentVolumeClaim:
+          claimName: pvc-11345-1
+      - name: vol2
+        persistentVolumeClaim:
+          claimName: pvc-11345-2
+      - name: vol3
+        persistentVolumeClaim:
+          claimName: pvc-11345-3
+      - name: vol4
+        persistentVolumeClaim:
+          claimName: pvc-11345-4
+      - name: vol5
+        persistentVolumeClaim:
+          claimName: pvc-11345-5
+      - name: vol6
+        persistentVolumeClaim:
+          claimName: pvc-11345-6
+      - name: vol7
+        persistentVolumeClaim:
+          claimName: pvc-11345-7
+      - name: vol8
+        persistentVolumeClaim:
+          claimName: pvc-11345-8
+      - name: vol9
+        persistentVolumeClaim:
+          claimName: pvc-11345-9
+      - name: vol10
+        persistentVolumeClaim:
+          claimName: pvc-11345-10
+      - name: vol11
+        persistentVolumeClaim:
+          claimName: pvc-11345-11
+      - name: vol12
+        persistentVolumeClaim:
+          claimName: pvc-11345-12
+      - name: vol13
+        persistentVolumeClaim:
+          claimName: pvc-11345-13
+      - name: vol14
+        persistentVolumeClaim:
+          claimName: pvc-11345-14
+      - name: vol15
+        persistentVolumeClaim:
+          claimName: pvc-11345-15
