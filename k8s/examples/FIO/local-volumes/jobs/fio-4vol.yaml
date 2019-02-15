@@ -4,7 +4,7 @@ metadata:
   name: pvc-32279-0
   namespace: default
   labels:
-    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
+    storageos.com/hint.master: "$NODE"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -20,7 +20,7 @@ metadata:
   name: pvc-32279-1
   namespace: default
   labels:
-    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
+    storageos.com/hint.master: "$NODE"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -36,7 +36,7 @@ metadata:
   name: pvc-32279-2
   namespace: default
   labels:
-    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
+    storageos.com/hint.master: "$NODE"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -52,7 +52,7 @@ metadata:
   name: pvc-32279-3
   namespace: default
   labels:
-    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
+    storageos.com/hint.master: "$NODE"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -71,7 +71,7 @@ spec:
     spec:
       restartPolicy: Never
       nodeSelector:
-        kubernetes.io/hostname: "ip-10-0-12-177.eu-west-1.compute.internal"
+        kubernetes.io/hostname: "$NODE"
       containers:
       - name: fio
         image: senax/docker-fio:latest
