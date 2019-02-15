@@ -55,7 +55,9 @@ The profiles for testing use the following options to tune FIO.
     Display per-group reports instead of per-job when numjobs is specified.
 
 
-## Trigger and Generate test
+## Trigger and Generate tests
 
-- local volumes
-- remote and local volumes randomly distributed
+Follow the README for the following set of tests:
+
+- [Local volumes](./local-volumes)
+- [Remote and local volumes randomly distributed](./remote-local-volumes)
