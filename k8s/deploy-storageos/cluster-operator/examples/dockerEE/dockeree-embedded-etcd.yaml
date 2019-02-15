@@ -11,9 +11,9 @@ spec:
   resources:
     requests:
       memory: "512Mi"
-  nodeSelectorTerms:
-    - matchExpressions:
-      - key: "node-role.kubernetes.io/worker" # According to the labels you defined in your nodes
-        operator: In
-        values:
-        - ""
+  #nodeSelectorTerms:
+    #- matchExpressions:
+      #- key: "node-role.kubernetes.io/worker" # According to the labels you defined in your nodes
+        #operator: In
+        #values:
+        #- ""
