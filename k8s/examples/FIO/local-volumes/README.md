@@ -17,9 +17,7 @@ kubectl get node --show-labels
 > The Node selected should have enough capacity to host all the volumes
 > selected for the test.
 
-2. Generate tests
-
-### 4, 8, 16 and 32GB volumes
+2. Generate tests (4, 8, 16 and 32GB volumes)
 
 ```bash
 ~$ ./job-generator-per-volumecount.sh 4  $NODE_NAME1
