@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-0
+  name: pvc-15328-0
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-1
+  name: pvc-15328-1
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-2
+  name: pvc-15328-2
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -43,7 +43,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-3
+  name: pvc-15328-3
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-4
+  name: pvc-15328-4
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -71,7 +71,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-5
+  name: pvc-15328-5
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -85,7 +85,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-6
+  name: pvc-15328-6
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -99,7 +99,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-7
+  name: pvc-15328-7
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -113,7 +113,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-8
+  name: pvc-15328-8
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -127,7 +127,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-9
+  name: pvc-15328-9
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -141,7 +141,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-10
+  name: pvc-15328-10
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -155,7 +155,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-11
+  name: pvc-15328-11
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -169,7 +169,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-12
+  name: pvc-15328-12
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -183,7 +183,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-13
+  name: pvc-15328-13
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -197,7 +197,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-14
+  name: pvc-15328-14
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -211,7 +211,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-15
+  name: pvc-15328-15
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -225,7 +225,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-16
+  name: pvc-15328-16
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -239,7 +239,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-17
+  name: pvc-15328-17
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -253,7 +253,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-18
+  name: pvc-15328-18
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -267,7 +267,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-19
+  name: pvc-15328-19
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -281,7 +281,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-20
+  name: pvc-15328-20
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -295,7 +295,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-21
+  name: pvc-15328-21
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -309,7 +309,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-22
+  name: pvc-15328-22
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -323,7 +323,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-23
+  name: pvc-15328-23
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -337,7 +337,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-24
+  name: pvc-15328-24
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -351,7 +351,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-25
+  name: pvc-15328-25
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -365,7 +365,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-26
+  name: pvc-15328-26
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -379,7 +379,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-27
+  name: pvc-15328-27
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -393,7 +393,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-28
+  name: pvc-15328-28
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -407,7 +407,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-29
+  name: pvc-15328-29
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -421,7 +421,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-30
+  name: pvc-15328-30
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -435,7 +435,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-4843-31
+  name: pvc-15328-31
   namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
@@ -449,7 +449,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fio-32vol-iodepth
+  name: fio-32vol
 spec:
   template:
     spec:
@@ -459,7 +459,7 @@ spec:
         image: senax/docker-fio:latest
         command:
           - "fio"
-          - "/tmp/profile-32vol-iodepth.fio"
+          - "/tmp/profile-32vol.fio"
         volumeMounts:
           - name: fio-conf
             mountPath: /tmp/
@@ -536,97 +536,97 @@ spec:
           name: fio-profiles
       - name: vol0
         persistentVolumeClaim:
-          claimName: pvc-4843-0
+          claimName: pvc-15328-0
       - name: vol1
         persistentVolumeClaim:
-          claimName: pvc-4843-1
+          claimName: pvc-15328-1
       - name: vol2
         persistentVolumeClaim:
-          claimName: pvc-4843-2
+          claimName: pvc-15328-2
       - name: vol3
         persistentVolumeClaim:
-          claimName: pvc-4843-3
+          claimName: pvc-15328-3
       - name: vol4
         persistentVolumeClaim:
-          claimName: pvc-4843-4
+          claimName: pvc-15328-4
       - name: vol5
         persistentVolumeClaim:
-          claimName: pvc-4843-5
+          claimName: pvc-15328-5
       - name: vol6
         persistentVolumeClaim:
-          claimName: pvc-4843-6
+          claimName: pvc-15328-6
       - name: vol7
         persistentVolumeClaim:
-          claimName: pvc-4843-7
+          claimName: pvc-15328-7
       - name: vol8
         persistentVolumeClaim:
-          claimName: pvc-4843-8
+          claimName: pvc-15328-8
       - name: vol9
         persistentVolumeClaim:
-          claimName: pvc-4843-9
+          claimName: pvc-15328-9
       - name: vol10
         persistentVolumeClaim:
-          claimName: pvc-4843-10
+          claimName: pvc-15328-10
       - name: vol11
         persistentVolumeClaim:
-          claimName: pvc-4843-11
+          claimName: pvc-15328-11
       - name: vol12
         persistentVolumeClaim:
-          claimName: pvc-4843-12
+          claimName: pvc-15328-12
       - name: vol13
         persistentVolumeClaim:
-          claimName: pvc-4843-13
+          claimName: pvc-15328-13
       - name: vol14
         persistentVolumeClaim:
-          claimName: pvc-4843-14
+          claimName: pvc-15328-14
       - name: vol15
         persistentVolumeClaim:
-          claimName: pvc-4843-15
+          claimName: pvc-15328-15
       - name: vol16
         persistentVolumeClaim:
-          claimName: pvc-4843-16
+          claimName: pvc-15328-16
       - name: vol17
         persistentVolumeClaim:
-          claimName: pvc-4843-17
+          claimName: pvc-15328-17
       - name: vol18
         persistentVolumeClaim:
-          claimName: pvc-4843-18
+          claimName: pvc-15328-18
       - name: vol19
         persistentVolumeClaim:
-          claimName: pvc-4843-19
+          claimName: pvc-15328-19
       - name: vol20
         persistentVolumeClaim:
-          claimName: pvc-4843-20
+          claimName: pvc-15328-20
       - name: vol21
         persistentVolumeClaim:
-          claimName: pvc-4843-21
+          claimName: pvc-15328-21
       - name: vol22
         persistentVolumeClaim:
-          claimName: pvc-4843-22
+          claimName: pvc-15328-22
       - name: vol23
         persistentVolumeClaim:
-          claimName: pvc-4843-23
+          claimName: pvc-15328-23
       - name: vol24
         persistentVolumeClaim:
-          claimName: pvc-4843-24
+          claimName: pvc-15328-24
       - name: vol25
         persistentVolumeClaim:
-          claimName: pvc-4843-25
+          claimName: pvc-15328-25
       - name: vol26
         persistentVolumeClaim:
-          claimName: pvc-4843-26
+          claimName: pvc-15328-26
       - name: vol27
         persistentVolumeClaim:
-          claimName: pvc-4843-27
+          claimName: pvc-15328-27
       - name: vol28
         persistentVolumeClaim:
-          claimName: pvc-4843-28
+          claimName: pvc-15328-28
       - name: vol29
         persistentVolumeClaim:
-          claimName: pvc-4843-29
+          claimName: pvc-15328-29
       - name: vol30
         persistentVolumeClaim:
-          claimName: pvc-4843-30
+          claimName: pvc-15328-30
       - name: vol31
         persistentVolumeClaim:
-          claimName: pvc-4843-31
+          claimName: pvc-15328-31

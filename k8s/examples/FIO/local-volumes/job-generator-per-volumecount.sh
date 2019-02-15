@@ -5,10 +5,19 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+if [ -z "$2" ]; then
+    echo "Node not defined (volume hint, nodeSelector)"
+fi
+
 num_vols="$1"
+node="$2"
 pvc_prefix="$RANDOM"
 profile="profile-${num_vols}vol.fio"
-manifest="./fio-${num_vols}vol.yaml"
+manifest="./jobs/fio-${num_vols}vol.yaml"
+
+if [ -f "$manifest" ]; then
+    rm -f "$manifest"
+fi
 
 for v in $(seq 0 $((--num_vols))); do
     cat <<END >> $manifest
@@ -17,6 +26,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: pvc-${pvc_prefix}-$v
   namespace: default
+  labels:
+    storageos.com/hint.master: "$node"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -40,6 +51,8 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/hostname: "$node"
       containers:
       - name: fio
         image: senax/docker-fio:latest
@@ -66,7 +79,7 @@ cat <<"END" >> $manifest
       volumes:
       - name: fio-conf
         configMap:
-          name: fio-profiles
+          name: fio-profiles-local
 END
 
 
@@ -80,12 +93,7 @@ END
 done
 
 
-fio_files="/mnt/pvc0/fio.dat"
-for v in $(seq 1 $((--num_vols))); do
-    fio_files="$fio_files:/mnt/pvc$v/fio.dat"
-done
-
-cat <<END >> ../profiles/$profile
+cat <<END > ./profiles/$profile
 [global]
 size=1GB
 runtime=20
@@ -99,8 +107,17 @@ rwmixread=60
 rwmixwrite=40
 percentage_random=85
 bs=4k
-iodepth=128
-
-[${num_vols}vols]
-filename=$fio_files
+iodepth=16
+log_avg_msec=250
+group_reporting=1
 END
+
+for v in $(seq 0 $((--num_vols))); do
+    cat <<END >>  ./profiles/$profile
+
+[vol$v]
+filename=/mnt/pvc$v/fio.dat
+END
+
+done
+

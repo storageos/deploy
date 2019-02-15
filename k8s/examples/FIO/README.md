@@ -45,10 +45,17 @@ The profiles for testing use the following options to tune FIO.
     - Percentage of a mixed workload that should be reads
     - Percentage of a mixed workload that should be writes
 
+- log_avg_msec
+    Set to 250ms. FIO will log an entry in the iops, latency, or bw log for every IO
+    that completes. When writing to the disk log, that can quickly grow to a very
+    large size. Setting this option makes fio average the each log entry over the
+    specified period of time
 
-## Trigger benchmarks
-
-The profiles are created as ConfigMaps. Those will be mounted in the FIO
-container to start the execution.
+- Group Reporting
+    Display per-group reports instead of per-job when numjobs is specified.
 
 
+## Trigger and Generate test
+
+- local volumes
+- remote and local volumes randomly distributed

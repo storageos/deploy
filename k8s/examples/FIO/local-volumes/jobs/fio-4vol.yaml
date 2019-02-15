@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-3910-0
+  name: pvc-32279-0
   namespace: default
+  labels:
+    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -15,8 +17,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-3910-1
+  name: pvc-32279-1
   namespace: default
+  labels:
+    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -29,8 +33,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-3910-2
+  name: pvc-32279-2
   namespace: default
+  labels:
+    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -43,8 +49,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-3910-3
+  name: pvc-32279-3
   namespace: default
+  labels:
+    storageos.com/hint.master: "ip-10-0-12-177.eu-west-1.compute.internal"
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -57,17 +65,19 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fio-4vol-iodepth
+  name: fio-4vol
 spec:
   template:
     spec:
       restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/hostname: "ip-10-0-12-177.eu-west-1.compute.internal"
       containers:
       - name: fio
         image: senax/docker-fio:latest
         command:
           - "fio"
-          - "/tmp/profile-4vol-iodepth.fio"
+          - "/tmp/profile-4vol.fio"
         volumeMounts:
           - name: fio-conf
             mountPath: /tmp/
@@ -85,16 +95,16 @@ spec:
       volumes:
       - name: fio-conf
         configMap:
-          name: fio-profiles
+          name: fio-profiles-local
       - name: vol0
         persistentVolumeClaim:
-          claimName: pvc-3910-0
+          claimName: pvc-32279-0
       - name: vol1
         persistentVolumeClaim:
-          claimName: pvc-3910-1
+          claimName: pvc-32279-1
       - name: vol2
         persistentVolumeClaim:
-          claimName: pvc-3910-2
+          claimName: pvc-32279-2
       - name: vol3
         persistentVolumeClaim:
-          claimName: pvc-3910-3
+          claimName: pvc-32279-3
