@@ -1,8 +1,8 @@
 # Create jobs
 
-The volumes in this tests will scatter across nodes, therefore some volumes
-might be local to the FIO Pod and some remote. To test using local volumes,
-check the suggested tests in `../local-volumes/`.
+The volumes in this tests will be created without node selectors or hints,
+therefore some volumes may be local to the FIO Pod and some remote. To test
+using local volumes, look at the suggested tests in `../local-volumes/`.
 
 ## Tests suggested
 
@@ -41,7 +41,7 @@ injected into the Job.
 ~$ kubectl -n storageos exec cli -- storageos volume ls
 
 
-# Verify that the Pod is running in the same Node
+# Verify that the Pod is running
 ~$ kubectl get pod -owide
 ```
 
@@ -53,9 +53,9 @@ injected into the Job.
 
 ## Generate tests
 
-Initial test specs are defined already in the jobs and profiles directory.
-However, those are examples. In case of wanting other setups, you can generate
-the tests with the Job Generator.
+Initial test specs are already defined in the jobs and profiles directories.
+However, those are supplied as examples. If you wish to test other setups, you
+can generate the tests with the Job Generator.
 
 ### 4, 8, 16 and 32GB volumes
 
@@ -73,5 +73,5 @@ concurrent volumes to be used in the test.
 The Job Generator creates a Job in `./jobs/` for each execution and its
 according FIO profile file `./profiles/`.
 
-You can edit the FIO profile according to tests you want to execute and upload
-the ConfigMap again executing `./upload-fio-profiles.sh`
+You can edit the FIO profile to supply your own FIO parameters and upload
+the ConfigMap again by executing `./upload-fio-profiles.sh`.

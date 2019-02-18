@@ -1,12 +1,12 @@
 # Create jobs
 
-The script `job-generator-per-volumecount.sh` takes by parameter the number of
-concurrent volumes to be used in the test and the Node where the volumes and
-Pods should try to be allocated.
+The script `job-generator-per-volumecount.sh` takes an argument for the number
+of concurrent volumes to be used in the test and an argument for the name of
+the node where the volumes and pods will attempt to be allocated.
 
 ## Tests suggested
 
-1. Get the node where the volumes and the Pod should be collocated.
+1. Get the node name where the volumes and the Pod should be collocated.
 
 ```bash
 kubectl get node --show-labels
@@ -14,10 +14,11 @@ kubectl get node --show-labels
 
 > The Node name and the label `kubernetes.io/hostname` have to match.
 
-> The Node selected should have enough capacity to host all the volumes
-> selected for the test.
+> The Node selected must have enough capacity to host all the volumes
+> created for the test.
 
-2. Generate tests (4, 8, 16 and 32GB volumes)
+2. Generate tests (4, 8, 16 and 32 volumes)
+
 
 ```bash
 ~$ ./job-generator-per-volumecount.sh 4  $NODE_NAME1
@@ -27,7 +28,8 @@ kubectl get node --show-labels
 ```
 
 The Job Generator creates a Job in `./jobs/` for each execution and its
-according FIO profile file `./profiles/`.
+according FIO profile file `./profiles/`. You can change the size of the
+volumes by editing the ./jobs file.
 
 3. Upload FIO profiles as ConfigMaps
 
