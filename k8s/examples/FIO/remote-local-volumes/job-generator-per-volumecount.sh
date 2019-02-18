@@ -20,7 +20,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-${pvc_prefix}-$v
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:

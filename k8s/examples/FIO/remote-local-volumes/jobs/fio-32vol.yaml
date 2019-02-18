@@ -2,7 +2,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-0
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -16,7 +15,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-1
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -30,7 +28,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-2
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -44,7 +41,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-3
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -58,7 +54,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-4
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -72,7 +67,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-5
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -86,7 +80,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-6
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -100,7 +93,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-7
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -114,7 +106,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-8
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -128,7 +119,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-9
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -142,7 +132,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-10
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -156,7 +145,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-11
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -170,7 +158,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-12
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -184,7 +171,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-13
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -198,7 +184,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-14
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -212,7 +197,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-15
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -226,7 +210,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-16
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -240,7 +223,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-17
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -254,7 +236,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-18
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -268,7 +249,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-19
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -282,7 +262,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-20
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -296,7 +275,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-21
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -310,7 +288,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-22
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -324,7 +301,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-23
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -338,7 +314,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-24
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -352,7 +327,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-25
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -366,7 +340,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-26
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -380,7 +353,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-27
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -394,7 +366,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-28
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -408,7 +379,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-29
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -422,7 +392,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-30
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -436,7 +405,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-15328-31
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:

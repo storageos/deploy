@@ -2,7 +2,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-0
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -16,7 +15,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-1
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -30,7 +28,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-2
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -44,7 +41,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-3
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -58,7 +54,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-4
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -72,7 +67,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-5
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -86,7 +80,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-6
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -100,7 +93,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-7
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -114,7 +106,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-8
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -128,7 +119,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-9
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -142,7 +132,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-10
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -156,7 +145,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-11
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -170,7 +158,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-12
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -184,7 +171,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-13
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -198,7 +184,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-14
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -212,7 +197,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-9564-15
-  namespace: default
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:

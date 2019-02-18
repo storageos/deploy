@@ -2,7 +2,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-32279-0
-  namespace: default
   labels:
     storageos.com/hint.master: "$NODE"
   annotations:
@@ -18,7 +17,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-32279-1
-  namespace: default
   labels:
     storageos.com/hint.master: "$NODE"
   annotations:
@@ -34,7 +32,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-32279-2
-  namespace: default
   labels:
     storageos.com/hint.master: "$NODE"
   annotations:
@@ -50,7 +47,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-32279-3
-  namespace: default
   labels:
     storageos.com/hint.master: "$NODE"
   annotations:

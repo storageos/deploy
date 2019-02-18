@@ -25,7 +25,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-${pvc_prefix}-$v
-  namespace: default
   labels:
     storageos.com/hint.master: "$node"
   annotations:
