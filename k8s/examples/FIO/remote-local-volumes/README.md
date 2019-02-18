@@ -57,7 +57,7 @@ Initial test specs are already defined in the jobs and profiles directories.
 However, those are supplied as examples. If you wish to test other setups, you
 can generate the tests with the Job Generator.
 
-### 4, 8, 16 and 32GB volumes
+### 4, 8, 16 and 32 volumes
 
 
 The script `job-generator-per-volumecount.sh` takes by parameter the number of
@@ -71,7 +71,8 @@ concurrent volumes to be used in the test.
 ```
 
 The Job Generator creates a Job in `./jobs/` for each execution and its
-according FIO profile file `./profiles/`.
+according FIO profile file `./profiles/`. You can change the size of the
+volumes by editing the ./jobs file.
 
 You can edit the FIO profile to supply your own FIO parameters and upload
 the ConfigMap again by executing `./upload-fio-profiles.sh`.
