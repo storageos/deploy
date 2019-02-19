@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-5846-0
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-5846-1
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-5846-2
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-5846-3
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fio-4vol
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: fio
+        image: senax/docker-fio:latest
+        command:
+          - "fio"
+          - "/tmp/profile-4vol.fio"
+        volumeMounts:
+          - name: fio-conf
+            mountPath: /tmp/
+          - name: vol0
+            mountPath: /mnt/pvc0
+          - name: vol1
+            mountPath: /mnt/pvc1
+          - name: vol2
+            mountPath: /mnt/pvc2
+          - name: vol3
+            mountPath: /mnt/pvc3
+        resources:
+          requests:
+            cpu: 500m
+      volumes:
+      - name: fio-conf
+        configMap:
+          name: fio-profiles
+      - name: vol0
+        persistentVolumeClaim:
+          claimName: pvc-5846-0
+      - name: vol1
+        persistentVolumeClaim:
+          claimName: pvc-5846-1
+      - name: vol2
+        persistentVolumeClaim:
+          claimName: pvc-5846-2
+      - name: vol3
+        persistentVolumeClaim:
+          claimName: pvc-5846-3
