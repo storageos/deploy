@@ -1,0 +1,168 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-0
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-1
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-2
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-3
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-4
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-5
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-6
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-6450-7
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fio-8vol
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: fio
+        image: senax/docker-fio:latest
+        command:
+          - "fio"
+          - "/tmp/profile-8vol.fio"
+        volumeMounts:
+          - name: fio-conf
+            mountPath: /tmp/
+          - name: vol0
+            mountPath: /mnt/pvc0
+          - name: vol1
+            mountPath: /mnt/pvc1
+          - name: vol2
+            mountPath: /mnt/pvc2
+          - name: vol3
+            mountPath: /mnt/pvc3
+          - name: vol4
+            mountPath: /mnt/pvc4
+          - name: vol5
+            mountPath: /mnt/pvc5
+          - name: vol6
+            mountPath: /mnt/pvc6
+          - name: vol7
+            mountPath: /mnt/pvc7
+        resources:
+          requests:
+            cpu: 500m
+      volumes:
+      - name: fio-conf
+        configMap:
+          name: fio-profiles
+      - name: vol0
+        persistentVolumeClaim:
+          claimName: pvc-6450-0
+      - name: vol1
+        persistentVolumeClaim:
+          claimName: pvc-6450-1
+      - name: vol2
+        persistentVolumeClaim:
+          claimName: pvc-6450-2
+      - name: vol3
+        persistentVolumeClaim:
+          claimName: pvc-6450-3
+      - name: vol4
+        persistentVolumeClaim:
+          claimName: pvc-6450-4
+      - name: vol5
+        persistentVolumeClaim:
+          claimName: pvc-6450-5
+      - name: vol6
+        persistentVolumeClaim:
+          claimName: pvc-6450-6
+      - name: vol7
+        persistentVolumeClaim:
+          claimName: pvc-6450-7
