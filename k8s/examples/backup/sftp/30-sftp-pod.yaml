@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sftp
+spec:
+  containers:
+    - name: sftp
+      image: atmoz/sftp
+      ports:
+        - containerPort: 22
+      volumeMounts:
+      - name: sftp-config
+        mountPath: /etc/sftp/users.conf
+        subPath: users.conf
+      - name: ssh-key-private
+        mountPath: /home/alex/.ssh/id_rsa
+        subPath: id_rsa
+  volumes:
+  - name: sftp-config
+    configMap:
+      name: sftp-config
+  - name: ssh-key-private
+    secret:
+      secretName: ssh-key-private
+      defaultMode: 0600
+      items:
+      - key: credentials
+        path: id_rsa

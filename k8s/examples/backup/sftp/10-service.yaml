@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backup-example-sftp
+  labels:
+    app: backup-example-sftp
+spec:
+   selector:
+    app: backup-example-sftp
+   ports:
+   -
+    name: sshd
+    port: 22
+

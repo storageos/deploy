@@ -14,4 +14,4 @@ spec:
   volumes:
     - name: v1
       persistentVolumeClaim:
-        claimName: my-vol-1
+        claimName: data-backup-example-0

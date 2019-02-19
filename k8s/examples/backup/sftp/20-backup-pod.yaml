@@ -1,0 +1,62 @@
+# Create a pod with three containers:
+# main -
+# rsyncd - listening on port 873
+# nginx - listening on port 80
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: backup-example-sftp
+spec:
+  selector:
+    matchLabels:
+      app: backup-example-sftp
+  serviceName: "backup-example-sftp"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backup-example-sftp
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: main
+        image: debian:9-slim
+        command: ["/bin/sleep"]
+        args: ["infinity"]
+        volumeMounts:
+        - name: data-sftp
+          mountPath: /data
+      - name: sftp
+        image: atmoz/sftp:latest
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - name: data-sftp
+          mountPath: /home/alex
+        - name: sftp-config
+          mountPath: /etc/sftp/users.conf
+          subPath: users.conf 
+        - name: ssh-key
+          mountPath: /home/alex/.ssh/keys/id_rsa.pub
+          subPath: id_rsa.pub
+      volumes:
+      - name: sftp-config
+        secret:
+          secretName: sftp-config
+          items:
+          - key: users.conf
+            path: users.conf
+      - name: ssh-key
+        configMap:
+          name: ssh-key-pub
+  volumeClaimTemplates:
+  - metadata:
+      name: data-sftp
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast"
+      resources:
+        requests:
+          storage: 5Gi
