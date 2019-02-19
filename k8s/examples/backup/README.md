@@ -149,8 +149,8 @@ root@backup-example-0:/# echo $(date) > /data/date.txt
 1. Check that the service exists
 ```bash
 $ kubectl get svc backup-example-sftp
-NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-backup-example-nginx   ClusterIP   100.65.18.199   <none>        80/TCP    46s
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+backup-example-sftp   ClusterIP   100.70.50.56    <none>        22/TCP    46s
 ```
 
 1. Use SFTP to access the files shared by the SFTP container. If you have made
