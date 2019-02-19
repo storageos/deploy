@@ -1,0 +1,312 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-0
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-1
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-2
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-3
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-4
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-5
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-6
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-7
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-8
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-9
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-10
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-11
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-12
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-13
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-14
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-9564-15
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fio-16vol
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: fio
+        image: senax/docker-fio:latest
+        command:
+          - "fio"
+          - "/tmp/profile-16vol.fio"
+        volumeMounts:
+          - name: fio-conf
+            mountPath: /tmp/
+          - name: vol0
+            mountPath: /mnt/pvc0
+          - name: vol1
+            mountPath: /mnt/pvc1
+          - name: vol2
+            mountPath: /mnt/pvc2
+          - name: vol3
+            mountPath: /mnt/pvc3
+          - name: vol4
+            mountPath: /mnt/pvc4
+          - name: vol5
+            mountPath: /mnt/pvc5
+          - name: vol6
+            mountPath: /mnt/pvc6
+          - name: vol7
+            mountPath: /mnt/pvc7
+          - name: vol8
+            mountPath: /mnt/pvc8
+          - name: vol9
+            mountPath: /mnt/pvc9
+          - name: vol10
+            mountPath: /mnt/pvc10
+          - name: vol11
+            mountPath: /mnt/pvc11
+          - name: vol12
+            mountPath: /mnt/pvc12
+          - name: vol13
+            mountPath: /mnt/pvc13
+          - name: vol14
+            mountPath: /mnt/pvc14
+          - name: vol15
+            mountPath: /mnt/pvc15
+        resources:
+          requests:
+            cpu: 500m
+      volumes:
+      - name: fio-conf
+        configMap:
+          name: fio-profiles
+      - name: vol0
+        persistentVolumeClaim:
+          claimName: pvc-9564-0
+      - name: vol1
+        persistentVolumeClaim:
+          claimName: pvc-9564-1
+      - name: vol2
+        persistentVolumeClaim:
+          claimName: pvc-9564-2
+      - name: vol3
+        persistentVolumeClaim:
+          claimName: pvc-9564-3
+      - name: vol4
+        persistentVolumeClaim:
+          claimName: pvc-9564-4
+      - name: vol5
+        persistentVolumeClaim:
+          claimName: pvc-9564-5
+      - name: vol6
+        persistentVolumeClaim:
+          claimName: pvc-9564-6
+      - name: vol7
+        persistentVolumeClaim:
+          claimName: pvc-9564-7
+      - name: vol8
+        persistentVolumeClaim:
+          claimName: pvc-9564-8
+      - name: vol9
+        persistentVolumeClaim:
+          claimName: pvc-9564-9
+      - name: vol10
+        persistentVolumeClaim:
+          claimName: pvc-9564-10
+      - name: vol11
+        persistentVolumeClaim:
+          claimName: pvc-9564-11
+      - name: vol12
+        persistentVolumeClaim:
+          claimName: pvc-9564-12
+      - name: vol13
+        persistentVolumeClaim:
+          claimName: pvc-9564-13
+      - name: vol14
+        persistentVolumeClaim:
+          claimName: pvc-9564-14
+      - name: vol15
+        persistentVolumeClaim:
+          claimName: pvc-9564-15
