@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test-mount-propagation
+spec:
+  restartPolicy: "Never"
+  containers:
+  - name: pod
+    image: busybox:1.30
+    command:
+      - "/bin/date"
+    securityContext:
+      privileged: true
+    volumeMounts:
+      - name: test
+        mountPath: "/mnt"
+        mountPropagation: Bidirectional
+  volumes:
+  - name: test
+    hostPath:
+      path: /mnt
