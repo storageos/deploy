@@ -7,7 +7,7 @@ spec:
 #    kubernetes.io/hostname: node01
   containers:
   - name: pod
-    image: gcr.io/google_containers/busybox:1.24
+    image: busybox:1.30
     command:
       - "/bin/sh"
     args:
