@@ -1,0 +1,38 @@
+apiVersion: "etcd.database.coreos.com/v1beta2"
+kind: "EtcdCluster"
+metadata:
+  name: "storageos-etcd"
+spec:
+  size: 3
+  version: "3.3.11"
+  pod:
+    resources:
+      requests: # requests == limits results in high QoS
+        cpu: 1
+        memory: 3G
+      limits:
+        cpu: 1
+        memory: 3G
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 9000
+      fsGroup: 9000
+    nodeSelector:
+      role: "etcd"
+    tolerations:
+    - key: "role"
+      operator: "Equal"
+      value: "storage"
+      effect: "NoSchedule"
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: etcd_cluster
+                operator: In
+                values:
+                - storageos-etcd
+            topologyKey: "failure-domain.beta.kubernetes.io/zone"
