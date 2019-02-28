@@ -25,26 +25,34 @@ $ kubectl get pods -w -l app=nginx
    nginx-0     1/1      Running    0          1m
 ```
 
+Connect to the nginx pod and write a file to /usr/share/nginx/html that Nginx
+will serve.
+
+```bash
+$ kubectl exec nginx-0 -it -- bash
+root@nginx-0:/# echo Hello world! > /usr/share/nginx/html/greetings.txt
+```
+
 Connect to the BusyBox pod and connect to the Nginx server through the
 service.
 
 ```bash
 $ kubectl exec -it busybox -- /bin/sh
-/ # /bin/busybox wget nginx
-Connecting to nginx (100.65.25.183:80)
-index.html           100% |**********************************************************************|   367  0:00:00 ETA
-/ # cat index.html
+/ # wget -q -O- nginx
 <html>
 <head><title>Index of /</title></head>
 <body>
 <h1>Index of /</h1><hr><pre><a href="../">../</a>
-<a href="helloworld.txt">helloworld.txt</a>                                     06-Nov-2018 14:42                  12
-<a href="test.txt">test.txt</a>                                           06-Nov-2018 14:54                  16
+<a href="greetings.txt">greetings.txt</a>
+27-Feb-2019 12:04                  13                                                                        
 </pre><hr></body>
 </html>
-
 ```
 
-Depending on what files you have written to the StorageOS volume the output of
-the index file will be different. In the example above two txt files were
-present on the volume.
+Display the contents of the greetings.txt file
+```bash
+/ # wget -q -O- nginx/greetings.txt
+Hello world!
+```
+The output of the first command shows a directory index containing the
+greetings.txt file and the second command displays the content of the file.
