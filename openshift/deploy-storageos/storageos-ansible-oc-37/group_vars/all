@@ -2,7 +2,7 @@
 # StorageOS docker image 
 
 repo: storageos/node
-version: 1.1.3
+version: 1.1.4
 secret_name: storageos-api
 storageclass_name: fast
 secret_namespace: default
