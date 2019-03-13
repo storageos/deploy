@@ -6,9 +6,6 @@ spec:
   size: 3
   version: "3.3.11"
   pod:
-    annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "2379"
     etcdEnv:
     - name: ETCD_QUOTA_BACKEND_BYTES
       value: "8589934592"  # 8 GB 
