@@ -1,0 +1,22 @@
+---
+# Source: zookeeper/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  labels:
+    app: zookeeper
+    chart: zookeeper-1.2.2
+    release: zookeeper
+    heritage: Tiller
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+    - name: client
+      port: 2181
+      protocol: TCP
+      targetPort: client
+  selector:
+    app: zookeeper
+    release: zookeeper

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zookeeper-test-client
+  namespace: default
+spec:
+  containers:
+    - name: zook-client
+      image: gcr.io/google_samples/k8szk:v3
+      command:
+        - sh
+        - -c
+        - "exec tail -f /dev/null"
