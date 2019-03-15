@@ -6,9 +6,6 @@ metadata:
   name: kafka-headless
   labels:
     app: kafka
-    chart: kafka-0.13.8
-    release: kafka
-    heritage: Tiller
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
 spec:
@@ -18,4 +15,3 @@ spec:
   clusterIP: None
   selector:
     app: kafka
-    release: kafka

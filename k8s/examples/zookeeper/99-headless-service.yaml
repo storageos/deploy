@@ -6,9 +6,6 @@ metadata:
   name: zookeeper-headless
   labels:
     app: zookeeper
-    chart: zookeeper-1.2.2
-    release: zookeeper
-    heritage: Tiller
 spec:
   clusterIP: None
   ports:
@@ -26,4 +23,3 @@ spec:
       protocol: TCP
   selector:
     app: zookeeper
-    release: zookeeper

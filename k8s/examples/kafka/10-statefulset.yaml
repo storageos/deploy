@@ -5,9 +5,6 @@ metadata:
   name: kafka
   labels:
     app: kafka
-    chart: kafka-0.13.8
-    release: kafka
-    heritage: Tiller
 spec:
   serviceName: kafka-headless
   podManagementPolicy: OrderedReady
@@ -21,7 +18,6 @@ spec:
       # prometheus.io/port: "5556"
       labels:
         app: kafka
-        release: kafka
     spec:
       serviceAccountName: kafka
       containers:

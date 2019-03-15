@@ -7,9 +7,6 @@ metadata:
   name: kafka-metrics
   labels:
     app: kafka
-    chart: kafka-0.13.8
-    release: kafka
-    heritage: Tiller
 data:
   jmx-kafka-prometheus.yml: |+
     jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:5555/jmxrmi

@@ -6,14 +6,10 @@ metadata:
   name: zookeeper
   labels:
     app: zookeeper
-    chart: zookeeper-1.2.2
-    release: zookeeper
-    heritage: Tiller
     component: server
 spec:
   selector:
     matchLabels:
       app: zookeeper
-      release: zookeeper
       component: server
   maxUnavailable: 1

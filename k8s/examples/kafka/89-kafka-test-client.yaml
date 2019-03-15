@@ -8,6 +8,13 @@ spec:
   containers:
     - name: kafka
       image: confluentinc/cp-kafka:5.0.1
+      # resources:
+      #   requests:
+      #     cpu: 50m
+      #     memory: 250Mi
+      #   limits:
+      #     cpu: 500m
+      #     memory: 1Gi
       command:
         - sh
         - -c

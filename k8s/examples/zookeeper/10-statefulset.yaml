@@ -6,9 +6,6 @@ metadata:
   name: zookeeper
   labels:
     app: zookeeper
-    chart: zookeeper-1.2.2
-    release: zookeeper
-    heritage: Tiller
     component: server
 spec:
   serviceName: zookeeper-headless
@@ -16,7 +13,6 @@ spec:
   selector:
     matchLabels:
       app: zookeeper
-      release: zookeeper
       component: server
   updateStrategy:
     type: OnDelete
@@ -24,7 +20,6 @@ spec:
     metadata:
       labels:
         app: zookeeper
-        release: zookeeper
         component: server
     spec:
       terminationGracePeriodSeconds: 1800
