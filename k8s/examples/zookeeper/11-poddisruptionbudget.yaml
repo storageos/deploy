@@ -1,5 +1,4 @@
 ---
-# Source: zookeeper/templates/poddisruptionbudget.yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:

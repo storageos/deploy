@@ -1,5 +1,4 @@
 ---
-# Source: zookeeper/templates/service-headless.yaml
 apiVersion: v1
 kind: Service
 metadata:

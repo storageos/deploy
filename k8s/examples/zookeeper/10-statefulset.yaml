@@ -1,5 +1,4 @@
 ---
-# Source: zookeeper/templates/statefulset.yaml
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
