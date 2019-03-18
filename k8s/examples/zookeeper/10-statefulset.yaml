@@ -21,6 +21,7 @@ spec:
         app: zookeeper
         component: server
     spec:
+      serviceAccountName: zookeeper
       terminationGracePeriodSeconds: 1800
       securityContext:
         fsGroup: 1000
