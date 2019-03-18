@@ -1,0 +1,15 @@
+---
+# Source: kafka/templates/service-brokers.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+  labels:
+    app: kafka
+spec:
+  ports:
+    - name: broker
+      port: 9092
+      targetPort: kafka
+  selector:
+    app: kafka
