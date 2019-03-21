@@ -1,0 +1,20 @@
+{
+    "CN": "etcd peer",
+    "hosts": [
+        "*.storageos-etcd-cluster.etcd.svc",
+        "*.storageos-etcd-cluster.etcd.svc.cluster.local",
+        "localhost"
+    ],
+    "key": {
+        "algo": "ecdsa",
+        "size": 256
+    },
+    "names": [
+        {
+            "C": "US",
+            "L": "CA",
+            "ST": "San Francisco"
+        }
+    ]
+}
+
