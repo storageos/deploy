@@ -1,0 +1,22 @@
+apiVersion: "storageos.com/v1alpha1"
+kind: "StorageOSCluster"
+metadata:
+  name: "storageos"
+spec:
+  secretRefName: "storageos-api" # Reference from the Secret created in the previous step
+  secretRefNamespace: "default"  # Namespace of the Secret
+  images:
+    nodeContainer: "storageos/node:1.1.4"
+  kvBackend:
+    address: 'storageos-etcd-client.etcd:2379' # Example address, change for your etcd endpoint
+    backend: 'etcd'
+  sharedDir: '/var/lib/kubelet/volumeplugins/kubernetes.io~storageos' # Needed when Kubelet as a container
+  resources:
+    requests:
+      memory: "512Mi"
+  #nodeSelectorTerms:
+    #- matchExpressions:
+      #- key: "node-role.kubernetes.io/compute"  # According to the labels you defined in your nodes
+        #operator: In
+        #values:
+        #- ""
