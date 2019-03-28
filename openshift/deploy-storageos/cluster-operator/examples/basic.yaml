@@ -1,5 +1,5 @@
-apiVersion: "storageos.com/v1alpha1"
-kind: "StorageOSCluster"
+apiVersion: "storageos.com/v1"
+kind: StorageOSCluster
 metadata:
   name: "storageos"
 spec:
