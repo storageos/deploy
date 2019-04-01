@@ -35,7 +35,7 @@ spec:
             - SYS_ADMIN
       containers:
       - name: storageos
-        image: "storageos/node:1.1.4"
+        image: "storageos/node:1.1.5"
         imagePullPolicy: IfNotPresent
         args:
         - server
