@@ -86,7 +86,7 @@ done
 cat <<END > ./profiles/$profile
 [global]
 size=1GB
-runtime=20
+runtime=600
 time_based=1
 ioengine=libaio
 direct=1
