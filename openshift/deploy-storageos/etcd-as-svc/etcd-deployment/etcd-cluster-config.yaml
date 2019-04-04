@@ -6,6 +6,25 @@ spec:
   size: 3
   version: "3.3.11"
   pod:
+    etcdEnv:
+    - name: ETCD_QUOTA_BACKEND_BYTES
+      value: "8589934592"  # 8 GB 
+    - name: ETCD_AUTO_COMPACTION_RETENTION
+      value: "2" # 2 hours
+#    persistentVolumeClaimSpec:
+#      storageClassName: gp2
+#      accessModes:
+#      - ReadWriteOnce
+#      resources:
+#        requests:
+#          storage: 10Gi
+#  For relevant clusters, you want guaranteed QoS "requests == limits"
+#    requests:
+#      cpu: 2
+#      memory: 4G
+#    limits:
+#      cpu: 2
+#      memory: 4G
     resources:
       requests:
         cpu: 200m
@@ -14,6 +33,12 @@ spec:
       runAsNonRoot: true
       runAsUser: 9000
       fsGroup: 9000
+#  Tolerations example
+#    tolerations:
+#    - key: "role"
+#      operator: "Equal"
+#      value: "etcd"
+#      effect: "NoExecute"
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -26,4 +51,3 @@ spec:
                 values:
                 - storageos-etcd
             topologyKey: kubernetes.io/hostname
-
