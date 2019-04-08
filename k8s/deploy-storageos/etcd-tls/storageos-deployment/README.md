@@ -1,54 +1,33 @@
-## ETCD
+# StorageOS Installation with mTLS secured etcd
 
-StorageOS uses etcd to keep cluster consistency. By default StorageOS uses an
-embedded installation of etcd. However, this installation permits you to use
-services in Kubernetes to reference a non embedded etcd cluster.
+## StorageOS Operator Installation
 
-> The maintenance of the etcd cluster is out of the scope of StorageOS. It is
-> mandatory that the user handle backups, and ensure high availability. The
-> deployment of the etcd cluster aims to be an example.
+In order to install StorageOS and get it to use the newly configured etcd
+cluster the StorageOS operator should be used to control the installation of
+StorageOS. 
 
-# Deploy StorageOS
+If you have not done so already then install the [StorageOS
+Operator](https://docs.storageos.com/docs/reference/cluster-operator/). The
+instructions to do so are located in the directory: ../../cluster-operator/
 
-Once you have deployed the etcd cluster, run the script `deploy-storageos.sh`
-to run a StorageOS cluster deployed in its own namespace with a DaemonSet and
-RBAC support.
+Once the operator is installed and the required secret has been created you can
+create the StorageOS Cluster Resource located in this folder.
 
-The StorageOS SVC cluster IP is discovered when running the `deploy-storageos.sh`
-and populates the ConfigMap `manifests/005_config.yaml_template`.
+1. Create the StorageOS Cluster resource
+    ```bash
+    kubectl create -f storageoscluster_cr.yaml
+    ```
 
-> By running the `cleanup.sh` the StorageOS cluster will be removed. The data
-> will remain present if you run `deploy-storageos.sh` script again. Stopping or
-> loosing a node can corrupt the state of cluster and cause data to be lost.
+# Cleaning up
 
-The manifest yaml files can be found in the manifests dir. There are two kind
-of files, .yaml and .yaml_template. The templates are used as base to set the
-API address so the StorageClass can connect to the StorageOS cluster, and the
-JOIN variable to discover cluster nodes that is set to all internal IPs of your
-Kubernetes cluster. Currently the `deploy-storageos.sh` queries all the nodes'
-internal IPs of your Kubernetes cluster. If you don't run workloads and
-StorageOS on the Kubernetes masters add a label to the query so the
-JOIN variable doesn't match your master nodes.
+In order to remove the StorageOS installation simply delete the StorageOS
+Cluster resource that was created.
 
-
-## Set the JOIN variable manually
-
-If you want to control what nodes are used to bootstrap StorageOS rather than
-using all internal IPs, you can set the JOIN env variable manually.
-
-The JOIN variable is used for the PODS to discover each other in the cluster.
-Checkout the different discovery methods in the
-[documentation](https://docs.storageos.com/docs/install/prerequisites/clusterdiscovery).
-
-Choose one of the methods, for instance, setting the ip of all your nodes that
-will run StorageOS. 
-
-> You don't actually need to specify all the nodes. Once a new StorageOS node
-> can connect to a member of the cluster the gossip protocol discovers the
-> whole list of members. For high availability, it is recommended to set up as
-> many as possible, so if one node is unavailable at the bootstrap process the
-> next in the list will be queried.
-
+```bash
+kubectl delete stos storageos-cluster 
 ```
-sed -i "s:<JOIN>:my_ip1,my_ip2,my_ip3,my_ip4:" manifests/040_daemonsets.yaml_template ./deploy-storageos.sh
-```
+
+# Alternative Installation Method
+
+You can also install StorageOS using yaml manifests. See the README.md in
+./storageos-manual-instal/

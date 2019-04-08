@@ -1,0 +1,16 @@
+apiVersion: storageos.com/v1
+kind: StorageOSCluster
+metadata:
+  name: storageos-cluster
+  namespace: "default"
+spec:
+  secretRefName: "storageos-api"
+  secretRefNamespace: "default"
+  namespace: "storageos"
+  tlsEtcdSecretRefName: "etcd-client-tls"
+  tlsEtcdSecretRefNamespace: "etcd"
+  images:
+    nodeContainer: "ADD WORKING IMAGE HERE"
+  kvBackend:
+    address: "https://storageos-etcd-cluster-client.etcd.svc:2379"
+    backend: "etcd"

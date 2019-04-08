@@ -9,18 +9,21 @@
    ```bash
    kubectl get pods -w -n etcd
    ```
-1. Run deploy-storageos-tls.sh to deploy the StorageOS cluster
+1. Move into the ./storageos-deployment/ folder to deploy the StorageOS cluster
    ```bash
    cd storageos-deployment
-   ./deploy-storageos.sh
+   cat ./README.md
    ```
 
 # Cleaning up
 
 The cleanup.sh scripts will delete everything deployed by their respective
 deploy scripts.
-* storageos-deployment/cleanup-storageos.sh will delete all resources created by storageos-deployment/deploy-storageos.sh
 * cleanup-etcd.sh will delete all resources created by deploy-etcd-tls.sh.
+* See ./storageos-deployment/README.md for instructions on cleaning up a
+  StorageOS operator deployed cluster
+* ./storageos-deployment/storageos-manual-install/cleanup-storageos.sh will
+  delete all manually created resources
 
 # More details
 
@@ -31,10 +34,6 @@ certificates that are generated can be altered by editing the certs/json files.
 The host used in server.json and peer.json are determined by the value of
 metadata.name of the EtcdCluster resource found:
 ./etcd-deployment/etcd-cluster-config.yaml
-
-deploy-storageos-tls - The script will bootstrap a StorageOS cluster using the
-etcd cluster deployed in step 1. StorageOS will communicate with etcd using
-TLS.
 
 * For more information on the etcd operator refer to https://github.com/coreos/etcd-operator.
 * For more information on how the certificates are generated please see
