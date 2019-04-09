@@ -2,7 +2,7 @@
 
 manifests=./manifests
 tmp_file=/tmp/manifest-$RANDOM.yaml
-cert_dir=../certs
+cert_dir=../../certs/
 
 ETCD_NS=etcd
 ETCD_SVC=storageos-etcd-cluster-client
