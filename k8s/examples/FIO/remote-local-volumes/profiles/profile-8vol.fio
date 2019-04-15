@@ -11,7 +11,7 @@ rwmixread=60
 rwmixwrite=40
 percentage_random=85
 bs=4k
-iodepth=16
+iodepth=64
 log_avg_msec=250
 group_reporting=1
 
