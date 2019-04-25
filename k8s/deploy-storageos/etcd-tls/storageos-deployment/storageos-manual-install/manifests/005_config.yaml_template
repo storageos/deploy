@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storageos-config
+  namespace: storageos
+data:
+  KV_BACKEND: 'etcd'
+  KV_ADDR: 'https://<ETCD_ADDR>:2379'
+  LOG_LEVEL: 'info'
+  TLS_ETCD_CA: '/etc/pki/etcd-client-ca.crt'
+  TLS_ETCD_CLIENT_CERT: '/etc/pki/etcd-client.crt'
+  TLS_ETCD_CLIENT_KEY: '/etc/pki/etcd-client.key'

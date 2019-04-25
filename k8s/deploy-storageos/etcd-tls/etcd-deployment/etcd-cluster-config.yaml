@@ -1,0 +1,47 @@
+apiVersion: "etcd.database.coreos.com/v1beta2"
+kind: "EtcdCluster"
+metadata:
+  name: "storageos-etcd-cluster"
+spec:
+  size: 3
+  version: "3.3.11"
+  TLS:
+    static:
+      member:
+        peerSecret: etcd-peer-tls
+        serverSecret: etcd-server-tls
+      operatorSecret: etcd-client-tls
+  pod:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+    # For relevant clusters, you want guaranteed QoS
+      #requests:
+        #cpu: 2
+        #memory: 4G
+      #limits:
+        #cpu: 2
+        #memory: 4G
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 9000
+      fsGroup: 9000
+    # Tolerations example
+    #tolerations:
+    #- key: "role"
+      #operator: "Equal"
+      #value: "storage"
+      #effect: "NoExecute"
+    #affinity:
+    #  podAntiAffinity:
+    #    preferredDuringSchedulingIgnoredDuringExecution:
+    #    - weight: 100
+    #      podAffinityTerm:
+    #        labelSelector:
+    #          matchExpressions:
+    #          - key: etcd_cluster
+    #            operator: In
+    #            values:
+    #            - storageos-etcd
+    #        topologyKey: kubernetes.io/hostname
