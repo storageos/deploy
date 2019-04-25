@@ -1,12 +1,15 @@
+#!/bin/bash
+
 ETCD_NS=etcd
 ROLE_NAME=etcd-operator
 ROLE_BINDING_NAME=etcd-operator
 
 # Install the Etcd Operator
 # Begin by cloning the Etcd operator repository if it doesn't already exist
-if [[ -d ./etcd-deployment/etcd-operator ]]
-then printf "etcd-operator repository already exists. Moving on to etcd-operator installation\n"
-else git clone https://github.com/coreos/etcd-operator.git ./etcd-deployment/etcd-operator
+if [ -d ./etcd-deployment/etcd-operator ]; then
+    printf "etcd-operator repository already exists. Moving on to etcd-operator installation\n"
+else
+    git clone https://github.com/coreos/etcd-operator.git ./etcd-deployment/etcd-operator
 fi
 
 # Create the namespace that the Etcd operator and Etcd will be installed into
