@@ -10,8 +10,33 @@ If you have not done so already then install the [StorageOS
 Operator](https://docs.storageos.com/docs/reference/cluster-operator/). The
 instructions to do so are located in the directory: `../../cluster-operator/`
 
-Once the operator is installed and the required secret has been created you can
-create the StorageOS Cluster Resource located in this folder.
+```bash
+(cd ../../cluster-operator && ./deploy-operator.sh)
+```
+
+Once the operator is installed, you need to create the StorageOS secret.
+
+> For more details about the Secret, check out the cluster operator README.
+```bash
+kubectl create -f - <<END
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "storageos-api"
+  namespace: "default"
+  labels:
+    app: "storageos"
+type: "kubernetes.io/storageos"
+data:
+  # echo -n '<secret>' | base64
+  apiUsername: c3RvcmFnZW9z
+  apiPassword: c3RvcmFnZW9z
+END
+```
+
+## Deploy StorageOS
+
+Create the StorageOS Cluster Resource located in this folder.
 
 1. Create the StorageOS Cluster resource
     ```bash
@@ -34,4 +59,4 @@ kubectl delete stos storageos-cluster
 # Alternative Installation Method
 
 You can also install StorageOS using yaml manifests. See the README.md in
-./storageos-manual-instal/
+./storageos-manual-install/
