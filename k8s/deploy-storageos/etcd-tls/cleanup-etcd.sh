@@ -7,8 +7,8 @@ ETCD_OPERATOR_ROOT="./etcd-deployment/etcd-operator"
 
 # Do not delete etcd if StorageOS is running as this will destroy the StorageOS
 # cluster
-if $(kubectl -n storageos get pods | grep -q "STATUS");
-then printf "\e[31m Pods are running in the StorageOS namespace. Removing etcd resources will break the cluster so run ./storageos-deployment/cleanup.sh first\e[0m"
+if kubectl -n storageos get pods 2>/dev/null | grep -q "STATUS"; then
+    printf "\e[31m Pods are running in the StorageOS namespace. Removing etcd resources will break the cluster so run ./storageos-deployment/cleanup.sh first\e[0m"
     exit 1
 fi
 
