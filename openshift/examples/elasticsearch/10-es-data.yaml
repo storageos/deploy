@@ -1,0 +1,104 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: esdata
+  # namespace: elasticsearch
+  labels:
+    component: elasticsearch
+    role: esdata
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  serviceName: es-data
+  selector:
+    matchLabels:
+      component: elasticsearch
+      role: esdata
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        component: elasticsearch
+        role: esdata
+    spec:
+      serviceAccountName: elasticsearch
+      containers:
+        - name: data
+          image: elasticsearch:6.7.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: CLUSTER_NAME
+              value: "es"
+            - name: NUMBER_OF_MASTERS
+              value: "3"
+            - name: NODE_DATA
+              value: "true"
+            - name: NODE_MASTER
+              value: "false"
+            - name: NODE_INGEST
+              value: "false"
+            - name: DISCOVERY_SERVICE
+              value: "es-discovery"
+            - name: HTTP_ENABLE
+              value: "false"
+            - name: ES_JAVA_OPTS
+              value: -Xms2048m -Xmx2048m
+            - name: NETWORK_HOST
+              value: "_eth0:ipv4_"
+            - name: PROCESSORS
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.cpu
+          ports:
+            - containerPort: 9300
+              name: transport
+          livenessProbe:
+            tcpSocket:
+              port: transport
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: transport
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            limits:
+              memory: 4Gi
+            requests:
+              memory: 2Gi
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/elasticsearch/data/data
+            - name: log4j
+              mountPath: /usr/share/elasticsearch/config/log4j2.properties
+              subPath: log4j2.properties
+          securityContext:
+            privileged: false
+      tolerations: []
+      volumes:
+        - name: log4j
+          configMap:
+            name: log4j
+            items:
+              - key: log4j.properties
+                path: log4j2.properties
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "fast"
+        resources:
+          requests:
+            storage: 10Gi   # <--- change this to appropriate value
