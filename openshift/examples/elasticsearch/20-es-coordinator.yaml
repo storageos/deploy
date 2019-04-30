@@ -27,29 +27,29 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: NODE_NAME
+            - name: "node.name"
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
             - name: "cluster.name"
               value: "es"
-            - name: NODE_MASTER
+            - name: "node.master"
               value: "false"
-            - name: NODE_INGEST
+            - name: "node.ingest"
               value: "false"
-            - name: NODE_DATA
+            - name: "node.data"
               value: "false"
-            - name: HTTP_ENABLE
+            - name: "http.enabled"
               value: "true"
-            - name: DISCOVERY_SERVICE
+            - name: "discovery.zen.ping.unicast.hosts"
               value: "es-discovery"
             - name: ES_JAVA_OPTS
               value: -Xms2048m -Xmx2048m -XX:ErrorFile=/dev/stderr
-            - name: PROCESSORS
+            - name: "processors"
               valueFrom:
                 resourceFieldRef:
                   resource: limits.cpu
-            - name: NETWORK_HOST
+            - name: "network.host"
               value: "_eth0:ipv4_"
           ports:
             - containerPort: 9200
