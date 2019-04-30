@@ -13,6 +13,3 @@ spec:
   namespaceSelector:
     matchNames:
     - storageos
-  selector:
-    matchLabels:
-      app: storageos

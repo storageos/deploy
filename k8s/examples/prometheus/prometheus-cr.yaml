@@ -5,8 +5,6 @@ metadata:
   labels:
     app: prometheus-operator
 spec:
-  #serviceMonitorSelector: {} This probably makes it monitor all
-  #serviceMonitors
   resources:
     requests:
       memory: 400Mi

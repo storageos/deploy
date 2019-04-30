@@ -12,17 +12,3 @@ spec:
     targetPort: web
   selector:
     prometheus: prometheus-storageos
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: prometheus
-  labels:
-    app: prometheus
-spec:
-  selector:
-    prometheus: prometheus-storageos
-  ports:
-  - name: prometheus
-    port: 9090
-    protocol: TCP
