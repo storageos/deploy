@@ -1,10 +1,10 @@
 # Setting up Prometheus to Monitor StorageOS
 
 CoreOS have created a Kubernetes Operator for installing Prometheus. The
-operator uses ServiceMonitor customer resources (CRs) to scrape IP addresses defined in
-Kubernetes Endpoints. This article is intended to provide a quick guide to
-monitoring the StorageOS metrics endpoint and can be used with our example [Grafana
-dashboard](https://grafana.com/dashboards/10093).
+operator uses ServiceMonitor custom resources (CRs) to scrape IP addresses
+defined in Kubernetes Endpoints. This article is intended to provide a quick
+guide to monitoring the StorageOS metrics endpoint and can be used with our
+example [Grafana dashboard](https://grafana.com/dashboards/10093).
 
 ## Install the Prometheus Operator
 
@@ -12,12 +12,10 @@ dashboard](https://grafana.com/dashboards/10093).
    `prometheus-operator` directory
     ```bash
     git clone https://github.com/coreos/prometheus-operator.git prometheus-operator
-    #TODO edit this path so it's actually correct
-    cd prometheus-operator
     ```
 1. Deploy the quick start `bundle.yaml`
     ```bash
-    kubectl create -f bundle.yaml
+    kubectl create -f prometheus-operator/bundle.yaml
     ```
 1. Verify that the Prometheus operator is running.
    ```bash
