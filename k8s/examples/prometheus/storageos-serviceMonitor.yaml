@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: storageos
+spec:
+  selector:
+    matchLabels:
+      app: storageos
+  endpoints:
+  - interval: 10s
+    port: storageos
+  jobLabel: storageos
+  namespaceSelector:
+    matchNames:
+    - storageos
