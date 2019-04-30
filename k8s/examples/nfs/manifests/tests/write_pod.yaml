@@ -49,7 +49,8 @@ spec:
     - name: nfs-pvc
       persistentVolumeClaim:
         claimName: nfs-vol-3a
--kind: Pod
+---
+kind: Pod
 apiVersion: v1
 metadata:
   labels:
@@ -74,7 +75,8 @@ spec:
     - name: nfs-pvc
       persistentVolumeClaim:
         claimName: nfs-vol-3a
--kind: Pod
+---
+kind: Pod
 apiVersion: v1
 metadata:
   labels:
@@ -99,4 +101,4 @@ spec:
     - name: nfs-pvc
       persistentVolumeClaim:
         claimName: nfs-vol-3a
--
+---
