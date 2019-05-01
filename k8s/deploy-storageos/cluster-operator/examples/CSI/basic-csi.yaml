@@ -12,9 +12,9 @@ spec:
   resources:
     requests:
       memory: "512Mi"
-  nodeSelectorTerms:
-    - matchExpressions:
-      - key: "node-role.kubernetes.io/worker" # Select non master nodes
-        operator: In
-        values:
-        - "true"
+#  nodeSelectorTerms:
+#    - matchExpressions:
+#      - key: "node-role.kubernetes.io/worker" # Select non master nodes
+#        operator: In
+#        values:
+#        - "true"
