@@ -18,7 +18,7 @@ spec:
       serviceAccountName: storageoscluster-operator-sa
       containers:
         - name: storageoscluster-operator
-          image: "storageos/cluster-operator:v1.0.0"
+          image: "storageos/cluster-operator:1.1.0"
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 60000
