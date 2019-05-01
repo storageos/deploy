@@ -1,15 +1,20 @@
-
 # Elasticsearch with StorageOS
 
-Elasticsearch is a distributed, RESTful search and analytics engine, most popularly used to aggregate logs, but also to serve as search backend to a number of different applications.
+Elasticsearch is a distributed, RESTful search and analytics engine, most
+popularly used to aggregate logs, but also to serve as search backend to a
+number of different applications.
 
-This repository is part of our use-case documentation and provides example YAML manifests to help you get started on running [Elasticsearch with StorageOS](https://docs.storageos.com/docs/usecases/kubernetes/elasticsearch).
+This repository is part of our use-case documentation and provides example YAML
+manifests to help you get started on running [Elasticsearch with
+StorageOS](https://docs.storageos.com/docs/usecases/kubernetes/elasticsearch).
 
-Please visit the official docs page and please do leave us feedback for improvement or simply open a PR.
+Please visit the official docs page and please do leave us feedback for
+improvement or simply open a PR.
 
 ## Note
 
-This example deployment requires a certain amount of resources as it will be deploying
+This example deployment requires a certain amount of resources as it will be
+deploying
 
 - 3x data nodes
 - 3x coordinator nodes
