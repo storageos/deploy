@@ -16,10 +16,9 @@ spec:
   resources:
     requests:
       memory: "512Mi"
-  nodeSelectorTerms:
-    - matchExpressions:
-      - key: "node-role.kubernetes.io/worker" 
-        operator: In
-        values:
-        - "true"
-
+#  nodeSelectorTerms:
+#    - matchExpressions:
+#      - key: "node-role.kubernetes.io/worker" 
+#        operator: In
+#        values:
+#        - "true"
