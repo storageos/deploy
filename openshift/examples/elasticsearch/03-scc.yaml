@@ -31,4 +31,5 @@ supplementalGroups:
 volumes:
 - '*'
 users:
+- system:serviceaccount:default:elasticsearch
 - system:serviceaccount:elasticsearch:elasticsearch
