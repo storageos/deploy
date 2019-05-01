@@ -18,6 +18,13 @@ spec:
         role: coordinator
     spec:
       serviceAccountName: elasticsearch
+      initContainers:
+        - name: map-count-prereq
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ["sysctl", "-w", "vm.max_map_count=262144"]
+          securityContext:
+            privileged: true
       containers:
         - name: es-coordinator
           image: elasticsearch:6.7.0
@@ -50,7 +57,7 @@ spec:
                 resourceFieldRef:
                   resource: limits.cpu
             - name: "network.host"
-              value: "_eth0:ipv4_"
+              value: "_eth0:ipv4_,_site_,_lo_"
           ports:
             - containerPort: 9200
               name: http
