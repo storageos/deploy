@@ -30,6 +30,8 @@ spec:
           command: ["sysctl", "-w", "vm.max_map_count=262144"]
           securityContext:
             privileged: true
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: data
           image: elasticsearch:6.7.0
@@ -85,7 +87,7 @@ spec:
               memory: 2Gi
           volumeMounts:
             - name: data
-              mountPath: /usr/share/elasticsearch/data/data
+              mountPath: /usr/share/elasticsearch/data
             - name: log4j
               mountPath: /usr/share/elasticsearch/config/log4j2.properties
               subPath: log4j2.properties
