@@ -18,6 +18,10 @@ This example deployment requires a certain amount of resources as it will be dep
 requiring a combined ~14GB of memory (minimum), however, more memory may be
 used by the application/s.
 
+> You can change the memory application settings in the env variables passed to
+> the ES container in `10-es-data.yaml`, `20-es-coordinator.yaml` and
+> `30-es-master.yaml`.
+
 # Install
 
 First clone this repo
@@ -42,7 +46,7 @@ kubectl port-forward `kubectl get pods -l role=coordinator -o jsonpath='{ $.item
 
 which will make ES available via [http://localhost:9200](http://localhost:9200)
 
-# Note
+# Note max_map_count
 
 ES requires to set a higher than default max_map_count in the system running
 the application. Because of that, the ES bootstrap initially applies that
