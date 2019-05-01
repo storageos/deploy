@@ -8,7 +8,9 @@ example [Grafana dashboard](https://grafana.com/dashboards/10093).
 
 > N.B The standard installation does not use persistent volumes for the
 > Prometheus pod. If you wish to add persistent storage for the pod please
-> uncomment the lines in ./manifests/010-prometheus-cr.yaml 
+> uncomment the lines in ./manifests/010-prometheus-cr.yaml. If you also wish
+> to add persistence Grafana then use `helm install stable/grafana -f
+> grafana-helm-values`
 
 ## Scripted Installation
 
