@@ -6,6 +6,23 @@ defined in Kubernetes Endpoints. This article is intended to provide a quick
 guide to monitoring the StorageOS metrics endpoint and can be used with our
 example [Grafana dashboard](https://grafana.com/dashboards/10093).
 
+> N.B The standard installation does not use persistent volumes for the
+> Prometheus pod. If you wish to add persistent storage for the pod please
+> uncomment the lines in ./manifests/010-prometheus-cr.yaml 
+
+## Scripted Installation
+
+For convenience a scripted installation of Prometheus, monitoring StorageOS,
+using the Prometheus Operator has been created. If you are comfortable running
+the scripted installation simply run the install-prometheus.sh script. 
+
+```bash
+./install-prometheus.sh
+```
+
+If you wish to install Grafana please see the Install Grafana instructions.
+
+
 ## Install the Prometheus Operator
 
 1. Clone the StorageOS deploy repository and move into the
@@ -57,7 +74,7 @@ which the Prometheus operator will act upon to configure a Prometheus StatefulSe
    from the Graph page. A complete list of StorageOS metrics can be found
    [here](https://docs.storageos.com/docs/reference/prometheus)
 
-## Installing Grafana
+## Install Grafana
 
 Grafana is a popular solution for visualising metrics. At the time of writing
 (30/04/2019) there is no Grafana operator so instead a helm installation is
