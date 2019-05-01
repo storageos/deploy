@@ -46,7 +46,7 @@ kubectl apply -f storageos/k8s/examples/elasticsearch/
 To connect to ES, simply use the following port-forward command
 
 ```bash
-kubectl port-forward `kubectl get pods -l role=coordinator -o jsonpath='{ $.items[0].metadata.name }'` 9200
+kubectl port-forward svc/elasticsearch 9200
 ```
 
 which will make ES available via [http://localhost:9200](http://localhost:9200)
