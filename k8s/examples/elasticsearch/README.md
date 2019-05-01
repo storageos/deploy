@@ -18,22 +18,6 @@ This example deployment requires a certain amount of resources as it will be dep
 requiring a combined ~14GB of memory (minimum), however, more memory may be
 used by the application/s.
 
-# Pre-Requisites
-
-ES requires you to set a higher than default max_map_count, you can do this two (and more) ways:
-
-```bash
-echo 262144 > /proc/sys/vm/max_map_count
-```
-
-or
-
-```bash
-sysctl -w vm.max_map_count=262144
-```
-
-this setting needs to be applied on _every_ node that will be running an ES pod, so effectively on every node in your cluster.
-
 # Install
 
 First clone this repo
@@ -57,3 +41,27 @@ kubectl port-forward `kubectl get pods -l role=coordinator -o jsonpath='{ $.item
 ```
 
 which will make ES available via [http://localhost:9200](http://localhost:9200)
+
+# Note
+
+ES requires to set a higher than default max_map_count in the system running
+the application. Because of that, the ES bootstrap initially applies that
+parameter change. That requires an init container to run as privileged in your
+system. In case you rather not set a privileged container for that purpose, you
+can remove the `initContainers` section of `10-es-data.yaml`,
+`20-es-coordinator.yaml` and `30-es-master.yaml`. Additionally you have to set
+the max_map_count for each machine that will run any of the ES Pods by:
+
+```bash
+echo 262144 > /proc/sys/vm/max_map_count
+```
+
+or
+
+```bash
+sysctl -w vm.max_map_count=262144
+```
+
+> This setting needs to be applied on _every_ node that will be running an ES
+> Pod if your remove the initContainer, so effectively on every node in your
+> cluster.
