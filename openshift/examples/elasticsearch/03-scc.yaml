@@ -1,0 +1,35 @@
+---
+kind: SecurityContextConstraints
+apiVersion: v1
+priority: 999
+metadata:
+  name: elasticsearch
+allowHostDirVolumePlugin: true
+allowHostIPC: true
+allowPrivilegedContainer: true
+defaultAddCapabilities: []
+requiredDropCapabilities: []
+allowedFlexVolumes: []
+allowHostNetwork: false
+allowHostPorts: false
+allowHostPID: false
+allowedCapabilities:
+- 'IPC_LOCK'
+- 'SYS_RESOURCE'
+fsGroup:
+  type: RunAsAny
+groups:
+readOnlyRootFilesystem: false
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups:
+  type: RunAsAny
+volumes:
+- '*'
+users:
+- system:serviceaccount:default:elasticsearch
+- system:serviceaccount:elasticsearch:elasticsearch

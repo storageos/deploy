@@ -1,0 +1,100 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: es-coordinator
+  # namespace: elasticsearch
+  labels:
+    component: elasticsearch
+    role: coordinator
+spec:
+  replicas: 3
+  template:
+    metadata:
+      annotations:
+        kubernetes.io/change-cause: ""
+      labels:
+        component: elasticsearch
+        role: coordinator
+    spec:
+      serviceAccountName: elasticsearch
+      initContainers:
+        - name: map-count-prereq
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ["sysctl", "-w", "vm.max_map_count=262144"]
+          securityContext:
+            privileged: true
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: es-coordinator
+          image: elasticsearch:6.7.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: "node.name"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: "cluster.name"
+              value: "es"
+            - name: "node.master"
+              value: "false"
+            - name: "node.ingest"
+              value: "false"
+            - name: "node.data"
+              value: "false"
+            - name: "http.enabled"
+              value: "true"
+            - name: "discovery.zen.ping.unicast.hosts"
+              value: "es-discovery"
+            - name: ES_JAVA_OPTS
+              value: -Xms2048m -Xmx2048m -XX:ErrorFile=/dev/stderr
+            - name: "processors"
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.cpu
+            - name: "network.host"
+              value: "_eth0:ipv4_,_site_,_lo_"
+          ports:
+            - containerPort: 9200
+              name: http
+            - containerPort: 9300
+              name: transport
+          livenessProbe:
+            tcpSocket:
+              port: transport
+            initialDelaySeconds: 30
+            timeoutSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /_cluster/health
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 15
+          resources:
+            limits:
+              memory: 4Gi
+            requests:
+              memory: 2Gi
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/elasticsearch/data
+            - name: log4j
+              mountPath: /usr/share/elasticsearch/config/log4j2.properties
+              subPath: log4j2.properties
+          securityContext:
+            privileged: false
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: log4j
+          configMap:
+            name: log4j
+            items:
+              - key: log4j.properties
+                path: log4j2.properties

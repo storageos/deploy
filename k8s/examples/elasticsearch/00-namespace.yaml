@@ -1,0 +1,6 @@
+# optional: create the namespaces 'elasticsearch' and amend the YAMLs to apply the `namespace: elasticsearch` metadata to all objects
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: elasticsearch

@@ -1,0 +1,102 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: es-master
+  # namespace: elasticsearch
+  labels:
+    component: elasticsearch
+    role: master
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        component: elasticsearch
+        role: master
+    spec:
+      serviceAccountName: elasticsearch
+      initContainers:
+        - name: map-count-prereq
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ["sysctl", "-w", "vm.max_map_count=262144"]
+          securityContext:
+            privileged: true
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: es-master
+          image: elasticsearch:6.7.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: "node.name"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: "cluster.name"
+              value: "es"
+            - name: "discovery.zen.minimum_master_nodes"
+              value: "2"
+            - name: "node.master"
+              value: "true"
+            - name: "node.ingest"
+              value: "false"
+            - name: "node.data"
+              value: "false"
+            - name: "http.enabled"
+              value: "false"
+            - name: ES_JAVA_OPTS
+              value: -Xms512m -Xmx512m
+            - name: "network.host"
+              value: "_eth0:ipv4_"
+            - name: "discovery.zen.ping.unicast.hosts"
+              value: "es-discovery"
+            - name: LICENSE
+              value: "basic"
+            - name: "processors"
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.cpu
+          ports:
+            - containerPort: 9300
+              name: transport
+          livenessProbe:
+            tcpSocket:
+              port: 9300
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: 9300
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/elasticsearch/data
+            - name: log4j
+              mountPath: /usr/share/elasticsearch/config/log4j2.properties
+              subPath: log4j2.properties
+          securityContext:
+            privileged: false
+      tolerations: []
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: log4j
+          configMap:
+            name: log4j
+            items:
+              - key: log4j.properties
+                path: log4j2.properties
