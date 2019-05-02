@@ -95,14 +95,14 @@ done
 cat <<END > ./profiles/$profile
 [global]
 size=1GB
-runtime=20
+runtime=900
 time_based=1
 ioengine=libaio
 direct=1
 random_generator=tausworthe
 random_distribution=random
 rw=randrw
-rwmixread=900
+rwmixread=60
 rwmixwrite=40
 percentage_random=85
 bs=4k
