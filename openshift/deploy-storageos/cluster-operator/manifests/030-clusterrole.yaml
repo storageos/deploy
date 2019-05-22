@@ -1,3 +1,4 @@
+---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -18,6 +19,7 @@ rules:
   resources:
   - statefulsets
   - daemonsets
+  - deployments
   verbs:
   - "*"
 - apiGroups:
@@ -95,3 +97,16 @@ rules:
   verbs:
   - create
   - delete
+# OpenShift specific rule.
+- apiGroups:
+  - security.openshift.io
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - create
+  - delete
+  - update
+  - get
+  - use
+  resourceNames:
+  - privileged
