@@ -22,16 +22,16 @@ spec:
       - name: PG_PORT
         value: "5432"
       - name: PGBENCH_SCALE
-        value: 1000"
-    affinity:
-      podAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - postgres
-            topologyKey: kubernetes.io/hostname
+        value: "1000"
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - postgres
+          topologyKey: kubernetes.io/hostname
