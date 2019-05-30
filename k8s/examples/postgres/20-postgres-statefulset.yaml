@@ -7,6 +7,7 @@ spec:
     matchLabels:
       app: postgres
       env: prod
+      storageos.com/hint.master: ip-10-0-10-197
   serviceName: postgres
   replicas: 1
   template:
