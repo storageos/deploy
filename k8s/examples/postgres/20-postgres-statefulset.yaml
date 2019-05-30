@@ -14,6 +14,7 @@ spec:
       labels:
         app: postgres
         env: prod
+        storageos.com/hint.master: ip-10-0-10-197
     spec:
       serviceAccountName: postgres
       securityContext:
@@ -21,13 +22,15 @@ spec:
         fsGroup: 26
       containers:
       - name: pg
-        image: crunchydata/crunchy-postgres:centos7-10.4-1.8.3
+        image: crunchydata/crunchy-postgres:centos7-10.8-2.4.0-rc9
         volumeMounts:
           - name: pg-data
             mountPath: /pgdata
         envFrom:
         - configMapRef:
             name: postgres
+      nodeSelector:
+        app: postgres
   volumeClaimTemplates:
   - metadata:
       name: pg-data
@@ -38,4 +41,4 @@ spec:
       storageClassName: "fast" # StorageOS storageClass 
       resources:
         requests:
-          storage: 5Gi
+          storage: 15Gi
