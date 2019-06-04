@@ -9,6 +9,7 @@ spec:
     nodeContainer: "storageos/node:1.2.1"
   csi:
     enable: true
+    deploymentStrategy: "deployment"
   resources:
     requests:
       memory: "512Mi"
