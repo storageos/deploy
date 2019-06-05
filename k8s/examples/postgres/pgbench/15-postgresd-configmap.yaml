@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+    env: prod
+data:
+    PGHOST: /tmp
+    PG_PRIMARY_USER: primaryuser
+    PG_PRIMARY_PORT: "5432"
+    PG_MODE: primary
+    PG_PRIMARY_PASSWORD: password
+    PG_USER: testuser
+    PG_PASSWORD: password
+    PG_DATABASE: userdb
+    PG_ROOT_PASSWORD: password
+
