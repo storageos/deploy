@@ -4,8 +4,15 @@ metadata:
   name: "storageos-etcd"
 spec:
   size: 3
-  version: "3.3.11"
+  version: "3.3.13"
   pod:
+    etcdEnv:
+    - name: ETCD_QUOTA_BACKEND_BYTES
+      value: "8589934592"  # 8 GB 
+    - name: ETCD_AUTO_COMPACTION_MODE
+      value: "revision"
+    - name: ETCD_AUTO_COMPACTION_RETENTION
+      value: "100"
     resources:
       requests:
         cpu: 200m
