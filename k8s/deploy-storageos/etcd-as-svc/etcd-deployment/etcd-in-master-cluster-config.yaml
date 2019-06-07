@@ -8,7 +8,7 @@ spec:
   pod:
     nodeSelector:
       # Set the label pointing to your master
-      "node-role.kubernetes.io/etcd": "true"
+      node-role.kubernetes.io/etcd: "true"
     etcdEnv:
     - name: ETCD_QUOTA_BACKEND_BYTES
       value: "8589934592"  # 8 GB 
@@ -40,25 +40,7 @@ spec:
       fsGroup: 9000
 #  Tolerations example
     tolerations:
-    - key: "node-role.kubernetes.io/master"
-      operator: "Equal"
-      value: ""
-      effect: "NoSchedule"
-    - key: "node-role.kubernetes.io/master"
-      operator: "Equal"
-      value: "true"
-      effect: "NoSchedule"
-    - key: "action"
-      operator: "Equal"
-      value: "blocked"
-      effect: "NoSchedule"
-    - key: "node-role.kubernetes.io/controlplane"
-      operator: "Equal"
-      value: "true"
-      effect: "NoSchedule"
-    - key: "node-role.kubernetes.io/etcd"
-      value: "true"
-      effect: "NoExecute"
+    - operator: "Exists"
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
