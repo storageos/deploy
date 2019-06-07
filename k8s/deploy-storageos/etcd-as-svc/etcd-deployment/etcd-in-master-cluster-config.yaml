@@ -3,9 +3,12 @@ kind: "EtcdCluster"
 metadata:
   name: "storageos-etcd"
 spec:
-  size: 3
+  size: 1
   version: "3.3.13"
   pod:
+    nodeSelector:
+      # Set the label pointing to your master
+      node-role.kubernetes.io/etcd: "true"
     etcdEnv:
     - name: ETCD_QUOTA_BACKEND_BYTES
       value: "8589934592"  # 8 GB 
@@ -13,14 +16,31 @@ spec:
       value: "revision"
     - name: ETCD_AUTO_COMPACTION_RETENTION
       value: "100"
+#    persistentVolumeClaimSpec:
+#      storageClassName: gp2
+#      accessModes:
+#      - ReadWriteOnce
+#      resources:
+#        requests:
+#          storage: 10Gi
+#  For relevant clusters, you want guaranteed QoS "requests == limits"
+#    requests:
+#      cpu: 2
+#      memory: 4G
+#    limits:
+#      cpu: 2
+#      memory: 4G
     resources:
       requests:
-        cpu: 200m
-        memory: 300Mi
+        cpu: 1
+        memory: 500Mi
     securityContext:
       runAsNonRoot: true
       runAsUser: 9000
       fsGroup: 9000
+#  Tolerations example
+    tolerations:
+    - operator: "Exists"
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -32,5 +52,4 @@ spec:
                 operator: In
                 values:
                 - storageos-etcd
-            topologyKey: "failure-domain.beta.kubernetes.io/zone"
-
+            topologyKey: kubernetes.io/hostname
