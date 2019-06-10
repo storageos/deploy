@@ -1,6 +1,6 @@
-# MySQL on Kubernetes with StorageOS persistent Storage
+# MySQL on OpenShift with StorageOS persistent Storage
 
-This example shows an example of how to deploy MySQL Server on Kubernetes with
+This example shows an example of how to deploy MySQL Server on OpenShift with
 MySQL data being written to a StorageOS persistent volume. The files create a
 stateful set that can be used *AFTER* a StorageOS cluster has been created. For
 more information on how to install a StorageOS cluster please see
@@ -10,17 +10,22 @@ for more information.
 ## Deploy
 
 In order to deploy MySQL you just need to clone this repository and use
-kubectl to create the Kubernetes objects. 
+`oc` to create the OpenShift objects.
 
 ```bash
 $ git clone https://github.com/storageos/deploy.git storageos
-$ cd storageos
-$ kubectl create -f ./k8s/examples/mysql
+$ cd storageos/openshift/examples/mysql
 ```
-Once this is done you can check that a mysql pod is running
+Set the NAMESPACE environment variable to the project you wish to install MySQL
+into
+```bash
+$ export NAMESPACE=mysql
+$ ./deploy-mysql.sh
+```
+Once this is done you can check that a MySQL Pod is running
 
 ```bash
-$ kubectl get pods -w -l app=mysql
+$ oc get pods -w -l app=mysql
    NAME        READY    STATUS    RESTARTS    AGE
    client      1/1      Running    0          1m
    mysql-0     1/1      Running    0          1m
@@ -30,7 +35,7 @@ Connect to the MySQL client pod and connect to the MySQL server through the
 service.
 
 ```bash
-$ kubectl exec -it client -- mysql -h mysql-0.mysql -u root
+$ oc exec -it client -- mysql -h mysql-0.mysql -u root
 mysql> create database shop;
 mysql> use shop;
 mysql> create table books (title VARCHAR(256), price decimal(4,2));
