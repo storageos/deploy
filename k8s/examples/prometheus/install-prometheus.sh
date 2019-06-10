@@ -13,7 +13,7 @@ fi
 kubectl create -f prometheus-operator/bundle.yaml
 
 # Wait until the operator pod is running before moving on
-until $(kubectl get pods -l apps.kubernetes.io/name=prometheus-operator --no-headers | awk '{print $3}' | grep -q Running); do
+until $(kubectl get pods -l app.kubernetes.io/name=prometheus-operator --no-headers | awk '{print $3}' | grep -q Running); do
     echo -e "${YC}Waiting for Prometheus operator pod to be running${NC}\n"
     sleep 5
 done
