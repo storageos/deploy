@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 
 MANIFESTS=./manifests
 NAMESPACE=${NAMESPACE:-default}
