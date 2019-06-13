@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 
 MANIFESTS=./manifests
 [ -d "$MANIFESTS"  ] || (echo "manifests dir not found" && exit 1)
