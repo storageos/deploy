@@ -58,7 +58,7 @@ metadata:
 type: Opaque
 data:
   admin-user: "YWRtaW4="
-  admin-password: "M3k0enlYUUdZQ0F3MDZrRVRrMmxtUm1QcTg2UlY3SmxEaDViSk9yZw=="
+  admin-password: "YWRtaW4="
   ldap-toml: ""
 ---
 # Source: grafana/templates/configmap.yaml
@@ -239,6 +239,6 @@ spec:
               - key: ldap-toml
                 path: ldap.toml
         - name: storage
-          emptyDir: {}
-          #persistentVolumeClaim:
-            #claimName: grafana-data
+            emptyDir: {}
+            #  persistentVolumeClaim:
+            #    claimName: grafana-data
