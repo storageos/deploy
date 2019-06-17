@@ -14,6 +14,7 @@ spec:
   sharedDir: '/var/lib/kubelet/plugins/kubernetes.io~storageos' # Needed when Kubelet as a container
   csi:
     enable: true
+    deploymentStrategy: "deployment"
   resources:
     requests:
       memory: "256Mi"

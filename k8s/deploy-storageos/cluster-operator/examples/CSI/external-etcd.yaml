@@ -13,6 +13,7 @@ spec:
     backend: 'etcd'
   csi:
     enable: true
+    deploymentStrategy: "deployment"
   resources:
     requests:
       memory: "512Mi"
