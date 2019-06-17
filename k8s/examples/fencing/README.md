@@ -51,18 +51,20 @@ mysql> select * from books
 
 ## Node Failure
 
-Check what node the mysql-0 pod is running on and make that node unavailable
-e.g. shutdown the node or stop the kubelet on the node. Now watch as the
-mysql-0 pod is rescheduled onto a different node.
+Check what node the `mysql-0` pod is running on, then make that node
+unavailable e.g. shutdown the node or stop the kubelet on the node. Now watch
+as the `mysql-0` pod is rescheduled onto a different node.
 
 Note that if you are using the CSI driver there is a CSI helper pod that can be
 running as either a StatefulSet or as a Deployment. Given the nature of
-StatefulSets make sure that the mysql-0 pod and the storageos-statefulset-0 pod
-are not running on the same node or the volume will be unable to reattach.
-StorageOS has fixed this by using a deployment for the CSI helper rather than a
-StatefulSet. The deployment strategy is configurable using the
-[StorageOSCluster deploymentStratergy
-parameter](https://docs.storageos.com/docs/reference/cluster-operator/configuration).
+StatefulSets StorageOS recommends that the
+[`csi.deploymentStrategy`](https://docs.storageos.com/docs/reference/cluster-operator/configuration)
+is set to `deployment`.
+
+If the CSI helper pod is running as a StatefulSet, make sure that the `mysql-0`
+pod and the storageos-statefulset-0 pod are not running on the same node or the
+volume will be unable to reattach.
+
 ```bash
 kubectl get pods -l app=mysql -o wide
 NAME      READY   STATUS    RESTARTS   AGE    IP           NODE                           NOMINATED NODE   READINESS GATES
@@ -78,9 +80,9 @@ storageos-daemonset-t75m2   3/3     Running   0          57m   10.1.10.118 ip-10
 storageos-statefulset-0     3/3     Running   0          57m   10.244.1.3  ip-10-1-10-118.storageos.net   <none>           <none>
 ```
 
-Once the node is in a NotReady state you'll see that the mysql-0 pod has been
+Once the node is in a NotReady state you'll see that the `mysql-0` pod has been
 rescheduled on a different node. In this example you can see that the MySQL
-client pod was scheduled on the same node as the mysql-0 pod and is still in
+client pod was scheduled on the same node as the `mysql-0` pod and is still in
 the Terminating state. This is because a pod cannot be terminated until the
 kubelet comes back up and the pod is not rescheduled because a pod has no
 controller.
@@ -100,7 +102,7 @@ kubectl create -f ./k8s/examples/fencing/30-mysql-client-pod.yaml
 
 Check that the client pod is running and query the shops database.
 ```bash
-kubectl get pods 
+kubectl get pods
 NAME      READY   STATUS    RESTARTS   AGE
 client    1/1     Running   0          44s
 mysql-0   1/1     Running   0          1m
