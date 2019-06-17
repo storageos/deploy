@@ -7,7 +7,6 @@ spec:
     matchLabels:
       app: postgres
       env: prod
-      storageos.com/hint.master: ip-10-0-10-197
   serviceName: postgres
   replicas: 1
   template:
@@ -15,7 +14,6 @@ spec:
       labels:
         app: postgres
         env: prod
-        storageos.com/hint.master: ip-10-0-10-197
     spec:
       serviceAccountName: postgres
       securityContext:
@@ -30,8 +28,6 @@ spec:
         envFrom:
         - configMapRef:
             name: postgres
-      nodeSelector:
-        app: postgres
   volumeClaimTemplates:
   - metadata:
       name: pg-data
