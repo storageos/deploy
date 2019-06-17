@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: nfs-provisioner
-          image: arau/nfs:v3
+          image: arau/nfs:v4
           ports:
             - name: nfs
               containerPort: 2049
