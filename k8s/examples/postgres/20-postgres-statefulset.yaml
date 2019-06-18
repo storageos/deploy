@@ -21,7 +21,7 @@ spec:
         fsGroup: 26
       containers:
       - name: pg
-        image: crunchydata/crunchy-postgres:centos7-10.8-2.4.0-rc9
+        image: crunchydata/crunchy-postgres:centos7-10.8-2.4.0
         volumeMounts:
           - name: pg-data
             mountPath: /pgdata
