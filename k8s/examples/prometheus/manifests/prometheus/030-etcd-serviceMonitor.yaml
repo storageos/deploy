@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: storageos-etcd
+spec:
+  selector:
+    matchLabels:
+      etcd_cluster: storageos-etcd
+  endpoints:
+  - interval: 10s
+    port: client
+  jobLabel: storageos-etcd
+  namespaceSelector:
+    matchNames:
+    - etcd

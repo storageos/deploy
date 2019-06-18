@@ -10,7 +10,9 @@ example [Grafana dashboard](https://grafana.com/dashboards/10093).
 > Prometheus pod. If you wish to add persistent storage for the pod please
 > uncomment the lines in ./manifests/010-prometheus-cr.yaml. If you also wish
 > to add persistence Grafana then use `helm install stable/grafana -f
-> grafana-helm-values`
+> grafana-helm-values`, or if using the yaml manifests create the
+> grafana-pvc.yaml.example file and edit the grafana-deployment.yaml to use the
+> PersistentVolumeClaim rather than an emptyDir.
 
 ## Scripted Installation
 
@@ -22,7 +24,12 @@ the scripted installation simply run the install-prometheus.sh script.
 ./install-prometheus.sh
 ```
 
-If you wish to install Grafana please see the Install Grafana instructions.
+If you wish to install Grafana using helm or manually using the yaml manifests
+please see Install Grafana
+
+```bash
+./install-grafana.sh
+```
 
 
 ## Install the Prometheus Operator
@@ -49,7 +56,7 @@ which the Prometheus operator will act upon to configure a Prometheus StatefulSe
 1. Clone the StorageOS deploy repo
    ```bash
    git clone https://github.com/storageos/deploy.git storageos
-   cd storageos/k8s/examples/prometheus
+   cd storageos/k8s/examples/prometheus/manifests/prometheus
    ```
 1. If your cluster uses RBAC then create the necessary Cluster role and service
    account for Prometheus.
@@ -66,6 +73,10 @@ which the Prometheus operator will act upon to configure a Prometheus StatefulSe
    ```
    kubectl create -f storageos-serviceMonitor.yaml
    ```
+> N.B. An additional serviceMonitor manifest is avaliable that will monitor
+> etcd pods in the etcd namespace. This serviceMonitor can be used with the [etcd running as
+> pods](https://grafana.com/dashboards/10323) Grafana dashboard.
+
 1. In order to view the Prometheus UI in the browser port forward the local
    port to the Prometheus pod port.
    ```bash
@@ -83,9 +94,13 @@ Grafana is a popular solution for visualising metrics. At the time of writing
 used. If a helm installation will not work then the helm generated manifests
 can be used.
 
-1. Install Grafana
+1. Install Grafana - Either helm can be used or the yaml manifests in
+   ./manifests/grafana/
    ```bash
    helm install stable/grafana
+   ```
+   ```bash
+   kubectl create -f ./manifests/grafana/
    ```
 1. Grafana can query the Prometheus pod for metrics, through a Service. The
    Prometheus operator automatically creates a service in any namespace that a
@@ -98,6 +113,10 @@ can be used.
    `http://prometheus-operated.$NAMESPACE.svc:9090`
 
    When creating the data source make sure to set the scrape interval.
+
 1. Once the Prometheus data source has been created have a look at the [example
    StorageOS dashboard](https://grafana.com/dashboards/10093) for ideas about
-   how to monitor your cluster.
+   how to monitor your cluster. You may also be interested in our etcd
+   monitoring dashboards ([etcd running as
+   pods](https://grafana.com/dashboards/10323), [etcd running as an external
+   service](https://grafana.com/dashboards/10322))

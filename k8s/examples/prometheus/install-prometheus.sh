@@ -19,6 +19,6 @@ until $(kubectl get pods -l app.kubernetes.io/name=prometheus-operator --no-head
 done
 
 # Create the Prometheus CR and StorageOS ServiceMonitor
-kubectl create -f ./manifests/
+kubectl create -f ./manifests/prometheus/
 
 echo -e "${GR}Checkout status: kubectl get pods -l app=prometheus${NC}"
