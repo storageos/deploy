@@ -7,6 +7,7 @@ spec:
     matchLabels:
       app: postgres
       env: prod
+      storageos.com/hint.master: <NODE_NAME>
   serviceName: postgres
   replicas: 1
   template:
@@ -14,6 +15,7 @@ spec:
       labels:
         app: postgres
         env: prod
+        storageos.com/hint.master: <NODE_NAME>
     spec:
       serviceAccountName: postgres
       securityContext:
@@ -28,6 +30,8 @@ spec:
         envFrom:
         - configMapRef:
             name: postgres
+      nodeSelector:
+        app: postgres
   volumeClaimTemplates:
   - metadata:
       name: pg-data
@@ -38,4 +42,4 @@ spec:
       storageClassName: "fast" # StorageOS storageClass 
       resources:
         requests:
-          storage: 5Gi
+          storage: 15Gi
