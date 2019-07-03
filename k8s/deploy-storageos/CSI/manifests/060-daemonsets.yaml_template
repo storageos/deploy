@@ -22,7 +22,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       initContainers:
       - name: enable-lio
-        image: "storageos/init:0.1"
+        image: "storageos/init:0.2"
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: kernel-modules
@@ -58,7 +58,7 @@ spec:
           - name: registrar-socket-dir
             mountPath: /var/lib/csi/sockets/
       - name: storageos
-        image: "storageos/node:1.2.1"
+        image: "storageos/node:1.3.0"
         imagePullPolicy: IfNotPresent
         args:
         - server

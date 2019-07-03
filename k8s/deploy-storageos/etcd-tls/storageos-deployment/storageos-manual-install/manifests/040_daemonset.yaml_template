@@ -19,7 +19,7 @@ spec:
       serviceAccountName: storageos
       initContainers:
       - name: enable-lio
-        image: storageos/init:0.1
+        image: storageos/init:0.2
         imagePullPolicy: Always
         volumeMounts:
           - name: kernel-modules
@@ -35,7 +35,7 @@ spec:
             - SYS_ADMIN
       containers:
       - name: storageos
-        image: storageos/node:1.2.1
+        image: storageos/node:1.3.0
         imagePullPolicy: IfNotPresent
         args:
         - server
