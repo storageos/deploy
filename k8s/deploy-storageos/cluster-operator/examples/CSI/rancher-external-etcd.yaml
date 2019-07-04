@@ -10,6 +10,7 @@ spec:
     deploymentStrategy: "deployment"
   images:
     nodeContainer: "storageos/node:1.2.1"
+    initContainer: "storageos/init:0.2"
   kvBackend:
     address: 'storageos-etcd-client.etcd:2379' # Example address, change for your etcd endpoint
     backend: 'etcd'

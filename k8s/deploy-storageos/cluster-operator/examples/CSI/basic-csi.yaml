@@ -7,6 +7,7 @@ spec:
   secretRefNamespace: "default"  # Namespace of the Secret
   images:
     nodeContainer: "storageos/node:1.2.1"
+    initContainer: "storageos/init:0.2"
   csi:
     enable: true
     deploymentStrategy: "deployment"
