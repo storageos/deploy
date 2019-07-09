@@ -11,6 +11,7 @@ spec:
     address: 'storageos-etcd-client.etcd:2379' # Example address, change for your etcd endpoint
     backend: 'etcd'
   sharedDir: '/var/lib/kubelet/plugins/kubernetes.io~storageos' # Needed when Kubelet as a container
+  k8sDistro: "dockeree"
   resources:
     requests:
       memory: "512Mi"
