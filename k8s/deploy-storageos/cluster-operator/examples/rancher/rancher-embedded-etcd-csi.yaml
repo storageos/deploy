@@ -8,6 +8,7 @@ spec:
   images:
     nodeContainer: "storageos/node:1.3.0"
   sharedDir: '/var/lib/kubelet/plugins/kubernetes.io~storageos' # Needed when Kubelet as a container
+  k8sDistro: "rancher"
   csi:
     enable: true
     deploymentStrategy: "deployment"
