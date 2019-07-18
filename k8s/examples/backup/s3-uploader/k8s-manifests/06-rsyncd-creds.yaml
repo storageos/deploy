@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rsync-creds
+type: Opaque
+data: #Credentials are base64 encoded usernames and colon separated passwords. This is an example
+  credentials: dXNlcjpYdmQ5Y3M5YWNqQmxs
