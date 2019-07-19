@@ -1,10 +1,7 @@
 #!/bin/bash
 
-manifests=./manifests
+kubectl create -f https://github.com/storageos/cluster-operator/releases/download/1.3.0/storageos-operator.yaml
 
-[ -d "$manifests" ] || (echo "manifests dir not found" && exit 1)
-
-kubectl create -f $manifests/
 
 GR='\033[0;32m'
 NC='\033[0m' # No Color
