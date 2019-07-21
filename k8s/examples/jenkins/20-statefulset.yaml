@@ -17,8 +17,8 @@ spec:
     spec:
       serviceAccountName: jenkins
       securityContext:
-        runAsUser: 1001
-        fsGroup: 1001
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
       - name: master
         image: jenkins/jenkins:2.185
