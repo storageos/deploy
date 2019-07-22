@@ -23,16 +23,16 @@ container.
 
 ### S3 Uploader
 
-A Kubernetes Cron Job is created that creates a Worker running two programs.
-Firstly the Worker connects to the Rsync daemon running in the StatefulSet via a
-Kubernetes Service. It then syncs the `/backup` directory and uploads the
+A Kubernetes Cron Job is created. That scheduler creates a Pod running two programs.
+Firstly the Pod connects to the Rsync daemon running in the StatefulSet via a
+Kubernetes Service and syncs the `/backup` directory. It then uploads the
 content into an S3 bucket.
 
 The connection to Rsync is established using a username and password injected to
 the Worker via Kubernetes Secrets. Both the Rsync daemon and the client use the
 same Secret.
 
-A few parameters are passed to the Worker using a ConfigMap. The configurable
+A few parameters are passed to the Worker Pod using a ConfigMap. The configurable
 information is the Rsync Service Name and the Credentials to access Rsync and
 the S3 Bucket.
 
