@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: example-with-data
+spec:
+  selector:
+    matchLabels:
+      role: example
+  serviceName: example-with-data
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: example
+    spec:
+      containers:
+      - name: example-pod
+        image: debian:9-slim
+        command: ["/bin/sleep"]
+        args: ["infinity"]
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: backups
+          mountPath: /backups
+      - name: rsyncd
+        image: vimagick/rsyncd
+        volumeMounts:
+        - name: backups
+          mountPath: /share
+        - name: rsync-config
+          mountPath: /etc/rsyncd.conf
+          subPath: rsyncd.conf
+        - name: rsync-secrets
+          mountPath: /etc/rsyncd.secrets
+          subPath: rsyncd.secrets
+        ports:
+        -  containerPort: 873
+      volumes:
+      - name: rsync-config
+        configMap:
+          name: rsync-config
+      - name: rsync-secrets
+        secret:
+          secretName: rsync-creds
+          defaultMode: 0600
+          items:
+          - key: credentials
+            path: rsyncd.secrets
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi
+  - metadata:
+      name: backups
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 25Gi

@@ -1,0 +1,38 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: backup-exporter
+spec:
+  schedule: "* */1 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: debian
+            imagePullPolicy: Always
+            image: arau/tools:s3-uploader
+            envFrom:
+            - configMapRef:
+                name: s3-uploader-config
+            volumeMounts:
+            - mountPath: /root/.aws/
+              name: aws-creds
+            - name: rsync-secrets
+              mountPath: /etc/rsyncd.secrets
+              subPath: rsyncd.secrets
+            ports:
+            -  containerPort: 873
+          volumes:
+          - name: rsync-secrets
+            secret:
+              secretName: rsync-creds
+              defaultMode: 0600
+              items:
+              - key: credentials
+                path: rsyncd.secrets
+          - name: aws-creds
+            secret:
+              secretName: aws-creds
