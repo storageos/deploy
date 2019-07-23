@@ -1,10 +1,6 @@
 #!/bin/bash
 
-manifests=./manifests
-
-[ -d "$manifests" ] || (echo "manifests dir not found" && exit 1)
-
-oc create -f $manifests/
+oc create -f https://github.com/storageos/cluster-operator/releases/download/1.3.0/storageos-operator.yaml
 oc adm policy add-scc-to-user privileged system:serviceaccount:storageos:storageos-daemonset-sa
 
 GR='\033[0;32m'
