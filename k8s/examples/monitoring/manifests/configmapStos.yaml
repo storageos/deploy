@@ -1,0 +1,929 @@
+apiVersion: v1
+data:
+  storageos.json: |-
+    {
+        "__inputs": [
+
+        ],
+        "__requires": [
+
+        ],
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "description": "StorageOS example dashboard with metric names updated for StorageOS v1.2.0+ compatibility. ",
+        "editable": true,
+        "gnetId": 10093,
+        "graphTooltip": 2,
+        "id": null,
+        "iteration": 1556728479680,
+        "links": [],
+        "panels": [
+          {
+            "collapsed": false,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 0
+            },
+            "id": 101,
+            "panels": [],
+            "title": "StorageOS Node Metrics",
+            "type": "row"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "fill": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 1
+            },
+            "id": 93,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 0.5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "time() - storageos_control_process_start_time_seconds{instance=~\"$node\"}",
+                "format": "time_series",
+                "instant": false,
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "StorageOS Process Uptime",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "s",
+                "label": "Process Uptime",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "fill": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 1
+            },
+            "id": 91,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": ""
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(storageos_node_volumes_total{instance=~\"$node\"}) by (instance, volume_type)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} {{ volume_type }}s",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Volumes Per Node",
+            "tooltip": {
+              "shared": true,
+              "sort": 2,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": 0,
+                "format": "locale",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 10
+            },
+            "id": 67,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "/reads/",
+                "transform": "negative-Y"
+              },
+              {
+                "alias": "/writes/"
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(rate(storageos_volume_frontend_write_total{instance=~\"$node\"}[2m])) by (instance)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} writes",
+                "refId": "A"
+              },
+              {
+                "expr": "sum(rate(storageos_volume_frontend_read_total{instance=~\"$node\"}[2m])) by (instance)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} reads",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Total Read/Write rate (IOPS)",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": "",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 10
+            },
+            "id": 62,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "/read/",
+                "transform": "negative-Y"
+              },
+              {
+                "alias": "/write/"
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(rate(storageos_volume_frontend_write_bytes_total{instance=~\"$node\"}[2m])) by (instance)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} writes",
+                "refId": "B"
+              },
+              {
+                "expr": "sum(rate(storageos_volume_frontend_read_bytes_total{instance=~\"$node\"}[2m])) by (instance)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} reads",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Total Read/Write Bandwidth",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "decbytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "decimals": null,
+            "fill": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 19
+            },
+            "id": 102,
+            "legend": {
+              "alignAsTable": false,
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "rightSide": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "/memory/",
+                "dashes": true,
+                "yaxis": 2
+              },
+              {
+                "alias": "/CPU/",
+                "fill": 1
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "(rate(storageos_control_process_cpu_seconds_total{instance=~\"$node\"}[3m]) +\nrate(storageos_dataplane_process_cpu_seconds_total{instance=~\"$node\"}[3m]) +\nrate(storageos_stats_process_cpu_seconds_total{instance=~\"$node\"}[3m])) * 100",
+                "format": "time_series",
+                "hide": false,
+                "interval": "",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} CPU used",
+                "refId": "A"
+              },
+              {
+                "expr": "storageos_control_process_resident_memory_bytes{instance=~\"$node\"} +\nstorageos_dataplane_process_resident_memory_bytes{instance=~\"$node\"} +\nstorageos_stats_process_resident_memory_bytes{instance=~\"$node\"}",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ instance }} resident memory used",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "StorageOS CPU and Resident Memory Usage",
+            "tooltip": {
+              "shared": true,
+              "sort": 2,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "percent",
+                "label": "CPU Used/s",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "decbytes",
+                "label": "Resident Memory Used",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "collapsed": false,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 28
+            },
+            "id": 99,
+            "panels": [],
+            "title": "StorageOS Namespace Read/Write Metrics",
+            "type": "row"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 29
+            },
+            "id": 84,
+            "legend": {
+              "alignAsTable": false,
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "rightSide": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "/Read/",
+                "transform": "negative-Y"
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(rate(storageos_volume_frontend_write_total{exported_namespace=~\"$namespace\"}[2m])) by (volume_name)",
+                "format": "time_series",
+                "interval": "",
+                "intervalFactor": 1,
+                "legendFormat": "{{ volume_name }} writes",
+                "refId": "A"
+              },
+              {
+                "expr": "sum(rate(storageos_volume_frontend_read_total{exported_namespace=~\"$namespace\"}[2m])) by (volume_name)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ volume_name }} reads",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Frontend Volume IOPS",
+            "tooltip": {
+              "shared": true,
+              "sort": 2,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "$datasource",
+            "fill": 1,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 29
+            },
+            "id": 80,
+            "legend": {
+              "alignAsTable": false,
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "rightSide": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "paceLength": 10,
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "/Read/",
+                "transform": "negative-Y"
+              }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(rate(storageos_volume_frontend_write_bytes_total{exported_namespace=~\"$namespace\"}[2m])) by (volume_name)",
+                "format": "time_series",
+                "interval": "",
+                "intervalFactor": 1,
+                "legendFormat": "{{ volume_name }} Writes",
+                "refId": "A"
+              },
+              {
+                "expr": "sum(rate(storageos_volume_frontend_read_bytes_total{exported_namespace=~\"$namespace\"}[2m])) by (volume_name)",
+                "format": "time_series",
+                "intervalFactor": 1,
+                "legendFormat": "{{ volume_name }} Reads",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Frontend Volume Read/Write Bandwidth",
+            "tooltip": {
+              "shared": false,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "bytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
+        ],
+        "refresh": "1m",
+        "schemaVersion": 18,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": [
+            {
+                "current": {
+                    "text": "Prometheus",
+                    "value": "Prometheus"
+                },
+                "hide": 0,
+                "label": null,
+                "name": "datasource",
+                "options": [
+
+                ],
+                "query": "prometheus",
+                "refresh": 1,
+                "regex": "",
+                "type": "datasource"
+            },
+            {
+              "auto": true,
+              "auto_count": 30,
+              "auto_min": "10s",
+              "current": {
+                "text": "auto",
+                "value": "$__auto_interval_interval"
+              },
+              "hide": 0,
+              "label": "Interval",
+              "name": "interval",
+              "options": [
+                {
+                  "selected": true,
+                  "text": "auto",
+                  "value": "$__auto_interval_interval"
+                },
+                {
+                  "selected": false,
+                  "text": "10s",
+                  "value": "10s"
+                },
+                {
+                  "selected": false,
+                  "text": "20s",
+                  "value": "20s"
+                },
+                {
+                  "selected": false,
+                  "text": "30s",
+                  "value": "30s"
+                },
+                {
+                  "selected": false,
+                  "text": "60s",
+                  "value": "60s"
+                },
+                {
+                  "selected": false,
+                  "text": "90s",
+                  "value": "90s"
+                },
+                {
+                  "selected": false,
+                  "text": "120s",
+                  "value": "120s"
+                }
+              ],
+              "query": "10s,20s,30s,60s,90s,120s",
+              "refresh": 2,
+              "skipUrlSync": false,
+              "type": "interval"
+            },
+            {
+              "allValue": null,
+              "current": {},
+              "datasource": "$datasource",
+              "definition": "label_values(exported_namespace)",
+              "hide": 0,
+              "includeAll": true,
+              "label": "Namespace",
+              "multi": true,
+              "name": "namespace",
+              "options": [],
+              "query": "label_values(exported_namespace)",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {},
+              "datasource": "$datasource",
+              "definition": "label_values(storageos_volume_size_bytes{exported_namespace=~\"$namespace\"}, volume_name)",
+              "hide": 0,
+              "includeAll": true,
+              "label": "Volume Name",
+              "multi": true,
+              "name": "volume_name",
+              "options": [],
+              "query": "label_values(storageos_volume_size_bytes{exported_namespace=~\"$namespace\"}, volume_name)",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {},
+              "datasource": "$datasource",
+              "definition": "label_values(storageos_node_device_capacity_bytes, instance)",
+              "hide": 0,
+              "includeAll": true,
+              "label": "Node",
+              "multi": true,
+              "name": "node",
+              "options": [],
+              "query": "label_values(storageos_node_device_capacity_bytes, instance)",
+              "refresh": 1,
+              "regex": "",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            }
+          ]
+        },
+        "time": {
+          "from": "now-1h",
+          "to": "now"
+        },
+        "timepicker": {
+          "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+          ],
+          "time_options": [
+            "5m",
+            "15m",
+            "1h",
+            "6h",
+            "12h",
+            "24h",
+            "2d",
+            "7d",
+            "30d"
+          ]
+        },
+        "timezone": "",
+        "title": "StorageOS Example v1.2.0+",
+        "uid": "FpEt5o6mk",
+        "version": 1
+      }
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-storageos
+  namespace: monitoring

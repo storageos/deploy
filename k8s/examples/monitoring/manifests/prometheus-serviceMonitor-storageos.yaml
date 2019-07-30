@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: storageos
+  name: storageos
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 10s
+    port: storageos
+  jobLabel: storageos
+  namespaceSelector:
+    matchNames:
+    - storageos
+  selector:
+    matchLabels:
+      app: storageos
