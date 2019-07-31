@@ -11,7 +11,7 @@ Operator](https://docs.storageos.com/docs/reference/cluster-operator/). The
 instructions to do so are located in the directory: `../../cluster-operator/`
 
 ```bash
-(cd ../../cluster-operator && ./deploy-operator.sh)
+(cd ../../../cluster-operator && ./deploy-operator.sh)
 ```
 
 Once the operator is installed, you need to create the StorageOS secret.
@@ -55,8 +55,3 @@ Cluster resource that was created.
 ```bash
 kubectl delete stos storageos-cluster
 ```
-
-# Alternative Installation Method
-
-You can also install StorageOS using yaml manifests. See the README.md in
-./storageos-manual-install/
