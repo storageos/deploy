@@ -1,5 +1,7 @@
 # Deploy StorageOS for OpenShift 3.7
 
+> This playbook is not actively maintained.
+
 Deploy a StorageOS container on all your cluster nodes and connects OpenShift to them.
 
 OpenShift 3.9 and forward enable the MountPropagation feature gate. The current installation of the playbook is for OpenShift 3.7. Because of that, this installation can't use DaemonSets to run StorageOS

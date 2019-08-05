@@ -38,7 +38,7 @@ spec:
       runAsNonRoot: true
       runAsUser: 9000
       fsGroup: 9000
-#  Tolerations example
+#  Tolerates everything
     tolerations:
     - operator: "Exists"
     affinity:
