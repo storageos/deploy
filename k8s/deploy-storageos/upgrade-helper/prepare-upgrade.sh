@@ -5,7 +5,7 @@ LATEST_INIT="storageos/init:develop"
 
 PATCHED_FILES_LOC="/tmp/patched-tmp"
 ONDELETE_PATCH="$PATCHED_FILES_LOC/ondelete.yaml"
-INITIMAGE_PATCH="$PATCHED_FILES_LOC/initimage.yaml"
+INITCONTAINER_PATCH="$PATCHED_FILES_LOC/initimage.yaml"
 
 print_green() {
     local msg="$1"
@@ -31,13 +31,20 @@ spec:
     type: OnDelete
 END
 
-    cat <<END > $INITIMAGE_PATCH
+    cat <<END > $INITCONTAINER_PATCH
 spec:
   template:
     spec:
       initContainers:
         - name: enable-lio
           image: $LATEST_INIT
+          env:
+            - name: DAEMONSET_NAME
+              value: storageos-daemonset
+            - name: DAEMONSET_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
 END
 }
 
@@ -79,6 +86,37 @@ set_updatestrategy_ondelete() {
     kubectl -n "$ns" patch ds/storageos-daemonset --patch "$(cat $ONDELETE_PATCH)"
 }
 
+set_rbac_rules_for_initcontainer() {
+    local ns="$1"
+    local sa="storageos-daemonset-sa"
+    kubectl -n $ns apply -f- <<END
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: init-container
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  verbs:
+  - '*'
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: init-container
+subjects:
+- kind: ServiceAccount
+  name: $sa
+  namespace: $ns
+roleRef:
+  kind: ClusterRole
+  name: init-container
+  apiGroup: rbac.authorization.k8s.io
+END
+}
+
 set_new_images() {
     local pod="$1"
     local ns="$2"
@@ -95,7 +133,7 @@ set_new_images() {
         if [ "$init_img" != "$LATEST_INIT" ]; then
             echo "Current init container: $init_img"
             print_green "Setting the image for the init container to $LATEST_INIT"
-            kubectl -n $ns patch ds/storageos-daemonset --patch "$(cat $INITIMAGE_PATCH)"
+            kubectl -n $ns patch ds/storageos-daemonset --patch "$(cat $INITCONTAINER_PATCH)"
         fi
         echo "Current StorageOS version: $image"
         print_green "Setting image for DaemonSet storageos-daemonset to $LATEST_VERSION"
@@ -145,9 +183,8 @@ if [ -z "$pod" ]; then
 fi
 
 set_updatestrategy_ondelete $ns
+set_rbac_rules_for_initcontainer $ns
 set_new_images $pod $ns
-
-# TODO: pass the required permissions for the init container to call the APIs
 
 list_pods_using_storageos_volumes
 
