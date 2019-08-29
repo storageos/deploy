@@ -31,20 +31,39 @@ spec:
     type: OnDelete
 END
 
+    # The init container patch strategy set to merge on purpose, so it is
+    # required to pass the whole API object to the patch command. Otherwise the
+    # name of the init container can't be changed
     cat <<END > $INITCONTAINER_PATCH
 spec:
   template:
     spec:
       initContainers:
-        - name: enable-lio
-          image: $LATEST_INIT
-          env:
-            - name: DAEMONSET_NAME
-              value: storageos-daemonset
-            - name: DAEMONSET_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
+      - name: storageos-init
+        image: $LATEST_INIT
+        env:
+          - name: DAEMONSET_NAME
+            value: storageos-daemonset
+          - name: DAEMONSET_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        imagePullPolicy: IfNotPresent
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /lib/modules
+          name: kernel-modules
+          readOnly: true
+        - mountPath: /sys
+          mountPropagation: Bidirectional
+          name: sys
 END
 }
 
@@ -133,7 +152,7 @@ set_new_images() {
         if [ "$init_img" != "$LATEST_INIT" ]; then
             echo "Current init container: $init_img"
             print_green "Setting the image for the init container to $LATEST_INIT"
-            kubectl -n $ns patch ds/storageos-daemonset --patch "$(cat $INITCONTAINER_PATCH)"
+            kubectl -n $ns patch ds/storageos-daemonset --type='merge' --patch "$(cat $INITCONTAINER_PATCH)"
         fi
         echo "Current StorageOS version: $image"
         print_green "Setting image for DaemonSet storageos-daemonset to $LATEST_VERSION"
@@ -162,7 +181,6 @@ list_pods_using_storageos_volumes() {
         |  .metadata.namespace + " " + .metadata.name'
     )
 }
-
 
 ####### MAIN #########
 
