@@ -67,6 +67,8 @@ spec:
 END
 }
 
+# check_operator_version Ensures that the StorageOS Cluster Operator is running
+# the latest version
 check_operator_version() {
     echo "Checking the StorageOS Cluster Operator version"
     local out="$(kubectl get pod --all-namespaces --no-headers -ocustom-columns=_:.metadata.name,_:.metadata.namespace | grep "storageos" | grep "operator")"
@@ -97,6 +99,9 @@ check_operator_version() {
     print_green "Verified StorageOS Cluster Operator version $image"
 }
 
+# set_updatestrategy_ondelete Patches the StorageOS DaemonSet to ensure that no
+# pods will be destroyed when the image of the containers changes. So only when
+# the User deletes the Pods a new version of StorageOS will start.
 set_updatestrategy_ondelete() {
     local ns="$1"
 
@@ -105,6 +110,9 @@ set_updatestrategy_ondelete() {
     kubectl -n "$ns" patch ds/storageos-daemonset --patch "$(cat $ONDELETE_PATCH)"
 }
 
+# set_rbac_rules_for_initcontainer Creates the RBAC rules for the init
+# container to communicate with the k8s API. New StorageOS installations have
+# this RBAC rules created by the StorageOS Cluster Operator
 set_rbac_rules_for_initcontainer() {
     local ns="$1"
     local sa="storageos-daemonset-sa"
@@ -136,6 +144,8 @@ roleRef:
 END
 }
 
+# set_new_images Patches the StorageOS DaemonSet to set the new initContainer
+# and latest main container
 set_new_images() {
     local pod="$1"
     local ns="$2"
@@ -160,26 +170,43 @@ set_new_images() {
     fi
 }
 
+# list_pods_using_storageos_volumes Outputs the Pods using StorageOS PVCs
 list_pods_using_storageos_volumes() {
     # TODO: assess if adding a dependency to JQ is ok
 
     print_red "The following Pods are using StorageOS volumes."
     print_red "They need to be scaled to 0 or be restarted after StorageOS is running the newer version."
     print_red "Ensure that the StorageOS Pods are in READY state before you scale back up"
-    while IFS= read -r line; do
-        ns=$(cut -f1  -d' ' <(echo $line))
-        pvc=$(cut -f2 -d' ' <(echo $line))
 
-        kubectl -n $ns get pod -ojson | jq -M --arg PVC "$pvc" -r '.items[]
+    # Iterate over all the PVCs in the cluster that use the StorageOS
+    # provisioner and print any existing Pod that uses any of these PVCs. In
+    # practice, any Pod using a StorageOS volume
+    counter=0
+    while IFS= read -r line; do
+        local ns=$(cut -f1  -d' ' <(echo $line))
+        local pvc=$(cut -f2 -d' ' <(echo $line))
+
+        list=$(kubectl -n $ns get pod -ojson | jq -M --arg PVC "$pvc" -r '.items[]
         | select(.spec.volumes[].persistentVolumeClaim.claimName != null)
         | select(.spec.volumes[].persistentVolumeClaim.claimName == $PVC)
-        | { NameSpace: .metadata.namespace,  Pod: .metadata.name}'
+        | { NameSpace: .metadata.namespace,  Pod: .metadata.name}')
+
+        if [ ! -z "$list" ]; then
+            echo "$list"
+            ((counter++))
+            list=''
+        fi
+
     done < <(kubectl get pvc --all-namespaces -ojson \
         | jq -r '.items[]
         | select (.metadata.annotations."volume.beta.kubernetes.io/storage-provisioner"
         | test("storageos"))
         |  .metadata.namespace + " " + .metadata.name'
     )
+
+    if [ $counter -eq 0 ]; then
+        print_green "No StorageOS Volumes are in use, you can proceed"
+    fi
 }
 
 ####### MAIN #########
@@ -206,5 +233,5 @@ set_new_images $pod $ns
 
 list_pods_using_storageos_volumes
 
-echo "You can delete the StorageOS Pods to restart with the new version when you are ready."
+echo "When you are ready, you can delete the StorageOS Pods to restart with the new version."
 print_green "kubectl -n $ns delete pod -lapp=storageos,kind=daemonset"
