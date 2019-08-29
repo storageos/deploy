@@ -59,8 +59,9 @@ check_operator_version() {
         exit 1
     fi
 
-    # TODO check versions properly, not only 1.3.0, but anything before that
-    if grep -q "1.3.0" <(echo $image); then
+    current_version="$(echo $image | cut -d: -f2 | sed "s/\.//g")"
+    last_version="$(echo $LATEST_VERSION | cut -d: -f2 | cut -d'-' -f1 | sed "s/\.//g")"
+    if [ $current_version -lt $last_version ]; then
         print_red "The Cluster Operator needs to be updated"
         echo "The image $image is not the latest"
         exit 1
@@ -125,7 +126,7 @@ list_pods_using_storageos_volumes() {
 }
 
 
-####### MAIN ########
+####### MAIN #########
 
 create_patches
 
