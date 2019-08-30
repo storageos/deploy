@@ -23,6 +23,24 @@ print_red() {
     echo -e "${RED}$msg${NC}"
 }
 
+verify_dependencies() {
+    # JQ is a depenency to parse kubectl output
+    which jq &>/dev/null
+    if [ $? -ne 0 ]; then
+        print_red "This script requires the use of 'jq' and it can't be found."
+        exit 1
+    fi
+
+    # kubectl is a dependency to interact with the cluster
+    which kubectl &>/dev/null
+    if [ $? -ne 0 ]; then
+        print_red "This script requires the use of 'kubectl' and it can't be found."
+        exit 1
+    fi
+
+    print_green "Using the cluster: `kubectl config current-context`"
+}
+
 create_patches() {
     mkdir -p $PATCHED_FILES_LOC
     cat <<END > $ONDELETE_PATCH
@@ -211,9 +229,10 @@ list_pods_using_storageos_volumes() {
 
 ####### MAIN #########
 
+
+verify_dependencies
 create_patches
 
-print_green "Using the cluster: `kubectl config current-context`"
 check_operator_version
 
 # Find current StorageOS installed version
