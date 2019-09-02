@@ -1,7 +1,8 @@
 #!/bin/bash
 
-LATEST_VERSION="soegarots/node:1.4.0-rc1"
-LATEST_INIT="storageos/init:develop"
+LATEST_VERSION="storageos/node:1.4.0"
+LATEST_OPERATOR_VERSION="storageos/cluster-operator:1.4.0"
+LATEST_INIT="storageos/init:0.3"
 
 PATCHED_FILES_LOC="/tmp/patched-tmp"
 ONDELETE_PATCH="$PATCHED_FILES_LOC/ondelete.yaml"
@@ -106,7 +107,7 @@ check_operator_version() {
     fi
 
     current_version="$(echo $image | cut -d: -f2 | sed "s/\.//g")"
-    last_version="$(echo $LATEST_VERSION | cut -d: -f2 | cut -d'-' -f1 | sed "s/\.//g")"
+    last_version="$(echo $LATEST_OPERATOR_VERSION | cut -d: -f2 | cut -d'-' -f1 | sed "s/\.//g")"
     if [ $current_version -lt $last_version ]; then
         print_red "The Cluster Operator needs to be updated"
         echo "The image $image is not the latest"

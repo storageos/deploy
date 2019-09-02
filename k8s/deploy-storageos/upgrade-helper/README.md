@@ -5,7 +5,7 @@ of StorageOS to +1.4.
 
 StorageOS 1.4 incorporates metadata changes that require a migration if running
 a previous version of StorageOS. Such a metadata migration is automated and
-fully handled by the StorageOS software. However, is of paramount importance to
+fully handled by the StorageOS software. However, it is of paramount importance to
 ensure the right version of the StorageOS components is installed.
 
 > This section presents helpers with instructions that need to be followed from
