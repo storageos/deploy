@@ -83,6 +83,9 @@ spec:
         - mountPath: /sys
           mountPropagation: Bidirectional
           name: sys
+        - mountPath: /var/lib/storageos
+          mountPropagation: Bidirectional
+          name: state
 END
 }
 
