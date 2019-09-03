@@ -193,10 +193,6 @@ set_new_images() {
 list_pods_using_storageos_volumes() {
     # TODO: assess if adding a dependency to JQ is ok
 
-    print_red "The following Pods are using StorageOS volumes."
-    print_red "They need to be scaled to 0 or be restarted after StorageOS is running the newer version."
-    print_red "Ensure that the StorageOS Pods are in READY state before you scale back up"
-
     # Iterate over all the PVCs in the cluster that use the StorageOS
     # provisioner and print any existing Pod that uses any of these PVCs. In
     # practice, any Pod using a StorageOS volume
@@ -225,6 +221,10 @@ list_pods_using_storageos_volumes() {
 
     if [ $counter -eq 0 ]; then
         print_green "No StorageOS Volumes are in use, you can proceed"
+    else
+        print_red "The list above shows the Pods that are using StorageOS volumes."
+        print_red "They need to be scaled to 0 or be restarted after StorageOS is running the newer version."
+        print_red "Ensure that the StorageOS Pods are in READY state before you scale back up"
     fi
 }
 
