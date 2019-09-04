@@ -194,7 +194,6 @@ set_new_images() {
 
 # list_pods_using_storageos_volumes Outputs the Pods using StorageOS PVCs
 list_pods_using_storageos_volumes() {
-    # TODO: assess if adding a dependency to JQ is ok
 
     # Iterate over all the PVCs in the cluster that use the StorageOS
     # provisioner and print any existing Pod that uses any of these PVCs. In
@@ -256,5 +255,12 @@ set_new_images $pod $ns
 
 list_pods_using_storageos_volumes
 
-echo "When you are ready, you can delete the StorageOS Pods to restart with the new version."
-print_green "kubectl -n $ns delete pod -lapp=storageos,kind=daemonset"
+print_green "To complete the upgrade you must restart the StorageOS Pods on
+each node. While the container is being restarted, volumes accessed from
+application Pods on the node will be unavailable. We recommend that you put the
+cluster in maintenance mode (link to docs) shutdown applications accessing
+StorageOS volumes on the node, and then delete the StorageOS Pod. The DaemonSet
+will restart the Pod using the updated version. Once all nodes have been
+upgraded, disable maintenance mode."
+print_green "It is safe to re-run this script."
+print_green "To delete the StorageOS Pods, you can run: \"kubectl -n $ns delete pod -lapp=storageos,kind=daemonset\""
