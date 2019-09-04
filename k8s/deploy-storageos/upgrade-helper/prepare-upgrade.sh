@@ -112,10 +112,9 @@ check_operator_version() {
     current_version="$(echo $image | cut -d: -f2 | sed "s/\.//g")"
     last_version="$(echo $LATEST_OPERATOR_VERSION | cut -d: -f2 | cut -d'-' -f1 | sed "s/\.//g")"
     if [ $current_version -lt $last_version ]; then
-        print_red "The Cluster Operator needs to be updated"
+        print_red "The Cluster Operator needs to be updated, follow the documentation to upgrade: https://docs.storageos.com/docs/reference/cluster-operator/upgrade"
         echo "The image $image is not the latest"
         exit 1
-        #TODO: Reference the Operator upgrades pages, uber yaml, helm, etc
     fi
 
     print_green "Verified StorageOS Cluster Operator version $image"
