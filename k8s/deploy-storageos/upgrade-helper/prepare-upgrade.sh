@@ -2,7 +2,7 @@
 
 LATEST_VERSION="storageos/node:1.4.0"
 LATEST_OPERATOR_VERSION="storageos/cluster-operator:1.4.0"
-LATEST_INIT="storageos/init:1.0"
+LATEST_INIT="storageos/init:1.0.0"
 
 PATCHED_FILES_LOC="/tmp/patched-tmp"
 ONDELETE_PATCH="$PATCHED_FILES_LOC/ondelete.yaml"
