@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    env: prod
+data:
+  mysqld.cnf: |
+    [mysqld]
+    pid-file = /var/run/mysqld/mysqld.pid
+    #socket = /var/run/mysqld/mysqld.sock
+    datadir = /var/lib/mysql
+    bind-address = 0.0.0.0
+    symbolic-links=0
