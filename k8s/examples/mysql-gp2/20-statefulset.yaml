@@ -49,7 +49,7 @@ spec:
         env: prod
     spec:
       accessModes: ["ReadWriteOnce"]
-      storageClassName: "gp2" # EBS storageclass
+      storageClassName: "sc-5mzmr" # EBS storageclass
       resources:
         requests:
           storage: 5Gi
