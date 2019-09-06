@@ -10,7 +10,7 @@ spec:
   tlsEtcdSecretRefName: "etcd-client-tls"
   tlsEtcdSecretRefNamespace: "etcd"
   images:
-    nodeContainer: "storageos/node:1.3.0"
+    nodeContainer: "storageos/node:1.4.0"
   kvBackend:
     address: "https://storageos-etcd-cluster-client.etcd.svc:2379"
     backend: "etcd"
