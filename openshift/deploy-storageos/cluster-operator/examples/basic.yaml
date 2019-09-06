@@ -6,6 +6,7 @@ spec:
   secretRefName: "storageos-api" # Reference from the Secret created in the previous step
   secretRefNamespace: "default"  # Namespace of the Secret
   k8sDistro: "openshift"
+  disableScheduler: true
   nodeSelectorTerms:
     - matchExpressions:
       - key: "node-role.kubernetes.io/compute" # Select non master nodes
