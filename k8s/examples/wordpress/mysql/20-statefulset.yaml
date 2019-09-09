@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadate:
+  name: wordpress-mysql
+  lables:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+serviceName: wordpress-mysql
+replicals: 1
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      serviceAccountName: wordpress-mysql
+      securityContext:
+        runAsUser: 0
+        fsGroup: 999
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+          - name: ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-mysql
+                key: mysql-admin-user
+          - name: ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-mysql
+                key: mysql-admin-password
