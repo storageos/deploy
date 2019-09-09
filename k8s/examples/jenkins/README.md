@@ -28,7 +28,8 @@ $ kubectl get pods -w -l app=jenkins
 
 Connect to the Jenkins UI through the Jenkins service. You can do this by
 port-foward'ing the Jenkins Kubernetes service to your localhost and accessing
-the UI via your browser.
+the UI via your browser. To login to the Jenkins UI use the credentials
+specified in `07-config.yaml`.
 
 ```bash
 $ kubectl port-forward svc/jenkins 8080:8080
@@ -36,5 +37,35 @@ $ curl localhost:8080
 ```
 
 If you inspect the service you'll see that port 50000 is also open. This has
-been done deliberately to allow you to use the [Kubernetes Jenkins
-plugin](https://github.com/jenkinsci/kubernetes-plugin).
+been done deliberately to allow the [Kubernetes Jenkins
+plugin](https://github.com/jenkinsci/kubernetes-plugin) to create build slave
+pods.
+
+
+Once you are logged into the UI you can create a job that will be farmed out to
+a Kubernetes plugin build slave. Go to the Jenkins settings and click
+`Configure System`, scroll to down to the `Cloud` section. In this section
+access to your Kubernetes cluster has been configured. 
+
+> N.B. At the time of writing the jenkins/jnlp-slave Docker image did not
+> contain a fix for
+> [JENKINS-59000](https://issues.jenkins-ci.org/browse/JENKINS-59000) so the
+> Kubernetes service has a port appended as a workaround. This port is set in
+> the jenkins configMap in 07-config.yaml.
+
+Copy the Labels name from the Kubernetes Pod Template and click New Item. Enter
+a name for the project and select Freestyle project. Select the `Restrict where
+this project can be run` option and paste the Kubernetes Pod Template name into
+the field. This will cause Jenkins to create a build pod when the build is run.
+Next add an `Execute shell` build step. As a proof of concept you can use the
+bash below to have the pod execute a sleep.
+
+```bash
+#!/bin/bash
+sleep 10000
+```
+
+Save the project and select Schedule a build of your project. You can watch for
+the appearance of a build pod using `kubectl get pods -l jenkins=slave -w`.
+Once the pod is created you should see the Build Executor status in the Jenkins
+UI display the pod.
