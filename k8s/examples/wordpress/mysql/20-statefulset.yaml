@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
-metadate:
+metadata:
   name: wordpress-mysql
-  lables:
+  labels:
     app: wordpress
 spec:
   selector:
     matchLabels:
       app: wordpress
-serviceName: wordpress-mysql
-replicals: 1
+  serviceName: wordpress-mysql
+  replicas: 1
   template:
     metadata:
       labels:
@@ -33,3 +33,36 @@ replicals: 1
               secretKeyRef:
                 name: wordpress-mysql
                 key: mysql-admin-password
+          - name: ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-mysql
+                key: mysql-root-password
+        ports:
+        - name: mysql
+          containerPort: 3306
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+          subPath: mysql
+        - name: conf
+          mountPath: /etc/mysql/mysql.conf.d
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+      volumes:
+      - name: conf
+        configMap:
+          name: wordpress-mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        env: prod
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi

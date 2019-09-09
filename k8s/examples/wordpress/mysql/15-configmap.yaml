@@ -9,7 +9,8 @@ metadata:
 type: Opaque
 data:
   mysql-admin-user: "YWRtaW4="         # base64 encoded admin username - admin
-  mysql-admin-password: "cGFzc3dvcmQ=" # base64 encoded password       - password
+  mysql-admin-password: "cGFzc3dvcmQ=" # base64 encoded password   - password
+  mysql-root-password: "cGFzc3dvcmQ="
 ---
 apiVersion: v1
 kind: ConfigMap
