@@ -8,8 +8,8 @@ metadata:
     app: jenkins
 type: Opaque
 data:
-  jenkins - admin - user: "YWRtaW4="         # base64 encoded admin username - admin
-  jenkins - admin - password: "cGFzc3dvcmQ=" # base64 encoded password       - password
+  jenkins-admin-user: "YWRtaW4="         # base64 encoded admin username - admin
+  jenkins-admin-password: "cGFzc3dvcmQ=" # base64 encoded password       - password
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -48,7 +48,7 @@ data:
               <name>default</name>
               <instanceCap>2147483647</instanceCap>
               <idleMinutes>0</idleMinutes>
-              <label>jenkins-slave </label>
+              <label>jenkins-agent</label>
               <serviceAccount>default</serviceAccount>
               <nodeSelector></nodeSelector>
                 <nodeUsageMode>NORMAL</nodeUsageMode>
@@ -152,16 +152,3 @@ data:
     workflow-aggregator:2.6
     credentials-binding:1.19
     git:3.11.0
----
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: jenkins-tests
-#  namespace: default
-#  labels:
-#    app: jenkins
-#data:
-#  run.sh: |-
-#    @test "Testing Jenkins UI is accessible" {
-#      curl --retry 48 --retry-delay 10 jenkins:8080/login
-#    }

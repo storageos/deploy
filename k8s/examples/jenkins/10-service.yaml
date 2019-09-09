@@ -10,7 +10,7 @@ spec:
   ports:
     - port: 50000
       targetPort: 50000
-      name: slavelistener
+      name: agentlistener
   selector:
     app: jenkins
     component: jenkins-master

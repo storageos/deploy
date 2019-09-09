@@ -52,11 +52,11 @@ admin/password.
 
 If you inspect the service you'll see that port 50000 is also open. This has
 been done deliberately to allow the [Kubernetes Jenkins
-plugin](https://github.com/jenkinsci/kubernetes-plugin) to create build slave
+plugin](https://github.com/jenkinsci/kubernetes-plugin) to create build agent
 pods.
 
 Once you are logged into the UI you can create a job that will be farmed out to
-a Kubernetes plugin build slave. Go to the Jenkins settings and click
+a Kubernetes plugin build agent. Go to the Jenkins settings and click
 `Configure System`, scroll to down to the `Cloud` section. In this section
 access to your Kubernetes cluster has been configured.
 
@@ -75,7 +75,7 @@ below to have the pod execute a sleep.
 sleep 1000
 ```
 Save the project and select Schedule a build of your project. You can watch for
-the appearance of a build pod using `kubectl get pods -l jenkins=slave -w`.
+the appearance of a build pod using `kubectl get pods -l jenkins=agent -w`.
 Once the pod is created you should see the Build Executor status in the Jenkins
 UI display the pod.
 
