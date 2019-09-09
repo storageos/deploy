@@ -8,8 +8,8 @@ metadata:
     app: jenkins
 type: Opaque
 data:
-  jenkins-admin-password: "cGFzc3dvcmQ=" # base64 encoded password
-  jenkins-admin-user: "YWRtaW4="         # base64 encoded admin username
+  jenkins - admin - user: "YWRtaW4="         # base64 encoded admin username - admin
+  jenkins - admin - password: "cGFzc3dvcmQ=" # base64 encoded password       - password
 ---
 apiVersion: v1
 kind: ConfigMap

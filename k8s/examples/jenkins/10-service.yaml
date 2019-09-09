@@ -27,10 +27,26 @@ spec:
   ports:
     - port: 8080
       name: http
-      targetPort: 8080
-      nodePort: 30000
   selector:
     app: jenkins
     component: jenkins-master
-  type: NodePort
+  type: ClusterIP
 ---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: jenkins-nodeport
+#  namespace: default
+#  labels:
+#    app: jenkins
+#spec:
+#  ports:
+#    - port: 8080
+#      name: http
+#      targetPort: 8080
+#      nodePort: 30000
+#  selector:
+#    app: jenkins
+#    component: jenkins-master
+#  type: NodePort
+#---
