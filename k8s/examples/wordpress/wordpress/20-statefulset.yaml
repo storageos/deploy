@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  serviceName: wordpress
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      serviceAccountName: wordpress
+      containers:
+      - name: wordpress
+        image: wordpress:5.2-apache
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: wordpress-mysql-0.wordpress-mysql # not sure about this might need to set it up differently
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wordpress
+              key: wordpress-db-password
+        ports:
+        - name: wordpress
+          containerPort: 80
+        volumeMounts:
+        - name: wordpress-data
+          mountPath: /var/www/html
+  volumeClaimTemplates:
+  - metadata:
+      name: wordpress-data
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "fast" # StorageOS storageClass 
+      resources:
+        requests:
+          storage: 5Gi
