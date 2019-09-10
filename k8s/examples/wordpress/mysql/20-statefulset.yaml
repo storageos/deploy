@@ -4,16 +4,19 @@ metadata:
   name: wordpress-mysql
   labels:
     app: wordpress
+    tier: mysql
 spec:
   selector:
     matchLabels:
       app: wordpress
+      tier: mysql
   serviceName: wordpress-mysql
   replicas: 1
   template:
     metadata:
       labels:
         app: wordpress
+        tier: mysql
     spec:
       serviceAccountName: wordpress-mysql
       securityContext:
@@ -24,16 +27,13 @@ spec:
         image: mysql:5.7
         env:
           - name: ADMIN_USER
-            valueFrom:
-              secretKeyRef:
-                name: wordpress-mysql
-                key: mysql-admin-user
+            value: "admin"
           - name: ADMIN_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: wordpress-mysql
                 key: mysql-admin-password
-          - name: ROOT_PASSWORD
+          - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: wordpress-mysql
@@ -59,7 +59,8 @@ spec:
   - metadata:
       name: data
       labels:
-        env: prod
+        app: wordpress-mysql
+        tier: sql
     spec:
       accessModes: ["ReadWriteOnce"]
       storageClassName: "fast" # StorageOS storageClass 
