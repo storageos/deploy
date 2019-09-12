@@ -2,9 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: wordpress
-  labels:
-    app: wordpress
-    tier: frontend
 spec:
   selector:
     matchLabels:
@@ -30,9 +27,19 @@ spec:
             secretKeyRef:
               name: wordpress
               key: wordpress-db-password
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 80
+        #   initialDelaySeconds: 60
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 80
         ports:
         - name: wordpress
           containerPort: 80
+          name: http
         volumeMounts:
         - name: wordpress-data
           mountPath: /var/www/html

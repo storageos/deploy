@@ -2,9 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: wordpress-mysql
-  labels:
-    app: wordpress
-    tier: mysql
 spec:
   selector:
     matchLabels:

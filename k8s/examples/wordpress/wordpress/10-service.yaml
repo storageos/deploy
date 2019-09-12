@@ -5,12 +5,15 @@ metadata:
   labels:
     app: wordpress
 spec:
+  externalTrafficPolicy: Local
   ports:
     - port: 8080
       targetPort: 80
       name: wordpress
       protocol: TCP
+      name: http
   selector:
     app: wordpress
     tier: frontend
-  type: ClusterIP
+  type: NodePort
+  #type: LoadBalancer
