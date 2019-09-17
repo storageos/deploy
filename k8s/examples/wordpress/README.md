@@ -84,6 +84,14 @@ Once this is done, you can check that the wordpress pods are running.
 
 ```
 $ kubectl get pods -l app=wordpress,tier=frontend
+
+kubectl get pods -l app=wordpress,tier=frontend 
+
+NAME          READY   STATUS    RESTARTS   AGE
+wordpress-0   1/1     Running   0          23m
+wordpress-1   1/1     Running   0          15m
+wordpress-2   1/1     Running   0          3m19s
+
 ```
 
 Now if you check all the services you have for this example. You will notice that the Wordpress Service is using NodePort.

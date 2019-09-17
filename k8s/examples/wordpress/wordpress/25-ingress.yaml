@@ -12,8 +12,13 @@ metadata:
     #nginx.ingress.kubernetes.io/ssl-redirect: "false"
     #nginx.ingress.kubernetes.io/rewrite-target: /*
 spec:
+  tls:
+    - hosts:
+      - test.example.com
+      secretName: tls-certificate 
   rules:
-    - http:
+    - host: test.example.com
+      http:
         paths:
         - path: /
           backend:
