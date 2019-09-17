@@ -16,5 +16,4 @@ spec:
   selector:
     app: wordpress
     tier: frontend
-  type: NodePort
-  #type: LoadBalancer
+  type: NodePort # We use NodePort by default, but can use LoadBalancer
