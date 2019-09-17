@@ -27,15 +27,6 @@ spec:
             secretKeyRef:
               name: wordpress
               key: wordpress-db-password
-        # readinessProbe:
-        #   httpGet:
-        #     path: /health
-        #     port: 80
-        #   initialDelaySeconds: 60
-        # livenessProbe:
-        #   httpGet:
-        #     path: /health
-        #     port: 80
         ports:
         - name: wordpress
           containerPort: 80
@@ -47,11 +38,12 @@ spec:
   - metadata:
       name: wordpress-data
       labels:
+        storageos.com/replicas: "1"
         app: wordpress
         tier: frontend
     spec:
-      accessModes: ["ReadWriteOnce"]
+      accessModes: ["ReadWriteMany"]
       storageClassName: "fast" # StorageOS storageClass 
       resources:
         requests:
-          storage: 5Gi
+          storage: 10Gi

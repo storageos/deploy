@@ -4,6 +4,7 @@ metadata:
   name: wordpress
   labels:
     app: wordpress
+    tier: frontend
 spec:
   externalTrafficPolicy: Local
   ports:
