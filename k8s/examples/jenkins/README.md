@@ -12,10 +12,10 @@ Deploying Jenkins using StorageOS offers multiple benefits. Firstly Jenkins can
 spin up multiple build pods at once to allow concurrent builds of different
 projects. Secondly Jenkins configuration is on a PersistentVolume so even if
 the Jenkins pod is rescheduled the configuration will persist. Using StorageOS
-(volume replicas)[https://docs.storageos.com/docs/concepts/replication] allows
+[ volume replicas ]( https://docs.storageos.com/docs/concepts/replication ) allows
 for failure of nodes holding the PersistentVolume without interrupting Jenkins.
-Lastly by enabling (StorageOS
-fencing)[https://docs.storageos.com/docs/concepts/fencing] Jenkins time to
+Lastly by enabling [ StorageOS
+fencing ]( https://docs.storageos.com/docs/concepts/fencing ) Jenkins time to
 recover, in case of node failures, is greatly reduced.
 
 ## Deploy
