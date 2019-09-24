@@ -9,6 +9,10 @@ metadata:
     role: coordinator
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      component: elasticsearch
+      role: coordinator
   template:
     metadata:
       annotations:

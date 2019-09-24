@@ -9,6 +9,10 @@ metadata:
     role: master
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      component: elasticsearch
+      role: master
   template:
     metadata:
       labels:
