@@ -1,6 +1,6 @@
 ---
 # Source: grafana/templates/podsecuritypolicy.yaml
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: grafana
@@ -162,7 +162,7 @@ spec:
     app: grafana
 ---
 # Source: grafana/templates/deployment.yaml
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
