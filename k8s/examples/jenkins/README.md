@@ -28,7 +28,15 @@ $ git clone https://github.com/storageos/deploy.git storageos
 $ cd storageos
 $ kubectl create -f ./k8s/examples/jenkins
 ```
-Once this is done you can check that a Jenkins pod is running
+Once this is done you can check that a Jenkins pod is running.
+
+> N.B. The Jenkins master creates a 50Gi StorageOS volume, with a single
+> replica, so your must have at least two nodes with 50GB of free space
+> avaliable. The volumes will not take up 50Gi of space on the nodes due to
+> StorageOS [thin
+> provisioning](https://docs.storageos.com/docs/concepts/architecture) of
+> volumes and
+> [compression](*https://docs.storageos.com/docs/concepts/compression).
 
 ```bash
 $ kubectl get pods -w -l app=jenkins
