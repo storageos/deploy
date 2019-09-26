@@ -1,6 +1,6 @@
 # Wordpress with MySQL on Kubernetes with StorageOS Persisent Storage
 
-This example shows how to deploy a WordPress site and with a MySQL database, an NGINX Ingress Controller and an NFS Server. The files build two StatefulSets that can be used after a StorageOS Cluster has been created. For
+This example shows how to deploy a WordPress site; with a MySQL database, an NGINX Ingress Controller and an NFS Server. The files build two StatefulSets that can be used after a StorageOS Cluster has been created. For
 more information on how to install a StorageOS cluster please see
 [the StorageOS documentation](https://docs.storageos.com/docs/introduction/quickstart)
 for more information.
@@ -53,7 +53,7 @@ $ git clone https://github.com/storageos/deploy.git storageos
 
 ## Deploy MySQL
 
-Firstly you will need to create all the Kubernetes objects for the MySQL Part of this example.
+Firstly you will need to create all the Kubernetes objects for the MySQL part of this example.
 
 ```
 $ cd storageos
@@ -75,7 +75,7 @@ Connect to the MySQL Client Pod and connect to the MySQL server through the serv
 ```
 $ k exec -it client -- bash 
 root@client:/# mysql -h wordpress-mysql -uroot -p
-// enter your password. In this example is just the word password
+// enter your password. In this example it is just the word password
 mysql> show databases;
 +--------------------+
 | Database           |
