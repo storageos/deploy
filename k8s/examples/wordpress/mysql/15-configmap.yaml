@@ -9,7 +9,6 @@ metadata:
     tier: mysql
 type: Opaque
 data:
-  mysql-admin-password: "cGFzc3dvcmQ=" # base64 encoded password   - password
   mysql-root-password: "cGFzc3dvcmQ="
 ---
 apiVersion: v1

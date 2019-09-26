@@ -23,13 +23,6 @@ spec:
       - name: mysql
         image: mysql:5.7
         env:
-          - name: ADMIN_USER
-            value: "admin"
-          - name: ADMIN_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: wordpress-mysql
-                key: mysql-admin-password
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:

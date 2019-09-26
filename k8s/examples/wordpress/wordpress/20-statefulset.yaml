@@ -21,7 +21,7 @@ spec:
         image: wordpress:5.2-apache
         env:
         - name: WORDPRESS_DB_HOST
-          value: wordpress-mysql-0.wordpress-mysql # not sure about this might need to set it up differently
+          value: wordpress-mysql
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:

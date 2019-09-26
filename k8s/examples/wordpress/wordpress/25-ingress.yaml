@@ -6,7 +6,7 @@ metadata:
     app: wordpress
     tier: frontend
   annotations:
-    kubernetes.io/ingress.class: "nginx" # not sure if this works on ovirt but works with rancher
+    kubernetes.io/ingress.class: "nginx"
     # Enable client certificate authentication
     #nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
     # Create the secret containing the trusted ca certificates
