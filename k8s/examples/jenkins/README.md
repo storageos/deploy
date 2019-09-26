@@ -1,10 +1,10 @@
 # Jenkins on Kubernetes with StorageOS Persistent Storage
 
-This example shows an example of how to deploy Jenkins on Kubernetes with a
-StorageOS persistent volume being mounted on `/var/jenkins_home`. The files
-create a stateful set that can be used *AFTER* a StorageOS cluster has been
-created. For more information on how to install a StorageOS cluster please see
-[the StorageOS
+This example shows how to deploy Jenkins on Kubernetes with a StorageOS
+persistent volume being mounted on `/var/jenkins_home`. The files create a
+stateful set that can be used *AFTER* a StorageOS cluster has been created. For
+more information on how to install a StorageOS cluster please see [the
+StorageOS
 documentation](https://docs.storageos.com/docs/introduction/quickstart) for
 more information.
 
