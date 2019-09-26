@@ -21,7 +21,8 @@ kubernetes                                 ClusterIP      10.43.240.1     <none>
 my-nginx-nginx-ingress-controller          LoadBalancer   10.43.244.81    35.195.97.236   80:30758/TCP,443:31772/TCP   5m
 my-nginx-nginx-ingress-default-backend     ClusterIP      10.43.240.77    <none>          80/TCP                       5m
 
- ```
+```
+> Make a note of the `EXTERNAL-IP`, as this will be used to access the WordPress Site.
 
 ```
 $ kubectl get pods
@@ -108,7 +109,8 @@ wordpress-2   1/1     Running   0          5m
 
 ```
 
-Now if you check all the services you have for this example. You will notice that the Wordpress Service is using NodePort.
+Now if you check all the services you have for this example. You will notice that the WordPress Service is using NodePort.
+By default we are using NodePort, because it allows us to exposes the Service on each Node’s IP at a static port. And for this example we don't necessarily need to expose the Service externally using explixitly a cloud provider’s load balancer, using the LoadBalancer. AS we are going to use the NGINX Ingress to route external traffic to our backend service. However if you wish to change the service type, you can do that in `wordpress/10-service.yml`.
 
 ```
 $ kubectl get service
@@ -126,5 +128,6 @@ Check that you can access the WordPress Site using the external IP provided by t
 
 ```
 curl -kv --resolve test.example.com:443:<nginx_ing_external_ip> https://test.example.com
-curl -Lk --resolve test.example.com:443:<nginx_ing_public_ip> https://test.example.com/
+curl -Lk --resolve test.example.com:443:<nginx_ing_external_ip> https://test.example.com/
 ```
+> The `nginx_ing_external_ip`, will be the NGINX Ingress Controller external IP saved during [prerequisites](#prerequisites).
