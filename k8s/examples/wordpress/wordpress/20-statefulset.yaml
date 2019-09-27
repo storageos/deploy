@@ -7,6 +7,7 @@ spec:
     matchLabels:
       app: wordpress
       tier: frontend
+      storageos.com/replicas: "1"
   serviceName: wordpress
   replicas: 3
   template:
@@ -14,6 +15,7 @@ spec:
       labels:
         app: wordpress
         tier: frontend
+        storageos.com/replicas: "1"
     spec:
       serviceAccountName: wordpress
       containers:
@@ -36,10 +38,6 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: wordpress-data
-      labels:
-        storageos.com/replicas: "1"
-        app: wordpress
-        tier: frontend
     spec:
       accessModes: ["ReadWriteMany"]
       storageClassName: "fast" # StorageOS storageClass 

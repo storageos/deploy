@@ -9,7 +9,7 @@ metadata:
     tier: mysql
 type: Opaque
 data:
-  mysql-root-password: "cGFzc3dvcmQ="
+  mysql-root-password: "cGFzc3dvcmQ=" # base64 encoded password   - password
 ---
 apiVersion: v1
 kind: ConfigMap
