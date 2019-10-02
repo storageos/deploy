@@ -1,0 +1,34 @@
+# This VM does not work as VMI interfaces get created with bridge
+---
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  labels:
+    kubevirt.io/vm: migratable
+  name: migratable
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: migratable
+    spec:
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: datavolumevolume
+          interfaces:
+          - masquerade: {}
+            name: default
+        machine:
+          type: ""
+        resources:
+          requests:
+            memory: 64M
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - persistentVolumeClaim:
+          claimName: cirros-rwx
+        name: datavolumevolume

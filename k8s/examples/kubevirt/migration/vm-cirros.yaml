@@ -8,11 +8,11 @@ spec:
   dataVolumeTemplates:
   - metadata:
       creationTimestamp: null
-      name: cirros
+      name: cirros-rwx
     spec:
       pvc:
         accessModes:
-        - ReadWriteOnce
+        - ReadWriteMany
         resources:
           requests:
             storage: 12Gi
@@ -32,6 +32,9 @@ spec:
           - disk:
               bus: virtio
             name: datavolumevolume
+          interfaces:
+          - masquerade: {}
+            name: default
         machine:
           type: ""
         resources:
@@ -40,5 +43,5 @@ spec:
       terminationGracePeriodSeconds: 0
       volumes:
       - dataVolume:
-          name: cirros
+          name: cirros-rwx
         name: datavolumevolume
