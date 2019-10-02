@@ -12,4 +12,5 @@ metadata:
   namespace: kubevirt
 data:
   debug.useEmulation: "true"
+  feature-gates: "LiveMigration"
 
