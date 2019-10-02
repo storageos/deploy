@@ -20,7 +20,7 @@ spec:
       source:
         http:
           url: https://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
-  running: true
+  running: false
   template:
     metadata:
       labels:
@@ -33,13 +33,16 @@ spec:
               bus: virtio
             name: datavolumevolume
           interfaces:
-          - masquerade: {}
-            name: default
+            - masquerade: {}
+              name: default
         machine:
           type: ""
         resources:
           requests:
             memory: 64M
+      networks:
+      - name: default
+        pod: {}
       terminationGracePeriodSeconds: 0
       volumes:
       - dataVolume:
