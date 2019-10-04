@@ -146,3 +146,28 @@ console, in order to create the VirtualMachineInstanceMigration.
 ```bash
 $ kubectl create -f ./k8s/examples/kubevirt/migration/migration-job.yaml
 ```
+
+## Cloning Volumes
+
+CDI allows for images to be cloned using a DataVolume manifest. Verify that the
+cirros pvc, created as part of the vm-cirros.yaml file, exists before
+attempting to clone the volume. If the PVC being used by the VM has an RWO
+access mode, ensure that the VMI is stopped before continuing.
+
+```bash
+$ kubectl get pvc
+NAME                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+cirros              Bound    pvc-f4833060-5a77-420c-927e-6bc518d9df3c   12Gi       RWO            fast           1m
+```
+
+Once the PVC's existence is confirmed then create a new DataVolume that uses the cirros PVC as its source.
+
+```bash
+$ kubectl create -f ./cloned.yaml
+```
+
+You'll see that a cdi-upload-cloned-datavolume pod is created and then a
+cdi-clone-source pod is created. The cdi-source pod mounts the original cirros
+volume and sends the contents of the volume to the cdi-upload pod. The
+cdi-upload pod creates and mounts a new PVC and writes the contents of the
+original volume to it.
