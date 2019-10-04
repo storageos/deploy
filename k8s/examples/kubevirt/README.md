@@ -151,8 +151,9 @@ $ kubectl create -f ./k8s/examples/kubevirt/migration/migration-job.yaml
 
 CDI allows for images to be cloned using a DataVolume manifest. Verify that the
 cirros pvc, created as part of the vm-cirros.yaml file, exists before
-attempting to clone the volume. If the PVC being used by the VM has an RWO
-access mode, ensure that the VMI is stopped before continuing.
+attempting to clone the volume.
+
+> N.B. Ensure that the VMI is stopped before continuing!
 
 ```bash
 $ kubectl get pvc
