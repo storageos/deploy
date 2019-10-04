@@ -10,7 +10,7 @@ documentation](https://docs.storageos.com/docs/introduction/quickstart) for
 more information.
 
 Deploying Kubevirt using StorageOS offers multiple benefits. Kubevirt can spin
-up VirtualMachines as Kubernetes pods, using images on StorageOS persistent
+up Virtual Machines as Kubernetes pods, using images on StorageOS persistent
 volumes. Doing this allows the VirtualMachine data to persist restarts and
 rescheduling. Using StorageOS [volume
 replicas](https://docs.storageos.com/docs/concepts/replication) also allows for
@@ -23,17 +23,18 @@ the disk image.
 
 ## Prerequisites
 
-In order to install Kubevirt there are certain prerequisites that must be met.
 Please see the [ Kubevirt installation instructions
-](https://kubevirt.io/user-guide/docs/latest/administration/intro.html) for
-more information.
+](https://kubevirt.io/user-guide/docs/latest/administration/intro.html)  to
+ensure the Kubevirt prerequisites have been met. 
 
 As part of this installation it is assumed that you are running a Kubernetes
-cluster on virtual machines. As such nested virtualization needs to enabled or
-hardware emulation can be enabled. For ease of installation we have enabled
-hardware emulation. If your VMs support nested virtualization then edit the
-Kubevirt configMap `./kubevirt-install/10-cm.yam` , removing the line
-`debug.useEmulation: "true"`.
+cluster on virtual machines. As such, either nested virtualization  or hardware
+emulation need to be enabled. For ease of installation we have enabled hardware
+emulation.
+
+> If your VMs support nested virtualization then edit the Kubevirt `configMap`
+> `./kubevirt-install/10-cm.yam` , removing the line for more
+> information.`debug.useEmulation: "true"`.
 
 ## Deploy
 
@@ -78,19 +79,19 @@ cdi-operator-5887f96c-dz2hg       1/1     Running   0          1m
 cdi-uploadproxy-97fbbfcbf-6f9xs   1/1     Running   0          1m
 ```
 
-Now that CDI and Kubevirt are running VirtualMachines can be created. As the
-vm-cirros.yaml manifest creates a VirtualMachine that uses a DataVolume, CDI
+Now that CDI and Kubevirt are running `VirtualMachines` can be created. As the
+vm-cirros.yaml manifest creates a `VirtualMachine` that uses a `DataVolume`, CDI
 will create a StorageOS backed PVC and download the image that the
-VirtualMachineInstance will boot from onto the PVC.
+`VirtualMachineInstance` (VMI) will boot from onto the PVC.
 
 ```bash
 $ kubectl create -f ./vm-cirros.yaml
 ```
 
-Check that the VirtualMachineInstance is running and attempt to connect to the
-console. 
+Check that the `VMI` is running and attempt to connect to the
+console.
 
-> N.B. The VirtualMachineInstance will only be created after CDI has downloaded
+> N.B. The `VMI` will only be created after CDI has downloaded
 > the Cirros disk image onto a StorageOS persistent volume so depending on your
 > connection speed this may take some time.
 
@@ -119,14 +120,14 @@ $
 
 ## Live Migration
 
-Kubevirt allows for the live migration of VirtualMachineInstances from one node
+Kubevirt allows for the live migration of `VMIs` from one node
 to another while workloads running inside the virtual machines continue to run.
 VirtualMachineInstanceMigration resources are used to kick off migrations. In
-order to migrate a virtual machine instance, the VirtualMachineInstances
+order to migrate a virtual machine instance, the `VMI`s
 volumes must have a `ReadWriteMany` AccessMode. StorageOS provides
 `ReadWriteMany` volumes that can be used for this purpose.
 
-Create the migratable VirtualMachine and verify that the VMI is running
+Create the migratable VirtualMachine and verify that the `VMI` is running
 ```bash
 $ kubectl create -f ./k8s/examples/kubevirt/migration/vm-cirros.yaml
 $ kubectl get vmi
@@ -153,7 +154,7 @@ CDI allows for images to be cloned using a DataVolume manifest. Verify that the
 cirros pvc, created as part of the vm-cirros.yaml file, exists before
 attempting to clone the volume.
 
-> N.B. Ensure that the VMI is stopped before continuing!
+> N.B. Ensure that the `VMI` is stopped before continuing!
 
 ```bash
 $ kubectl get pvc
@@ -171,4 +172,4 @@ You'll see that a cdi-upload-cloned-datavolume pod is created and then a
 cdi-clone-source pod is created. The cdi-source pod mounts the original cirros
 volume and sends the contents of the volume to the cdi-upload pod. The
 cdi-upload pod creates and mounts a new PVC and writes the contents of the
-original volume to it.
+driginal volume to it.
