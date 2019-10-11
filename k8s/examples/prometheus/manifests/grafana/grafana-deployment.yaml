@@ -239,6 +239,6 @@ spec:
               - key: ldap-toml
                 path: ldap.toml
         - name: storage
-            emptyDir: {}
+          emptyDir: {}
             #  persistentVolumeClaim:
             #    claimName: grafana-data
