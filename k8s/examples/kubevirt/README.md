@@ -9,6 +9,10 @@ created. For more information on how to install a StorageOS cluster please see
 documentation](https://docs.storageos.com/docs/introduction/quickstart) for
 more information.
 
+This usecase will guide you through installing KubeVirt and CDI on your
+Kubernetes cluster, and create a VM. By the end of the guide you'll be able to
+launch a shell inside the KubeVirt VM that's running as a Kubernetes pod.
+
 Deploying Kubevirt using StorageOS offers multiple benefits. Kubevirt can spin
 up Virtual Machines as Kubernetes pods, using images on StorageOS persistent
 volumes. Doing this allows the VirtualMachine data to persist restarts and
@@ -79,10 +83,12 @@ cdi-operator-5887f96c-dz2hg       1/1     Running   0          1m
 cdi-uploadproxy-97fbbfcbf-6f9xs   1/1     Running   0          1m
 ```
 
-Now that CDI and Kubevirt are running `VirtualMachines` can be created. As the
-vm-cirros.yaml manifest creates a `VirtualMachine` that uses a `DataVolume`, CDI
-will create a StorageOS backed PVC and download the image that the
-`VirtualMachineInstance` (VMI) will boot from onto the PVC.
+Now that CDI and Kubevirt are running, VMs can be created. In this example VMs
+running [Cirros](https://launchpad.net/cirros/), a small and lightweight OS,
+will be created.  The vm-cirros.yaml manifest creates a `VirtualMachine` that
+uses a DataVolume. This means that CDI will create a StorageOS backed PVC and
+download the image that the `VirtualMachineInstance` (VMI) will boot from onto
+the PVC.
 
 ```bash
 $ kubectl create -f ./vm-cirros.yaml
