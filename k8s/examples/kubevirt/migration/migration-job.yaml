@@ -1,0 +1,8 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachineInstanceMigration
+metadata:
+  name: cirros-migration-job
+spec:
+  vmiName: cirros
+
+
