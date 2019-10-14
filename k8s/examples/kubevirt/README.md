@@ -124,36 +124,6 @@ Password:
 $
 ```
 
-## Live Migration
-
-Kubevirt allows for the live migration of `VMIs` from one node
-to another while workloads running inside the virtual machines continue to run.
-VirtualMachineInstanceMigration resources are used to kick off migrations. In
-order to migrate a virtual machine instance, the `VMI`s
-volumes must have a `ReadWriteMany` AccessMode. StorageOS provides
-`ReadWriteMany` volumes that can be used for this purpose.
-
-Create the migratable VirtualMachine and verify that the `VMI` is running
-```bash
-$ kubectl create -f ./k8s/examples/kubevirt/migration/vm-cirros.yaml
-$ kubectl get vmi
-NAME     AGE   PHASE     IP            NODENAME
-cirros   1m    Running   10.244.4.12   ip-10-1-10-174.storageos.net
-```
-
-Connect to the console using virtctl and start running a bash loop
-```bash
-$ kubectl virt console cirros
-$ for i $(seq 300); do echo $i && echo $i >> counter.txt && sleep 1; done
-```
-
-You can leave the console running and open a new terminal window, or leave the
-console, in order to create the VirtualMachineInstanceMigration.
-
-```bash
-$ kubectl create -f ./k8s/examples/kubevirt/migration/migration-job.yaml
-```
-
 ## Cloning Volumes
 
 CDI allows for images to be cloned using a DataVolume manifest. Verify that the
