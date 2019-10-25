@@ -1,21 +1,18 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: wordpress
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: wordpress
       tier: frontend
-      storageos.com/replicas: "1"
-  serviceName: wordpress
-  replicas: 3
   template:
     metadata:
       labels:
         app: wordpress
         tier: frontend
-        storageos.com/replicas: "1"
     spec:
       serviceAccountName: wordpress
       containers:
@@ -23,7 +20,7 @@ spec:
         image: wordpress:5.2-apache
         env:
         - name: WORDPRESS_DB_HOST
-          value: wordpress-mysql
+          value: db-0.mysql
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -33,14 +30,9 @@ spec:
         - name: wordpress
           containerPort: 80
         volumeMounts:
-        - name: wordpress-data
-          mountPath: /var/www/html
-  volumeClaimTemplates:
-  - metadata:
-      name: wordpress-data
-    spec:
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "fast" # StorageOS storageClass 
-      resources:
-        requests:
-          storage: 10Gi
+        - name: wp-uploads
+          mountPath: /var/www/html/wp-content/uploads
+      volumes:
+      - name: wp-uploads
+        persistentVolumeClaim:
+          claimName: wp-uploads
