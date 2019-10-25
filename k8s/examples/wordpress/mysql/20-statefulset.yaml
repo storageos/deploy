@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: wordpress-mysql
+  name: db
 spec:
   selector:
     matchLabels:
       app: wordpress
       tier: mysql
-  serviceName: wordpress-mysql
+  serviceName: mysql
   replicas: 1
   template:
     metadata:
@@ -15,7 +15,7 @@ spec:
         app: wordpress
         tier: mysql
     spec:
-      serviceAccountName: wordpress-mysql
+      serviceAccountName: mysql
       securityContext:
         runAsUser: 0
         fsGroup: 999
@@ -48,12 +48,9 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: mysql-data
-      labels:
-        app: wordpress-mysql
-        tier: sql
     spec:
       accessModes: ["ReadWriteOnce"]
-      storageClassName: "fast" # StorageOS storageClass 
+      storageClassName: "fast" # StorageOS storageClass
       resources:
         requests:
           storage: 10Gi
