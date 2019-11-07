@@ -6,14 +6,10 @@ metadata:
     app: wordpress
     tier: frontend
 spec:
-  externalTrafficPolicy: Local
-  ports:
-    - port: 8080
-      targetPort: 80
-      name: wordpress
-      protocol: TCP
-      name: http
+  type: ClusterIP
   selector:
     app: wordpress
     tier: frontend
-  type: NodePort # We use NodePort by default, but can use LoadBalancer
+  ports:
+    - port: 80
+      name: web
