@@ -4,9 +4,8 @@ metadata:
   name: pvc-32279-0
   labels:
     storageos.com/hint.master: "$NODE"
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
@@ -19,9 +18,8 @@ metadata:
   name: pvc-32279-1
   labels:
     storageos.com/hint.master: "$NODE"
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
@@ -34,9 +32,8 @@ metadata:
   name: pvc-32279-2
   labels:
     storageos.com/hint.master: "$NODE"
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
@@ -49,9 +46,8 @@ metadata:
   name: pvc-32279-3
   labels:
     storageos.com/hint.master: "$NODE"
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:

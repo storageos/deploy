@@ -2,9 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-5846-0
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
@@ -15,9 +14,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-5846-1
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
@@ -28,9 +26,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-5846-2
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
@@ -41,9 +38,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-5846-3
-  annotations:
-    volume.beta.kubernetes.io/storage-class: fast
 spec:
+  storageClassName: fast
   accessModes:
     - ReadWriteOnce
   resources:
