@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LATEST_VERSION="storageos/node:1.5.2"
+LATEST_VERSION="storageos/node:1.5.3"
 LATEST_OPERATOR_VERSION="storageos/cluster-operator:1.5.0"
 LATEST_INIT="storageos/init:1.0.0"
 
