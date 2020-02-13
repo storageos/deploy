@@ -1,0 +1,8 @@
+etcd_version: "3.3.18"
+etcd_port_client: "2379"
+etcd_port_peers: "2380"
+etcd_quota_bytes: 8589934592  # 8 GB
+etcd_auto_compaction_mode: "revision"
+etcd_auto_compaction_retention: "100"
+members: "{{ groups['nodes'] }}"
+installation_dir: "/var/lib/etcd"
