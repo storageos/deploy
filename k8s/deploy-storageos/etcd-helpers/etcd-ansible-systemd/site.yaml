@@ -1,0 +1,8 @@
+---
+- name: Install etcd3
+  hosts: nodes
+  remote_user: root
+  become: yes
+  roles:
+    - install_etcd 
+
