@@ -28,7 +28,7 @@
 - name: Install new etcd
   shell: |
        cd /tmp/etcd-v{{ etcd_version }}-linux-amd64
-       mv etcd /usr/local/sbin/etcd
+       mv etcd /usr/local/sbin/etcd3
        mv etcdctl /usr/local/sbin/etcdctl
        chmod 755 /usr/local/sbin/etcd /usr/local/sbin/etcdctl
 - template:
