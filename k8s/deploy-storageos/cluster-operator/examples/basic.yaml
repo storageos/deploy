@@ -4,7 +4,7 @@ metadata:
   name: "storageos"
 spec:
   images:
-    nodeContainer: "storageos/node:1.5.3"
+    nodeContainer: "storageos/node:v2.0.0"
   secretRefName: "storageos-api" # Reference from the Secret created in the previous step
   secretRefNamespace: "default"  # Namespace of the Secret
 #  nodeSelectorTerms:
