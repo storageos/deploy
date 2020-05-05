@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LATEST_VERSION="storageos/node:v2.0.0"
-LATEST_OPERATOR_VERSION="storageos/cluster-operator:1.5.0"
+LATEST_VERSION="storageos/node:1.5.3"
+LATEST_OPERATOR_VERSION="storageos/cluster-operator:1.5.3"
 LATEST_INIT="storageos/init:1.0.0"
 
 PATCHED_FILES_LOC="/tmp/patched-tmp"
