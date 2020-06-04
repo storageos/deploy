@@ -4,13 +4,17 @@
      systemctl disable etcd3.service
      systemctl daemon-reload
   tags: unrecoverable
-- name: Uninstall etcd
-  shell: |
-       rm /usr/local/sbin/etcd3
-       rm /usr/local/sbin/etcdctl
-  tags: unrecoverable
-- name: Remove data
+- name: Uninstall etcd binaries
   file:
-    path: {{ installation_dir }}
+    path: "{{ item  }}"
+    state: absent
+  with_items:
+    - /usr/local/sbin/etcd3
+    - /usr/local/sbin/etcdctl
+    - /etc/systemd/system/etcd3.service
+  tags: unrecoverable
+- name: Remove etcd data
+  file:
+    path: "{{ installation_dir }}"
     state: absent
   tags: unrecoverable

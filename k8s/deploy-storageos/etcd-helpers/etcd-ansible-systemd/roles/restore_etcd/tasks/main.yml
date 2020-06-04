@@ -5,7 +5,7 @@
 - name: Clear installation dir
   shell:
     if [ -d "{{ installation_dir }}" ]; then
-      mv {{ installation_dir }} /var/lib/backup-etcd-{{ ansible_date_time.date }}
+      mv "{{ installation_dir }}" "/var/lib/backup-etcd-{{ ansible_date_time.date }}";
     fi
 
 - name: Check backup file exists
