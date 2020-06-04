@@ -42,8 +42,8 @@
      systemctl daemon-reload
      systemctl enable etcd3.service
      systemctl start  etcd3.service
+
 - name: Put example of how to restore from backup
-  tags: restore
   template:
      src: etcd-restore-command
      dest: /tmp/etcd-restore-example
