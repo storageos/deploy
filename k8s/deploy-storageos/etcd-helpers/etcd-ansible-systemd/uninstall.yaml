@@ -1,0 +1,7 @@
+---
+- name: Uninstall etcd3
+  hosts: nodes
+  remote_user: root
+  become: yes
+  roles:
+    - uninstall_etcd

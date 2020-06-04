@@ -1,0 +1,40 @@
+- name: Stop etcd3
+  shell: |
+     systemctl stop etcd3.service
+
+- name: Clear installation dir
+  shell:
+    if [ -d "{{ installation_dir }}" ]; then
+      mv "{{ installation_dir }}" "/var/lib/backup-etcd-{{ ansible_date_time.date }}";
+    fi
+
+- name: Check backup file exists
+  command: ls {{ backup_file }}
+  register: result
+  failed_when:
+    - result.rc == 2
+    - '"No such file" in result.stdout'
+
+- name: Execute restore
+  shell: |
+      export ETCDCTL_API=3
+      etcdctl snapshot restore {{ backup_file }} \
+              --name etcd-{{ hostvars[inventory_hostname]['inventory_hostname'] }} \
+              --initial-cluster-token my-etcd-token \
+              --data-dir {{ installation_dir }} \
+              --initial-advertise-peer-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+              --initial-cluster \
+                {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=http://{{ hostvars[host].ip}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+
+- name: Start etcd3
+  shell: |
+     systemctl start  etcd3.service
+
+- name: Put example of how to restore from backup
+  tags: restore
+  template:
+     src: etcd-restore-command
+     dest: /tmp/etcd-restore-example
+     owner: root
+     group: root
+     mode: 0644
