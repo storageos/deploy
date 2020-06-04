@@ -1,0 +1,7 @@
+---
+- name: Restore etcd
+  hosts: nodes
+  remote_user: root
+  become: yes
+  roles:
+    - restore_etcd
