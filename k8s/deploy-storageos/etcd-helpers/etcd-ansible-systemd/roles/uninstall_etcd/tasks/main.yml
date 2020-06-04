@@ -1,0 +1,13 @@
+- name: Stop etcd
+  shell: |
+     systemctl stop etcd3.service
+     systemctl disable etcd3.service
+     systemctl daemon-reload
+- name: Uninstall etcd
+  shell: |
+       rm /usr/local/sbin/etcd3
+       rm /usr/local/sbin/etcdctl
+- name: Remove data
+  file:
+    path: {{ installation_dir }}
+    state: absent
