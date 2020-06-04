@@ -19,6 +19,9 @@ END
 
 Configuration available in `group_vars/all`.
 
+Role files are set with the parameter `remote_user: root`. Change the user to
+match your setup. Note that they use the option `become`.
+
 ## Run
 
 ```
