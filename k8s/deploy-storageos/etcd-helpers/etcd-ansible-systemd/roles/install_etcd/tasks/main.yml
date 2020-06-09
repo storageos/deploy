@@ -50,3 +50,13 @@
      owner: root
      group: root
      mode: 0644
+
+- name: Setup a defrag rule
+  template:
+    src: defrag-etcd.sh
+    dest: /usr/local/sbin/defrag-etcd
+    owner: root
+    group: root
+    mode: 0755
+
+
