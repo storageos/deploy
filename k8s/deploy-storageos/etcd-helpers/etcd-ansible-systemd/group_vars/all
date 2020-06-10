@@ -5,5 +5,6 @@ etcd_quota_bytes: 8589934592  # 8 GB
 etcd_auto_compaction_mode: "revision"
 etcd_auto_compaction_retention: "12000"
 members: "{{ groups['nodes'] }}"
+mtls: enabled
 installation_dir: "/var/lib/storageos-etcd"
 backup_file: "/tmp/backup.db"
