@@ -1,0 +1,69 @@
+
+- name: Install cfssl
+  get_url:
+    url: "https://github.com/cloudflare/cfssl/releases/download/v1.4.1/{{ item }}_1.4.1_linux_amd64"
+    dest: "/usr/bin/{{ item }}"
+    mode: 0755
+    owner: "root"
+    group: "root"
+  with_items:
+    - cfssl
+    - cfssljson
+
+- name: Set certs directory
+  shell: |
+    mkdir -p /tmp/etcd
+    if [ -e "{{ tls.cert_dir }}" ]; then
+        mv {{ tls.cert_dir }} /var/tmp/etcdtls-old-$(date "+%y%m%d-%H%M")
+    fi
+    mkdir -p "{{ tls.cert_dir }}"
+
+- name: Create ca-csr.json
+  template:
+     src: ca-csr.json.j2
+     dest: /tmp/etcd/ca-csr.json
+     owner: root
+     group: root
+     mode: 0600
+
+- name: Create ca-config.json
+  template:
+     src: ca-config.json.j2
+     dest: /tmp/etcd/ca-config.json
+     owner: root
+     group: root
+     mode: 0600
+
+- name: Create server.json
+  template:
+     src: server.json.j2
+     dest: /tmp/etcd/server.json
+     owner: root
+     group: root
+     mode: 0600
+
+- name: Create etcd-client.json
+  template:
+     src: client.json.j2
+     dest: /tmp/etcd/etcd-client.json
+     owner: root
+     group: root
+     mode: 0600
+
+- name: Generate certificates
+  shell:
+    cmd: |
+      cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
+      cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server server.json | cfssljson -bare server
+      cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=client etcd-client.json | cfssljson -bare etcd-client
+      mv etcd-client.pem "{{ tls.cert_dir }}/etcd-client.crt"
+      mv etcd-client-key.pem "{{ tls.cert_dir }}/etcd-client.key"
+      cp ca.pem "{{ tls.cert_dir }}/etcd-client-ca.crt"
+      mv server.pem "{{ tls.cert_dir }}/{{ tls.etcd_server_cert_file }}"
+      mv server-key.pem "{{ tls.cert_dir }}/{{ tls.etcd_server_key_file }}"
+      cp ca.pem "{{ tls.cert_dir }}/{{ tls.ca_cert_file }}"
+      mkdir -p "{{ tls.cert_dir }}/config"
+      mv *.json "{{ tls.cert_dir }}/config/"
+      rm *
+    chdir: "/tmp/etcd"
+
