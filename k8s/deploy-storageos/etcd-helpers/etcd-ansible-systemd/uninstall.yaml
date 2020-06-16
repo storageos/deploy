@@ -1,7 +1,7 @@
 ---
 - name: Uninstall etcd3
   hosts: nodes
-  remote_user: root
+  remote_user: ec2-user
   become: yes
   roles:
     - uninstall_etcd
