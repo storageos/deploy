@@ -1,10 +1,21 @@
-etcd_version: "3.3.18"
+etcd_version: "3.4.9"
 etcd_port_client: "2379"
 etcd_port_peers: "2380"
 etcd_quota_bytes: 8589934592  # 8 GB
 etcd_auto_compaction_mode: "revision"
 etcd_auto_compaction_retention: "12000"
 members: "{{ groups['nodes'] }}"
-mtls: enabled
 installation_dir: "/var/lib/storageos-etcd"
+advertise_format: 'fqdn' # fqdn || ip
 backup_file: "/tmp/backup.db"
+
+tls:
+  enabled: true
+  ca_common_name: "eu-west-2.compute.internal"
+  etcd_common_name: "*.eu-west-2.compute.internal"
+  cert_dir: "/etc/etcdtls"
+  ca_cert_file: "etcd-ca.pem"
+  etcd_server_cert_file: "server.pem"
+  etcd_server_key_file: "server-key.pem"
+  etcd_client_cert_file: "etcd-client.crt"
+  etcd_client_key_file: "etcd-client.key"
