@@ -1,3 +1,3 @@
 #!/bin/bash
 
-oc delete -f https://github.com/storageos/cluster-operator/releases/download/v2.0.0/storageos-operator.yaml
+oc delete -f https://github.com/storageos/cluster-operator/releases/download/v2.1.0/storageos-operator.yaml
