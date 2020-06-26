@@ -6,7 +6,7 @@ spec:
   secretRefName: "storageos-api" # Reference from the Secret created in the previous step
   secretRefNamespace: "default"  # Namespace of the Secret
   images:
-    nodeContainer: "storageos/node:v2.0.0"
+    nodeContainer: "storageos/node:v2.1.0"
   kvBackend:
     address: 'storageos-etcd-client.etcd:2379' # Example address, change for your etcd endpoint
     backend: 'etcd'
