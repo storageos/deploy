@@ -59,7 +59,7 @@ if [ $used -gt 80 ]; then
     if [ -z "$randomness" ]; then
         # Span of 0-10min of waiting time
         span=$(( RANDOM % 600 ))
-        echo $span
+        echo "`date "+%Y-%d-%mT%H:%M:%S"` Randomness enabled: sleeping for $span seconds"
         sleep $span
     fi
     eval $etcdctl_cmd defrag
