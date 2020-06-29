@@ -1,7 +1,9 @@
+
 - name: install the latest version of wget
   package:
     name: wget
     state: latest
+
 - name: Set up persistent etcd data directory
   file:
     path:  /var/lib/{{ installation_dir }}
@@ -9,54 +11,53 @@
     owner: root
     group: root
     mode:  0775
-- name:  Make tempdir
-  file:
-     path: /tmp/etcd
-     state: directory
-     owner: root
-     group: root
-     mode:  0775
+
 - name:  Fetch new etcd
   get_url:
-     url: https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
-     dest: /tmp/
+    url: https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
+    dest: /tmp/
+
 - name: Unarchive new etcd
-  unarchive: 
-       src: /tmp/etcd-v{{ etcd_version }}-linux-amd64.tar.gz 
-       dest: /tmp
-       remote_src: yes
+  unarchive:
+    src: /tmp/etcd-v{{ etcd_version }}-linux-amd64.tar.gz 
+    dest: /tmp
+    remote_src: yes
+
 - name: Install new etcd
   shell: |
-       cd /tmp/etcd-v{{ etcd_version }}-linux-amd64
-       mv etcd /usr/local/sbin/etcd3
-       mv etcdctl /usr/local/sbin/etcdctl
-       chmod 755 /usr/local/sbin/etcd /usr/local/sbin/etcdctl
-- template:
-     src: etcd3.service
-     dest: /etc/systemd/system/etcd3.service
-     owner: root
-     group: root
-     mode: 0644
+    cd /tmp/etcd-v{{ etcd_version }}-linux-amd64
+    mv etcd /usr/local/sbin/etcd3
+    mv etcdctl /usr/local/sbin/etcdctl
+    chmod 755 /usr/local/sbin/etcd3 /usr/local/sbin/etcdctl
+
+- name: Put systemd service file
+  tags: systemd
+  template:
+    src: etcd3.service.j2
+    dest: /etc/systemd/system/etcd3.service
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Reload and start the services
   shell: |
-     systemctl daemon-reload
-     systemctl enable etcd3.service
-     systemctl start  etcd3.service
+    systemctl daemon-reload
+    systemctl enable etcd3.service
+    systemctl start  etcd3.service
 
-- name: Put example of how to restore from backup
+- name: Put example file, how to restore from backup
   template:
-     src: etcd-restore-command
-     dest: /tmp/etcd-restore-example
-     owner: root
-     group: root
-     mode: 0644
+    src: etcd-restore-command.j2
+    dest: /tmp/etcd-restore-example
+    owner: root
+    group: root
+    mode: 0644
+  tags: t
 
 - name: Setup a defrag rule
   template:
-    src: defrag-etcd.sh
+    src: defrag-etcd.sh.j2
     dest: /usr/local/sbin/defrag-etcd
     owner: root
     group: root
     mode: 0755
-
-

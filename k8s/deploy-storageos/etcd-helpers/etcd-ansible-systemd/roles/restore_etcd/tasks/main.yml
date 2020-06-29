@@ -18,13 +18,34 @@
 - name: Execute restore
   shell: |
       export ETCDCTL_API=3
-      etcdctl snapshot restore {{ backup_file }} \
+      /usr/local/sbin/etcdctl snapshot restore {{ backup_file }} \
               --name etcd-{{ hostvars[inventory_hostname]['inventory_hostname'] }} \
               --initial-cluster-token my-etcd-token \
               --data-dir {{ installation_dir }} \
+      {% if tls.enabled %}
+              --cacert={{ tls.cert_dir }}/{{ tls.ca_cert_file }} \
+              --cert={{ tls.cert_dir }}/{{ tls.etcd_client_cert_file }} \
+              --key={{ tls.cert_dir }}/{{ tls.etcd_client_key_file }} \
+          {% if advertise_format == 'fqdn' %}
+              --initial-advertise-peer-urls https://{{ hostvars[inventory_hostname]['fqdn'] }}:{{ etcd_port_peers }} \
+              --initial-cluster \
+              {% for host in members -%}etcd-{{ hostvars[host].inventory_hostname}}=https://{{ hostvars[host]['fqdn']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+          {% else %}
               --initial-advertise-peer-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
               --initial-cluster \
-                {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=http://{{ hostvars[host].ip}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+              {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=https://{{ hostvars[host]['ip']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+          {% endif %}
+      {% else %}
+          {% if advertise_format == 'fqdn' -%}
+              --initial-advertise-peer-urls http://{{ hostvars[inventory_hostname]['fqdn'] }}:{{ etcd_port_peers }} \
+              --initial-cluster \
+              {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=http://{{ hostvars[host]['fqdn']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+          {% else %}
+              --initial-advertise-peer-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+              --initial-cluster \
+              {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=http://{{ hostvars[host]['ip']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+          {% endif %}
+      {% endif %}
 
 - name: Start etcd3
   shell: |
@@ -33,7 +54,7 @@
 - name: Put example of how to restore from backup
   tags: restore
   template:
-     src: etcd-restore-command
+     src: etcd-restore-command.j2
      dest: /tmp/etcd-restore-example
      owner: root
      group: root

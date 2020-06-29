@@ -1,7 +1,7 @@
 ---
 - name: Restore etcd
   hosts: nodes
-  remote_user: root
+  remote_user: ec2-user
   become: yes
   roles:
     - restore_etcd

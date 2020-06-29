@@ -1,0 +1,60 @@
+[Unit]
+Description=etcd
+Documentation=https://github.com/coreos/etcd
+Conflicts=etcd2.service
+
+[Service]
+Type=notify
+Restart=always
+RestartSec=5s
+LimitNOFILE=40000
+TimeoutStartSec=0
+
+ExecStart=/usr/local/sbin/etcd3 --name etcd-{{ hostvars[inventory_hostname]['inventory_hostname'] }} \
+        --data-dir {{ installation_dir }} \
+        --quota-backend-bytes {{ etcd_quota_bytes }} \
+        --auto-compaction-retention {{  etcd_auto_compaction_retention }} \
+        --auto-compaction-mode {{  etcd_auto_compaction_mode }} \
+        --initial-cluster-state new \
+        --initial-cluster-token etcd-token \
+{% if tls.enabled %}
+        --peer-auto-tls \
+        --client-cert-auth --trusted-ca-file={{ tls.cert_dir }}/{{ tls.ca_cert_file }} \
+        --cert-file={{ tls.cert_dir }}/{{ tls.etcd_server_cert_file }} --key-file={{ tls.cert_dir }}/{{ tls.etcd_server_key_file }} \
+    {% if advertise_format == 'fqdn' %}
+        --listen-client-urls https://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_client }} \
+        --advertise-client-urls https://{{ hostvars[inventory_hostname]['fqdn'] }}:{{ etcd_port_client }} \
+        --listen-peer-urls https://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+        --initial-advertise-peer-urls https://{{ hostvars[inventory_hostname]['fqdn'] }}:{{ etcd_port_peers }} \
+        --initial-cluster \
+        {% for host in members -%}etcd-{{ hostvars[host].inventory_hostname}}=https://{{ hostvars[host]['fqdn']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+    {% else %}
+        --listen-client-urls https://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_client }} \
+        --advertise-client-urls https://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_client }} \
+        --listen-peer-urls https://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+        --initial-advertise-peer-urls https://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+        --initial-cluster \
+        {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=https://{{ hostvars[host]['ip']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+    {% endif %}
+{% else %}
+    {% if advertise_format == 'fqdn' -%}
+        --listen-client-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_client }} \
+        --advertise-client-urls http://{{ hostvars[inventory_hostname]['fqdn'] }}:{{ etcd_port_client }} \
+        --listen-peer-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+        --initial-advertise-peer-urls http://{{ hostvars[inventory_hostname]['fqdn'] }}:{{ etcd_port_peers }} \
+        --initial-cluster \
+        {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=http://{{ hostvars[host]['fqdn']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+    {% else %}
+        --listen-client-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_client }} \
+        --advertise-client-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_client }} \
+        --listen-peer-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+        --initial-advertise-peer-urls http://{{ hostvars[inventory_hostname]['ip'] }}:{{ etcd_port_peers }} \
+        --initial-cluster \
+        {% for host in members %}etcd-{{ hostvars[host].inventory_hostname}}=http://{{ hostvars[host]['ip']}}:{{etcd_port_peers}}{{ '' if loop.last else ','}}{% endfor %}
+    {% endif %}
+{% endif %}
+
+
+
+[Install]
+WantedBy=multi-user.target
