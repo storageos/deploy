@@ -39,7 +39,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: "storageos-api"
-  namespace: "default"
+  namespace: "storageos-operator"
   labels:
     app: "storageos"
 type: "kubernetes.io/storageos"
@@ -47,6 +47,13 @@ data:
   # echo -n '<secret>' | base64
   apiUsername: c3RvcmFnZW9z
   apiPassword: c3RvcmFnZW9z
+  # CSI Credentials
+  csiProvisionUsername: c3RvcmFnZW9z
+  csiProvisionPassword: c3RvcmFnZW9z
+  csiControllerPublishUsername: c3RvcmFnZW9z
+  csiControllerPublishPassword: c3RvcmFnZW9z
+  csiNodePublishUsername: c3RvcmFnZW9z
+  csiNodePublishPassword: c3RvcmFnZW9z
 END
 ```
 
@@ -71,7 +78,7 @@ All examples must reference the `storageos-api` Secret.
 ```bash
 spec:
   secretRefName: "storageos-api" # Reference from the Secret created in the previous step
-  secretRefNamespace: "default"  # Namespace of the Secret
+  secretRefNamespace: "storageos-operator"  # Namespace of the Secret
 ```
 
 ### External etcd 
@@ -86,7 +93,7 @@ spec:
 
 ### Select nodes where StorageOS will deploy
 
-In this case we select nodes that are workers. To make sure that StorageOS doesn't start in Master nodes. 
+In this case we select nodes that are workers. To make sure that StorageOS doesn't start in Master nodes.
 
 You can see the labels in the nodes by `kubectl get node --show-labels`.
 
@@ -111,41 +118,6 @@ spec:
 > variable is defined by the operator by selecting all the nodes that match the
 > `nodeSelectorTerms`.
 
-### Enabled CSI
-
-```bash
-spec:
-  csi:
-    enable: true
-  # enableProvisionCreds: false
-  # enableControllerPublishCreds: false
-  # enableNodePublishCreds: false
-```
-
-The Creds must be defined in the `storageos-api` Secret
-
-```bash
-apiVersion: v1
-kind: Secret
-metadata:
-  name: "storageos-api"
-  namespace: "default"
-  labels:
-    app: "storageos"
-type: "kubernetes.io/storageos"
-data:
-  # echo -n '<secret>' | base64
-  apiUsername: c3RvcmFnZW9z
-  apiPassword: c3RvcmFnZW9z
-  # Add base64 encoded creds below for CSI credentials.
-  # csiProvisionUsername:
-  # csiProvisionPassword:
-  # csiControllerPublishUsername:
-  # csiControllerPublishPassword:
-  # csiNodePublishUsername:
-  # csiNodePublishPassword:
-```
-
 ### Shared Dir for Kubelet as a container
 
 ```bash
@@ -159,7 +131,7 @@ spec:
 spec:
   resources:
     requests:
-      memory: "256Mi"
+      memory: "512Mi"
   #   cpu: "1"
   # limits:
   #   memory: "4Gi"
