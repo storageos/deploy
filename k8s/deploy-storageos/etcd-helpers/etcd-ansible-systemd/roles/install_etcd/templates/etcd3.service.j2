@@ -11,7 +11,6 @@ LimitNOFILE=40000
 TimeoutStartSec=0
 
 ExecStart=/usr/local/sbin/etcd3 --name etcd-{{ hostvars[inventory_hostname]['inventory_hostname'] }} \
-        --log-level debug \
         --data-dir {{ installation_dir }} \
         --quota-backend-bytes {{ etcd_quota_bytes }} \
         --auto-compaction-retention {{  etcd_auto_compaction_retention }} \
