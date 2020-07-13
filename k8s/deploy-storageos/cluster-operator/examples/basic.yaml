@@ -7,6 +7,9 @@ spec:
     nodeContainer: "storageos/node:v2.1.0"
   secretRefName: "storageos-api" # Reference from the Secret created in the previous step
   secretRefNamespace: "default"  # Namespace of the Secret
+  resources:
+    requests:
+      memory: "512Mi" # this is for testing environments. For production environments, we recommend 4GB of Memory and 1 CPU
 #  nodeSelectorTerms:
 #    - matchExpressions:
 #      - key: "node-role.kubernetes.io/worker" # Select non master nodes
