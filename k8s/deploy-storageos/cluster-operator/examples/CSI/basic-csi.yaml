@@ -12,7 +12,7 @@ spec:
     deploymentStrategy: "deployment"
   resources:
     requests:
-      memory: "512Mi"
+      memory: "512Mi" # This is for testing environments. For production environments, we recommend 4GB of Memory and 1 CPU
 #  nodeSelectorTerms:
 #    - matchExpressions:
 #      - key: "node-role.kubernetes.io/worker" # Select non master nodes

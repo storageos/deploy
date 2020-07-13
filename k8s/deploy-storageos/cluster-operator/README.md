@@ -159,7 +159,7 @@ spec:
 spec:
   resources:
     requests:
-      memory: "256Mi"
+      memory: "512Mi" # This is for testing environments. For production environments, we recommend 4GB of Memory and 1 CPU
   #   cpu: "1"
   # limits:
   #   memory: "4Gi"
