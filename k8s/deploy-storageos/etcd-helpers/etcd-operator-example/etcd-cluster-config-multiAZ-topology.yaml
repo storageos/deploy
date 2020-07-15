@@ -12,7 +12,7 @@ spec:
     - name: ETCD_AUTO_COMPACTION_MODE
       value: "revision"
     - name: ETCD_AUTO_COMPACTION_RETENTION
-      value: "100"
+      value: "1000"
     resources:
       requests:
         cpu: 200m
