@@ -31,7 +31,9 @@ The playbook allows you to enable TLS with client authentication and generates
 the certificates for you. You can edit the cfssl configuration by amending the
 json files in  `roles/tls_cert/templates/`
 
-WARNING: The default CA for TLS is statically made as an example. IT SHOULD NOT BE USED FOR PRODUCTION! You need to create your own CA either with your own tools or using the script below.
+WARNING: The default CA for TLS is statically made as an example. IT SHOULD NOT
+BE USED FOR PRODUCTION! You need to create your own CA either with your own
+tools or using the script below.
 
 To create your own CA, run `sudo ansible-playbook create_ca.yaml`
 
