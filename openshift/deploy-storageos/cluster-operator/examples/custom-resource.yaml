@@ -1,0 +1,39 @@
+apiVersion: "storageos.com/v1"
+kind: StorageOSCluster
+metadata:
+  name: "storageos"
+spec:
+  secretRefName: "storageos-api"           # Reference from the Secret created in the previous step
+  secretRefNamespace: "storageos-operator" # Namespace of the Secret
+  k8sDistro: "openshift"                   # upstream, aws, rancher, gke, do, etc
+  images:
+    nodeContainer: "storageos/node:v2.1.0"
+  kvBackend:
+    address: 'http://storageos-etcd-client.etcd:2379'                                  # Etcd endpoint http/https:
+#   address: 'http://10.42.15.23:2379,http://10.42.12.22:2379,http://10.42.13.16:2379' # You can set ETCD server ips
+
+# Secret with TLS certificates if using Etcd with mTLS
+# tlsEtcdSecretRefName: "etcd-client-tls"                          # Secret containing etcd client certificates
+# tlsEtcdSecretRefNamespace: "etcd"                                # Namespace of the client certificates secret
+  csi:
+    enable: true
+    deploymentStrategy: "deployment"
+    enableProvisionCreds: true
+    enableControllerPublishCreds: true
+    enableNodePublishCreds: true
+    enableControllerExpandCreds: true
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "1"
+  nodeSelectorTerms:
+    - matchExpressions:
+      - key: "node-role.kubernetes.io/compute"
+        operator: In
+        values:
+        - "true"
+# sharedDir: '/var/lib/kubelet/plugins/kubernetes.io~storageos' # Needed when Kubelet as a container
+# tolerations:
+#  - key: "taint-key" # According to the taints you defined in your nodes
+#    operator: "Exists"
+#    effect: "NoSchedule" # taint effect
