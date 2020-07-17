@@ -1,0 +1,24 @@
+- name: Template ca-csr
+  template:
+    src: ca-csr.json.j2
+    dest: ./roles/create_ca/files/ca-csr.json
+
+- name: Build docker image
+  shell: |
+    docker build ./roles/create_ca/files -t create_ca
+
+- name: Run docker container
+  shell: |
+    docker run -ti -d --name ca_creator create_ca
+    sleep 4
+
+- name: Copy ca files
+  shell: |
+    docker cp ca_creator:~/host/ca.pem ./roles/tls_cert/files
+    docker cp ca_creator:~/host/ca-key.pem ./roles/tls_cert/files
+    docker cp ca_creator:~/host/ca.csr ./roles/tls_cert/files
+  
+- name: Cleanup
+  shell: |
+    docker kill ca_creator
+    docker rm ca_creator

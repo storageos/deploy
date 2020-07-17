@@ -1,0 +1,9 @@
+---
+- name: Create the CA files needed for TLS
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Create CA cert
+      import_role:
+        name: create_ca
+    
