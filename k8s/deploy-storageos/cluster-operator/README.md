@@ -54,6 +54,8 @@ data:
   csiControllerPublishPassword: c3RvcmFnZW9z
   csiNodePublishUsername: c3RvcmFnZW9z
   csiNodePublishPassword: c3RvcmFnZW9z
+  csiControllerExpandUsername: c3RvcmFnZW9z
+  csiControllerExpandPassword: c3RvcmFnZW9z
 END
 ```
 
