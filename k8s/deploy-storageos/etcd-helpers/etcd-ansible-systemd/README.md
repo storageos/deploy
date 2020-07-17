@@ -35,7 +35,9 @@ WARNING: The default CA for TLS is statically made as an example. IT SHOULD NOT
 BE USED FOR PRODUCTION! You need to create your own CA either with your own
 tools or using the script below.
 
-To create your own CA, run `sudo ansible-playbook create_ca.yaml`
+To create your own CA, run `ansible-playbook create_ca.yaml`
+
+NOTE: The script uses docker locally, make sure it is installed and properly configured.
 
 The CA files will be created in `./roles/tls_cert/files`
 
