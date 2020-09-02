@@ -6,7 +6,7 @@
 
 - name: Set up persistent etcd data directory
   file:
-    path:  {{ installation_dir }}
+    path:  "{{ installation_dir }}"
     state: directory
     owner: root
     group: root
