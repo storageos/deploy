@@ -14,7 +14,7 @@
 
 - name:  Fetch new etcd
   get_url:
-    url: https://github.com/coreos/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
+    url: https://github.com/etcd-io/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
     dest: /tmp/
 
 - name: Unarchive new etcd
