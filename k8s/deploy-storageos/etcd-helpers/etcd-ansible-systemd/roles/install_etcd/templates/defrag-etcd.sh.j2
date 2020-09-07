@@ -32,7 +32,7 @@ while getopts ":hru:" opt; do
 done
 shift $((OPTIND -1))
 
-url=${url-"http://localhost:2379/metrics"}
+url="${url-"http://localhost:2379"}/metrics"
 current_size_metric="etcd_mvcc_db_total_size_in_bytes" 
 db_size_metric="etcd_server_quota_backend_bytes"
 etcdctl_cmd="ETCDCTL_API=3 etcdctl --endpoints $url"
