@@ -1,5 +1,0 @@
----
-- name: enable lio
-  shell: /tmp/enable-lio.sh &> /tmp/enable-lio.log
-  args:
-    executable: /bin/bash
