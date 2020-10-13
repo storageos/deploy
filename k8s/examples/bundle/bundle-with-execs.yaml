@@ -1,0 +1,113 @@
+apiVersion: troubleshoot.sh/v1beta2
+kind: SupportBundle
+metadata:
+  name: StorageOS
+spec:
+  collectors:
+    - clusterResources: {}
+    - logs:
+        name: storageos-cluster-operator-logs
+        selector:
+          - name=storageos-cluster-operator
+        namespace: storageos-operator
+        limits:
+          maxLines: 10000
+    - logs:
+        name: storageos-logs
+        selector:
+          - app=storageos
+        namespace: kube-system
+        limits:
+          maxLines: 1000000
+    - exec:
+        name: "network-checks"
+        collectorName: "netcat"
+        image: arau/tools:0.9
+        namespace: kube-system
+        selector:
+          - app=tools
+        command:
+        - "/bin/sh"
+        - "-c"
+        - "
+          #!/bin/bash
+          #
+          # IOPort = 5703 # DataPlane
+          # SupervisorPort = 5704 # For sync
+          # ExternalAPIPort = 5705 # REST API
+          # InternalAPIPort = 5710 # Grpc API
+          # GossipPort = 5711 # Gossip+Healthcheck
+
+          echo \"Source node for the test:\";
+          hostname -f -I; echo;
+
+          parallel -j2 nc -vnz ::: $(echo $NODES_PRIVATE_IPS| sed \"s/,/ /g\" ) \
+                              ::: 5703 5704 5705 5710 5711
+          "
+        timeout: 90s
+    - exec:
+        name: "backend-disks"
+        collectorName: "lsblk"
+        selector:
+          - kind=daemonset
+          - app=storageos
+        namespace: kube-system
+        command: ["lsblk"]
+        timeout: 90s
+    - exec:
+        name: "free-disk-space"
+        collectorName: "df"
+        namespace: kube-system
+        selector:
+          - kind=daemonset
+          - app=storageos
+        command: ["df", "-h"]
+        timeout: 90s
+    - exec:
+        name: "ps-all-nodes"
+        collectorName: "processlist"
+        namespace: kube-system
+        selector:
+          - app=tools
+        command: ["ps"]
+        args: ["auxwwwf"]
+        timeout: 90s
+    - exec:
+        name: "loadAvg-all-nodes"
+        collectorName: "top"
+        namespace: kube-system
+        selector:
+          - app=tools
+        command: ["top"]
+        args:
+          - "-b"
+          - "-c"
+          - "-n4"
+          - "-d2"
+          - "-w500"
+        timeout: 90s
+    - exec:
+        name: storageos-cli-info
+        collectorName: storageos-cli
+        selector:
+          - run=cli
+        namespace: kube-system
+        timeout: 90s
+        command: ["/bin/sh"]
+        args:
+        - -c
+        - "
+          export STORAGEOS_ENDPOINTS='http://storageos.kube-system.svc:5705';
+          echo STORAGEOS CLUSTER;
+          storageos get cluster -ojson;
+          echo '-----------------------------------------';
+          echo STORAGEOS  LICENCE;
+          storageos get licence -ojson;
+          echo '-----------------------------------------';
+          echo STORAGEOS  NAMESPACE;
+          storageos get namespace -ojson;
+          echo '-----------------------------------------';
+          echo STORAGEOS VOLUMES;
+          storageos get volumes --all-namespaces -ojson --timeout 30s;
+          echo '-----------------------------------------';
+          "
