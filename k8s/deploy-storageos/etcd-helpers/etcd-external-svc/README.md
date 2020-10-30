@@ -29,8 +29,8 @@ metadata:
 subsets:
 - addresses:
   - ip: 10.1.10.216
-    ip: 10.1.10.217
-    ip: 10.1.10.218
+  - ip: 10.1.10.217
+  - ip: 10.1.10.218
   ports:
   - name: metrics
     port: 2379
