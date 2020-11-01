@@ -22,8 +22,7 @@ spec:
     - exec:
         name: "network-checks"
         collectorName: "netcat"
-        image: arau/tools:0.9
-        namespace: storageos
+        namespace: kube-system
         selector:
           - app=tools
         command:
