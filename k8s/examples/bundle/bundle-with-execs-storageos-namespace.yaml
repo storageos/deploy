@@ -22,8 +22,7 @@ spec:
     - exec:
         name: "network-checks"
         collectorName: "netcat"
-        image: arau/tools:0.9
-        namespace: storageos
+        namespace: kube-system
         selector:
           - app=tools
         command:
@@ -61,16 +60,30 @@ spec:
         selector:
           - kind=daemonset
           - app=storageos
-        command: ["df", "-h"]
+        command: ["df"]
+        args: 
+        - "-h"
         timeout: 90s
     - exec:
-        name: "ps-all-nodes"
-        collectorName: "processlist"
+        name: "ps-forest"
+        collectorName: "ps-forest"
         namespace: storageos
         selector:
           - app=tools
         command: ["ps"]
-        args: ["auxwwwf"]
+        args:
+        - "--forest"
+        - "-ejFww"
+        timeout: 90s
+    - exec:
+        name: "ps-threads"
+        collectorName: "ps-threads"
+        namespace: storgeos
+        selector:
+          - app=tools
+        command: ["ps"]
+        args:
+        - "-ejFwwL"
         timeout: 90s
     - exec:
         name: "loadAvg-all-nodes"

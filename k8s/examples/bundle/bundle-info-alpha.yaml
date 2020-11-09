@@ -63,18 +63,34 @@ spec:
         selector:
           - kind=daemonset
           - app=storageos
-        command: ["df", "-h"]
+        command: ["df"]
+        args:
+        - "-h"
         timeout: 90s
     - run:
-        name: "ps-all-nodes"
-        collectorName: "processlist"
+        name: "ps-forest"
+        collectorName: "ps-forest"
         image: arau/tools:0.9
         namespace: kube-system
         hostPID: true
         nodeSelector:
           node-role.kubernetes.io/worker: "true"
         command: ["ps"]
-        args: ["auxwwwf"]
+        args:
+        - "--forest"
+        - "-ejFww"
+        timeout: 90s
+    - run:
+        name: "ps-threads"
+        collectorName: "ps-threads"
+        image: arau/tools:0.9
+        namespace: kube-system
+        hostPID: true
+        nodeSelector:
+          node-role.kubernetes.io/worker: "true"
+        command: ["ps"]
+        args:
+        - "-ejFwwL"
         timeout: 90s
     - run:
         name: "loadAvg-all-nodes"
