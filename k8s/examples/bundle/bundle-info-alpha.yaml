@@ -63,29 +63,34 @@ spec:
         selector:
           - kind=daemonset
           - app=storageos
-        command:
-        - "/bin/sh"
-        - "-c"
-        - "
-          #!/bin/bash
-          # Base64 encoded script to avoid yaml marshalling incompatibility.
-          # The script runs a df piped to an AWK script that formats the output as JSON
-
-          echo -n \"IyEvYmluL2Jhc2gKCmRmIC1oUCBcCnwgYXdrICcKICAgIEJFR0lOIHsKICAgICAgcHJpbnRmICJ7IFwiZGlzY2FycmF5XCI6WyJ9CiAgICAgIHsKICAgICAgICBpZigkMT09IkZpbGVzeXN0ZW0iKQogICAgICAgICAgbmV4dDsKICAgICAgICBpZihhKQogICAgICAgICAgcHJpbnRmICIsIjsKICAgICAgICAgIHByaW50ZiAie1wibW91bnRcIjpcIiIkNiJcIixcInNpemVcIjpcIiIkMiJcIixcInVzZWRcIjpcIiIkMyJcIixcImF2YWlsXCI6XCIiJDQiXCIsXCJ1c2UlXCI6XCIiJDUiXCJ9IjsKICAgICAgICAgIGErKzsKICAgICAgfQogICAgRU5EewogICAgICBwcmludCAiXX0iOwogICAgfQonCg==\" \
-          | base64 --decode \
-          | bash
-        "
+        command: ["df"]
+        args:
+        - "-h"
         timeout: 90s
     - run:
-        name: "ps-all-nodes"
-        collectorName: "processlist"
+        name: "ps-forest"
+        collectorName: "ps-forest"
         image: arau/tools:0.9
         namespace: kube-system
         hostPID: true
         nodeSelector:
           node-role.kubernetes.io/worker: "true"
         command: ["ps"]
-        args: ["auxwwwf"]
+        args:
+        - "--forest"
+        - "-ejFww"
+        timeout: 90s
+    - run:
+        name: "ps-threads"
+        collectorName: "ps-threads"
+        image: arau/tools:0.9
+        namespace: kube-system
+        hostPID: true
+        nodeSelector:
+          node-role.kubernetes.io/worker: "true"
+        command: ["ps"]
+        args:
+        - "-ejFwwL"
         timeout: 90s
     - run:
         name: "loadAvg-all-nodes"
