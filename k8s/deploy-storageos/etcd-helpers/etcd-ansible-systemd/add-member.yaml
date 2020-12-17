@@ -1,0 +1,14 @@
+---
+- name: Add member
+  hosts: new_nodes
+  remote_user: root
+  become: yes
+  tasks:
+    - name: Generate certs
+      import_role:
+        name: tls_cert
+      when: tls.enabled
+
+    - name: Add member
+      import_role:
+        name: add_member

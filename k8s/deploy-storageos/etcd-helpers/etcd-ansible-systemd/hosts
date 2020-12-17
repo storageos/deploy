@@ -1,4 +1,9 @@
-[nodes]
-centos-1 ip="10.64.10.228"  fqdn="ip-10-64-10-228.eu-west-2.compute.internal"
-centos-2 ip="10.64.14.233"  fqdn="ip-10-64-14-233.eu-west-2.compute.internal"
-centos-3 ip="10.64.12.111"  fqdn="ip-10-64-12-111.eu-west-2.compute.internal"
+[existing_nodes]
+178.79.188.143 ip="192.168.207.250"  fqdn=""
+139.162.253.88 ip="192.168.146.130"  fqdn=""
+178.79.137.179 ip="192.168.134.16"  fqdn=""
+109.74.198.184 ip="192.168.195.193"  fqdn=""
+178.79.128.30 ip="192.168.132.145"  fqdn=""
+
+[new_nodes]
+178.79.134.220 ip="192.168.168.76" fqdn=""
