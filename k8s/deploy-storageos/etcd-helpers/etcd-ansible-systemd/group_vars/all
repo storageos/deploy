@@ -6,11 +6,11 @@ etcd_auto_compaction_mode: "revision"
 etcd_auto_compaction_retention: "1000"
 members: "{{ groups['all'] }}"
 installation_dir: "/var/lib/storageos-etcd"
-advertise_format: 'ip' # fqdn || ip
+advertise_format: 'fqdn' # fqdn || ip
 backup_file: "/tmp/backup.db"
 
 tls:
-  enabled: false
+  enabled: true
   ca_common_name: "eu-west-2.compute.internal"
   etcd_common_name: "*.eu-west-2.compute.internal"
   cert_dir: "/etc/etcdtls"

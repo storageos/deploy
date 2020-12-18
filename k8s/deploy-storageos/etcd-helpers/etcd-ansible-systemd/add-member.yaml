@@ -1,7 +1,7 @@
 ---
 - name: Add member
   hosts: new_nodes
-  remote_user: root
+  remote_user: ec2-user
   become: yes
   tasks:
     - name: Generate certs
