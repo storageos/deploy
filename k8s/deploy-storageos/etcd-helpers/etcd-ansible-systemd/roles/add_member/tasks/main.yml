@@ -48,6 +48,8 @@
     systemctl enable etcd3.service
     systemctl start  etcd3.service
 
+# Placeholder for a mechanism that retries promotion of a new member in the event synchronisation is still completing
+
 - name: Promote new member
   shell: |
     LEARNER_MEMBER=$(ETCDCTL_API=3 etcdctl --endpoints=http://{{ hostvars[ groups['nodes'][0]]['ip'] }}:{{etcd_port_client}} member list | grep true | cut -d ',' -f 1)
