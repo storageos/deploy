@@ -4,7 +4,7 @@ etcd_port_peers: "2380"
 etcd_quota_bytes: 8589934592  # 8 GB
 etcd_auto_compaction_mode: "revision"
 etcd_auto_compaction_retention: "1000"
-members: "{{ groups['nodes'] }}"
+members: "{{ groups['all'] }}"
 installation_dir: "/var/lib/storageos-etcd"
 advertise_format: 'fqdn' # fqdn || ip
 backup_file: "/tmp/backup.db"
