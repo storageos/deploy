@@ -1,6 +1,6 @@
 #!/bin/bash
 
-oc create -f https://github.com/storageos/cluster-operator/releases/download/v2.3.3/storageos-operator.yaml
+oc create -f https://github.com/storageos/cluster-operator/releases/download/v2.3.4/storageos-operator.yaml
 oc adm policy add-scc-to-user privileged system:serviceaccount:storageos:storageos-daemonset-sa
 
 GR='\033[0;32m'
