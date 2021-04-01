@@ -32,7 +32,7 @@ subsets:
   - ip: 10.1.10.217
   - ip: 10.1.10.218
   ports:
-  - name: metrics
+  - name: client
     port: 2379
     protocol: TCP
 ```
@@ -51,7 +51,7 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - name: metrics
+  - name: client
     port: 2379
     targetPort: 2379
   selector: null
