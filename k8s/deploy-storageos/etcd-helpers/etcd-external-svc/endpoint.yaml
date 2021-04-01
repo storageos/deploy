@@ -2,15 +2,14 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   name: storageos-etcd
-  namespace: etcd
   labels:
     app: etcd
     cluster: storageos
 subsets:
 - addresses:
-  - ip: 10.1.10.216
-  - ip: 10.1.10.217
-  - ip: 10.1.10.218
+  - ip: 139.162.234.133
+  - ip: 139.162.198.65
+  - ip: 178.79.168.252
   ports:
   - name: client
     port: 2379

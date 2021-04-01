@@ -10,7 +10,7 @@ outside the Kubernetes cluster.
 1. Create the NameSpace
 
 ```
-kubectl create namespace etcd
+kubectl create namespace storageos-etcd
 ```
 
 1. Create the Endpoint referencing the ip addresses of your cluster
@@ -22,7 +22,6 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   name: storageos-etcd
-  namespace: etcd
   labels:
     app: etcd
     cluster: storageos
@@ -44,7 +43,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: storageos-etcd
-  namespace: etcd
   labels:
     app: etcd
     cluster: storageos
