@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kubectl create -f https://github.com/storageos/cluster-operator/releases/download/v2.3.4/storageos-operator.yaml
+kubectl create -f https://github.com/storageos/cluster-operator/releases/download/v2.4.0/storageos-operator.yaml
 
 
 GR='\033[0;32m'
